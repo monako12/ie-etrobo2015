@@ -9,9 +9,9 @@ extern "C"
 	Motor motorB(PORT_B);
 	Motor motorC(PORT_C);
 
-	void motora()
+	void motora(int black)
 	{
- motorA.setPWM(20);
+ motorA.setPWM(black);
 	}
 
 	void motorb()
