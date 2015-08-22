@@ -38,6 +38,7 @@ extern "C"
             //sensorの値を呼ぶ関数
             nowl = nowlight();
             ret_cal = p_i_d(ava,nowl);
+            motorbc(ret_cal);
             motora(ret_cal);
             clock.wait(5);
         }
