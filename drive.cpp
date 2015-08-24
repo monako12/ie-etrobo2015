@@ -1,6 +1,5 @@
 #include "Motor.h"
 #include "math.h"
-#include "Lcd.h"
 #include "stdlib.h"
 using namespace ecrobot;
 extern "C"
@@ -11,22 +10,22 @@ extern "C"
 	Motor motorA(PORT_A);
 	Motor motorB(PORT_B);
 	Motor motorC(PORT_C);
-	Lcd lcd;
+	int sum;
 	
 	
 
 	void motora(int pid)
 	{	
-		int a;
-		a = abs(motorA.getCount());
-		if (a < 100 || (0 > pid * motorA.getCount()))
+		if(pid < 0)
 		{
-
-			motorA.setPWM(pid/5);
+			motorA.setPWM(-100);
+		}
+		else
+		{
+			motorA.setPWM(100);
 
 		}
 	}
-
 	void motorb(int pow)
 	{
 
@@ -41,8 +40,16 @@ extern "C"
 	{
 		int b;
 		int c;
-		b = 50 + pid;
-		c = 50 - pid;
+		if(pid < 0)
+		{
+			b = -25 - (pid/7);
+			c = -25;
+		}else
+		{
+			b = -25;
+			c = -25 - (pid/7);
+		}
+
 		motorC.setPWM(c);
 		motorB.setPWM(b);
 	}

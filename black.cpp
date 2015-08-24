@@ -5,7 +5,7 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
-
+#include "Lcd.h"
 
 using namespace ecrobot;
 
@@ -27,19 +27,24 @@ extern "C"
         Lcd lcd;
         
         int nowl;
-        int ret_cal;
+        int ret_cal = 300;
         int ava;
 
 
         ava = lightavarage();
-
+        
         while(1)
         {
             //sensorの値を呼ぶ関数
             nowl = nowlight();
             ret_cal = p_i_d(ava,nowl);
-            motorbc(ret_cal);
+            lcd.clear();
+            lcd.putf("d", ret_cal);
+            lcd.disp();
             motora(ret_cal);
+            motorbc(ret_cal);
+            
+            
             clock.wait(5);
         }
 

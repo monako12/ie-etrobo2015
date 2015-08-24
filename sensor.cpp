@@ -16,7 +16,7 @@ extern "C"
 	SonarSensor  sonar(PORT_4);
 	GyroSensor   gyro(PORT_1);
 	TouchSensor  touch(PORT_2);
-    TouchSensor  touchwhite(PORT_2);
+	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
 
 	int nowlight(){
@@ -34,21 +34,24 @@ extern "C"
 		int avarage;
 		lcd.clear();
 		
-		while(touchwhite.isPressed()==0)
+		while(touch.isPressed()==0)
 		{
-
-			white = light.getBrightness();
-			lcd.putf("sdn", "white:", white,0);
-			clock.wait(2000);
 		}
-		while(touchblack.isPressed()==0)
+		white = light.getBrightness();
+		lcd.putf("sdn", "white:", white,0);
+		lcd.disp();
+		
+		
+		while(touchblack.isPressed()==1)
 		{
-
-			black = light.getBrightness();
-			lcd.putf("sdn", "black:", black,0);
-			clock.wait(2000);
 		}
+		black = light.getBrightness();
+		lcd.putf("sdn", "black:", black,4);
+		lcd.disp();
 		avarage = (white + black)/2;
+		while(touch.isPressed()==0)
+		{
+		}
 		return(avarage);
 	}
 
