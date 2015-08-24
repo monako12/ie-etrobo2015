@@ -10,6 +10,7 @@ extern "C"
 	double i_coe = 0.34;
 	double d_coe = 0.34;
 	int a = 1;
+	double integral = 0;
 	double p_i_d(int ava,double cur)
 	{
 		double p;
@@ -17,7 +18,6 @@ extern "C"
 		double d;
 		double delta_t = 2;
 		double diff[3];
-		double integral = 0;
 		double cur2;
 		diff[0] = diff[1];
 		diff[1] = cur - ava;

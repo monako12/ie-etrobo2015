@@ -16,15 +16,6 @@ extern "C"
 
 	void motora(int pid)
 	{	
-		if(pid < 0)
-		{
-			motorA.setPWM(-100);
-		}
-		else
-		{
-			motorA.setPWM(100);
-
-		}
 	}
 	void motorb(int pow)
 	{
