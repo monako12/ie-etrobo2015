@@ -18,11 +18,11 @@ extern "C"
 	{	
 		if(pid < 0)
 		{
-			motorA.setPWM(-100);
+			motorA.setPWM(0);
 		}
 		else
 		{
-			motorA.setPWM(100);
+			motorA.setPWM(0);
 
 		}
 	}
@@ -42,12 +42,12 @@ extern "C"
 		int c;
 		if(pid < 0)
 		{
-			b = -25 - (pid/7);
-			c = -25;
+			b = -15 - (pid/8);
+			c = -15;
 		}else
 		{
-			b = -25;
-			c = -25 - (pid/7);
+			b = -15;
+			c = -15 - (pid/8);
 		}
 
 		motorC.setPWM(c);
