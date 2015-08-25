@@ -35,13 +35,13 @@ extern "C"
         
         while(1)
         {
-            //sensorの値を呼ぶ関数
+            
             nowl = nowlight();
             ret_cal = p_i_d(ava,nowl);
             lcd.clear();
             lcd.putf("d", ret_cal);
             lcd.disp();
-            motora(ret_cal);
+            
             motorbc(ret_cal);
             
             

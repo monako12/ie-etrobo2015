@@ -42,15 +42,15 @@ extern "C"
 		int c;
 		if(pid < 0)
 		{
-			b = -15 - (pid/8);
-			c = -15;
+			b = pid/2 - pid/7;
+			c = pid/2 ;
 		}else
 		{
-			b = -15;
-			c = -15 - (pid/8);
+			b = pid/2;
+			c = pid/2 - pid/7;
 		}
 
-		motorC.setPWM(c);
-		motorB.setPWM(b);
+		motorC.setPWM(-60 + (abs(c)));
+		motorB.setPWM(-60 + (abs(b)));
 	}
 }

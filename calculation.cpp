@@ -15,10 +15,10 @@ extern "C"
 		double p;
 		double i;
 		double d;
-		double delta_t = 2;
+		double delta_t = 5;
 		double diff[3];
-		double integral = 0;
 		double cur2;
+		double integral = 0;
 		diff[0] = diff[1];
 		diff[1] = cur - ava;
 		integral += (diff[1] + diff[0])/2*delta_t;
