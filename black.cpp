@@ -32,7 +32,7 @@ extern "C"
 
 
         ava = lightavarage();
-        int line
+        int line;
         while(1)
         {
             
