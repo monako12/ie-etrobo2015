@@ -21,7 +21,7 @@ extern "C"
 		double cur2;
 		double integral = 0;
 		diff[0] = diff[1];
-		diff[1] = cur - ava;
+		diff[1] = cur - ava + 20;
 		integral += (diff[1] + diff[0])/2*delta_t;
 
 		p = p_coe*diff[1];
@@ -37,7 +37,6 @@ extern "C"
 	}
 	int cur_ava(int cur, double ava)
 	{
-		int ava;
 		int ret;
 		ret = cur - ava;
 		return(ret);

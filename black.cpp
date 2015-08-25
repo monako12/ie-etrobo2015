@@ -32,7 +32,7 @@ extern "C"
 
 
         ava = lightavarage();
-        int line
+        int line;
         while(1)
         {
             
@@ -42,7 +42,7 @@ extern "C"
             lcd.clear();
             lcd.putf("d", ret_cal);
             lcd.disp();
-            
+            motora(ret_cal,line);
             motorbc(ret_cal);
             
             
