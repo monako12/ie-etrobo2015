@@ -32,11 +32,12 @@ extern "C"
 
 
         ava = lightavarage();
-        
+        int line
         while(1)
         {
             
             nowl = nowlight();
+            line = cur_ava(nowl,ava);
             ret_cal = p_i_d(ava,nowl);
             lcd.clear();
             lcd.putf("d", ret_cal);
