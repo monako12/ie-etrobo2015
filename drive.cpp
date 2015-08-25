@@ -14,9 +14,29 @@ extern "C"
 	
 	
 
-	void motora(int ava)
+	void motora(int pid,int line)
 	{	
-		
+		if(line > 0)
+		{
+			if(motorA.getCount() < 100)
+			{
+				motorA.setPWM(100);
+			}else{
+				motorA.setPWM(0);
+			}
+		}
+		if(line < 0)
+		{
+			if(motorA.getCount() > -100){
+
+				motorA.setPWM(-100);
+			}else{
+				motorA.setPWM(0);
+			}
+
+
+		}
+
 	}
 	void motorb(int pow)
 	{
@@ -34,15 +54,16 @@ extern "C"
 		int c;
 		if(pid < 0)
 		{
-			b = -70 - (pid/2);
-			c = -70 + (pid/2);
+			b = -35 + (pid/3);
+			c = -35 - (pid/3);
 		}else
 		{
-			b = -70 + (pid/2);
-			c = -70 - (pid/2);
+			b = -35 - (pid/3);
+			c = -35 + (pid/3);
 		}
 
 		motorC.setPWM(c);
 		motorB.setPWM(b);
 	}
+
 }
