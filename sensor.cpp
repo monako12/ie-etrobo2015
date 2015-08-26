@@ -18,11 +18,18 @@ extern "C"
 	TouchSensor  touch(PORT_2);
 	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
-
-	int nowlight(){
+	int sum;
+	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
+		if(now < ava)
+		{
+			sum++;
+		}else{
+			sum = 0;
+		}
 		return(now);
+
 	}
 
 	int lightavarage(){
@@ -53,6 +60,9 @@ extern "C"
 		{
 		}
 		return(avarage);
+	}
+	int ret_sum(){
+		return(sum);
 	}
 
 	void sonarwork(){}

@@ -10,7 +10,6 @@ extern "C"
 	Motor motorA(PORT_A);
 	Motor motorB(PORT_B);
 	Motor motorC(PORT_C);
-	int sum;
 	
 	
 
@@ -64,6 +63,33 @@ extern "C"
 
 		motorC.setPWM(c);
 		motorB.setPWM(b);
+	}
+	void curve(int sum,int line){
+
+		if(sum > 1000){
+
+			if(line > 0)
+			{
+				if(motorA.getCount() < 200)
+				{
+					motorA.setPWM(100);
+				}else{
+					motorA.setPWM(0);
+				}
+			}
+			if(line < 0)
+			{
+				if(motorA.getCount() > -200){
+
+					motorA.setPWM(-100);
+				}else{
+					motorA.setPWM(0);
+				}
+
+			}
+		}
+
+
 	}
 
 }

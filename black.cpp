@@ -29,26 +29,24 @@ extern "C"
         int nowl;
         int ret_cal = 300;
         int ava;
-
+        int sum;
 
         ava = lightavarage();
         int line;
         while(1)
         {
-            
-            nowl = nowlight();
+
+            nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
             ret_cal = p_i_d(ava,nowl);
+            sum = ret_sum();
+            curve(sum,line);
             lcd.clear();
             lcd.putf("d", ret_cal);
             lcd.disp();
             motora(ret_cal,line);
-            motorbc(ret_cal);
-            
-            
+            motorbc(ret_cal);           
             clock.wait(5);
         }
-
-
     }
 }
