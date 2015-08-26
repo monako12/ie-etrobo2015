@@ -6,6 +6,7 @@
 #include "calculation.cpp"
 #include "sensor.cpp"
 #include "Lcd.h"
+#include "barcode.cpp"
 
 using namespace ecrobot;
 
@@ -35,7 +36,6 @@ extern "C"
         int line;
         while(1)
         {
-
             nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
             ret_cal = p_i_d(ava,nowl);
@@ -47,6 +47,7 @@ extern "C"
             motora(ret_cal,line);
             motorbc(ret_cal);           
             clock.wait(5);
+            discover();
         }
     }
 }
