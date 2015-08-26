@@ -23,8 +23,8 @@ extern "C"
             diff = piyo - now;
 
             if(abs(diff) < 3){
-                motorAA.setPWM(15);//ittan migi muku
-                clocktime.wait(150);
+                motorAA.setPWM(200);//ittan migi muku
+                clocktime.wait(10);
                 motorAA.setPWM(0);
                 break;
             }
@@ -46,7 +46,7 @@ extern "C"
         fix_Direction(fuga);
 
         while(1){
-            motorBB.setPWM(-54);
+            motorBB.setPWM(-55);
             motorCC.setPWM(-50);
         }
     }
