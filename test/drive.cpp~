@@ -15,18 +15,18 @@ extern "C"
 
 	void motora(int pid,int line)
 	{	
-		if(line > 0)
+		if(line < 0)
 		{
-			if(motorA.getCount() < 100)
+			if(motorA.getCount() < 90)
 			{
 				motorA.setPWM(100);
 			}else{
 				motorA.setPWM(0);
 			}
 		}
-		if(line < 0)
+		if(line > 0)
 		{
-			if(motorA.getCount() > -100){
+			if(motorA.getCount() > -90){
 
 				motorA.setPWM(-100);
 			}else{
@@ -51,7 +51,7 @@ extern "C"
 	{
 		int b;
 		int c;
-		if(pid < 0)
+		if(pid > 0)
 		{
 			b = -35 + (pid/3);
 			c = -35 - (pid/3);
@@ -66,9 +66,9 @@ extern "C"
 	}
 	void curve(int sum,int line){
 
-		if(sum > 1000){
+		if(sum > 500){
 
-			if(line > 0)
+			if(line < 0)
 			{
 				if(motorA.getCount() < 200)
 				{
@@ -77,7 +77,7 @@ extern "C"
 					motorA.setPWM(0);
 				}
 			}
-			if(line < 0)
+			if(line > 0)
 			{
 				if(motorA.getCount() > -200){
 
@@ -87,8 +87,8 @@ extern "C"
 				}
 
 			}
-
 		}
+
 
 	}
 

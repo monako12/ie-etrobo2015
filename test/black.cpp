@@ -40,15 +40,13 @@ extern "C"
             line = cur_ava(nowl,ava);
             ret_cal = p_i_d(ava,nowl);
             sum = ret_sum();
-            curve(sum,line);
+            //curve(sum,line);
             lcd.clear();
             lcd.putf("d", ret_cal);
             lcd.disp();
-            motora(ret_cal,line);
+            motora(ret_cal,line,sum);
             motorbc(ret_cal);           
             clock.wait(5);
         }
-
-
     }
 }

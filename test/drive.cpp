@@ -13,29 +13,51 @@ extern "C"
 	
 	
 
-	void motora(int pid,int line)
-	{	
-		if(line > 0)
+	void motora(int pid,int line,int sum)
+	{	if(sum > 500)
 		{
-			if(motorA.getCount() < 100)
+			if(line < 0)
 			{
-				motorA.setPWM(100);
-			}else{
-				motorA.setPWM(0);
+				if(motorA.getCount() < 90)
+				{
+					motorA.setPWM(100);
+				}else{
+					motorA.setPWM(0);
+				}
 			}
-		}
-		if(line < 0)
+			if(line > 0)
+			{
+				if(motorA.getCount() > -90){
+
+					motorA.setPWM(-100);
+				}else{
+					motorA.setPWM(0);
+				}
+
+
+			}
+		}else
 		{
-			if(motorA.getCount() > -100){
+			if(line > 0)
+			{
+				if(motorA.getCount() < 90)
+				{
+					motorA.setPWM(100);
+				}else{
+					motorA.setPWM(0);
+				}
+			}
+			if(line < 0)
+			{
+				if(motorA.getCount() > -90){
 
-				motorA.setPWM(-100);
-			}else{
-				motorA.setPWM(0);
+					motorA.setPWM(-100);
+				}else{
+					motorA.setPWM(0);
+				}
 			}
 
-
 		}
-
 	}
 	void motorb(int pow)
 	{
@@ -51,7 +73,7 @@ extern "C"
 	{
 		int b;
 		int c;
-		if(pid < 0)
+		if(pid > 0)
 		{
 			b = -35 + (pid/3);
 			c = -35 - (pid/3);
@@ -66,9 +88,9 @@ extern "C"
 	}
 	void curve(int sum,int line){
 
-		if(sum > 1000){
+		if(sum > 300){
 
-			if(line > 0)
+			if(line < 0)
 			{
 				if(motorA.getCount() < 200)
 				{
@@ -77,7 +99,7 @@ extern "C"
 					motorA.setPWM(0);
 				}
 			}
-			if(line < 0)
+			if(line > 0)
 			{
 				if(motorA.getCount() > -200){
 
@@ -87,8 +109,8 @@ extern "C"
 				}
 
 			}
-
 		}
+
 
 	}
 
