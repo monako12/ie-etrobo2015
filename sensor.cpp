@@ -26,7 +26,7 @@ extern "C"
 		{
 			sum++;
 		}else{
-			sum = 0;
+			sum--;
 		}
 		return(now);
 

@@ -50,6 +50,7 @@ extern "C"
             motorbc(ret_cal);           
             clock.wait(5);
             discover(hoge);
+
         }
 
 

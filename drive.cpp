@@ -26,7 +26,7 @@ extern "C"
 		}
 		if(line < 0)
 		{
-			if(motorA.getCount() > -100){
+			if(motorA.getCount() > -200){
 
 				motorA.setPWM(-100);
 			}else{

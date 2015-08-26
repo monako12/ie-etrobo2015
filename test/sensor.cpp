@@ -22,12 +22,13 @@ extern "C"
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
-		if(now < ava-30)
+		if(now < ava)
 		{
 			sum++;
 		}else{
 			sum = 0;
 		}
+
 		return(now);
 
 	}
@@ -62,7 +63,13 @@ extern "C"
 		return(avarage);
 	}
 	int ret_sum(){
-		return(sum);
+		if(sum > 600)
+		{
+			return(1);
+		}else
+		{
+			return(0);
+		}
 	}
 
 	void sonarwork(){}
