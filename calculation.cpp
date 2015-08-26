@@ -37,7 +37,6 @@ extern "C"
 	}
 	int cur_ava(int cur, double ava)
 	{
-		int ava;
 		int ret;
 		ret = cur - ava;
 		return(ret);

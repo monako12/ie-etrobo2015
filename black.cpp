@@ -26,6 +26,7 @@ extern "C"
     {
         Clock clock;
         Lcd lcd;
+
         
         int nowl;
         int ret_cal = 300;
@@ -36,6 +37,7 @@ extern "C"
         int line;
         while(1)
         {
+            int hoge = motorA.getCount();
             nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
             ret_cal = p_i_d(ava,nowl);
@@ -47,7 +49,7 @@ extern "C"
             motora(ret_cal,line);
             motorbc(ret_cal);           
             clock.wait(5);
-            discover();
+            discover(hoge);
         }
 
 

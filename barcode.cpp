@@ -11,26 +11,43 @@ extern "C"
 	Motor motorAA(PORT_A);
 	Motor motorBB(PORT_B);
 	Motor motorCC(PORT_C);
-    int now;
     Clock clocktime;
+    Lcd lcdhoge;
 
 
-    void fix_Direction(){
-        now = motorAA.getCount();
-        while(0 != now){
-            motorAA.setPWM(now * (-1));
-            clocktime.wait(5);
+    void fix_Direction(int piyo){
+        int now;
+        int diff;
+        while(true){
             now = motorAA.getCount();
+            diff = piyo - now;
+
+            if(abs(diff) < 3){
+                motorAA.setPWM(15);//ittan migi muku
+                clocktime.wait(150);
+                motorAA.setPWM(0);
+                break;
+            }
+
+            if(diff > 0){
+                motorAA.setPWM(-200);
+            }else{
+                motorAA.setPWM(200);
+            }
+
         }
     }
 
-    void discover(){
+    void discover(int fuga){
+        motorAA.setPWM(-100);
+        clocktime.wait(1000);
         motorBB.setPWM(0);
         motorCC.setPWM(0);
-        fix_Direction();
+        fix_Direction(fuga);
+
         while(1){
-            motorBB.setPWM(55);
-            motorCC.setPWM(50);
+            motorBB.setPWM(-54);
+            motorCC.setPWM(-50);
         }
     }
 }
