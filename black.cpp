@@ -35,9 +35,9 @@ extern "C"
 
         ava = lightavarage();
         int line;
+        int hoge = motorA.getCount();
         while(1)
         {
-            int hoge = motorA.getCount();
             nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
             ret_cal = p_i_d(ava,nowl);
