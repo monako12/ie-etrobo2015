@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "clock.h"
 #include "motor.h"
+#include "Lightsensor.h"
 using namespace ecrobot;
 extern "C"
 {
@@ -13,6 +14,7 @@ extern "C"
 	Motor motorCC(PORT_C);
     Clock clocktime;
     Lcd lcdhoge;
+    LightSensor  light_b(PORT_3,true);
 
 
     void fix_Direction(int piyo){
@@ -38,16 +40,24 @@ extern "C"
         }
     }
 
-    void discover(int fuga){
+    void barcode(int white,int black){
+        int review;
         motorAA.setPWM(-100);
-        clocktime.wait(1000);
+        clocktime.wait(500);
         motorBB.setPWM(0);
         motorCC.setPWM(0);
-        fix_Direction(fuga);
+        fix_Direction(0);
 
         while(1){
-            motorBB.setPWM(-55);
-            motorCC.setPWM(-50);
+            review = light_b.getBrightness();
+            lcdhoge.clear();
+            lcd.putf("d", review);
+            lcd.putf("¥n");
+
+         	lcd.disp();
+         	clocktime.wait(10);
+            motorBB.setPWM(-25);
+            motorCC.setPWM(-20);
         }
     }
 }
