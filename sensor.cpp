@@ -19,6 +19,8 @@ extern "C"
 	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
 	int sum;
+	int white;
+	int black;
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
@@ -36,7 +38,7 @@ extern "C"
 		Clock clock;
 		
 		Lcd lcd;
-		int white = 11000010;
+		int white;
 		int black;
 		int avarage;
 		lcd.clear();
@@ -64,7 +66,14 @@ extern "C"
 	int ret_sum(){
 		return(sum);
 	}
-
+	int ret_white()
+	{
+		return(white);
+	}
+	int ret_black()
+	{
+		return(black)
+	}
 	void sonarwork(){}
 
 	void gyrowork(){}
