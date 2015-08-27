@@ -22,7 +22,7 @@ extern "C"
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
-		if(now < ava-30)
+		if(now < ava)
 		{
 			sum++;
 		}else{
@@ -55,7 +55,7 @@ extern "C"
 		black = light.getBrightness();
 		lcd.putf("sdn", "black:", black,4);
 		lcd.disp();
-		avarage = (white + black)/2;
+		avarage = (white + black+100)/2;
 		while(touch.isPressed()==0)
 		{
 		}
