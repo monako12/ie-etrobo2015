@@ -46,7 +46,7 @@ extern "C"
             lcd.disp();
             motora(ret_cal,line);
             motorbc(ret_cal);           
-            clock.wait(5);
+            clock.wait(1);
 
 
         }

@@ -21,6 +21,11 @@ extern "C"
 	int sum;
 	int white;
 	int black;
+	int gray;
+	int judge;
+	int l;
+	int line_a;
+
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
@@ -38,8 +43,6 @@ extern "C"
 		Clock clock;
 		
 		Lcd lcd;
-		int white;
-		int black;
 		int avarage;
 		lcd.clear();
 		
@@ -61,8 +64,18 @@ extern "C"
 		while(touch.isPressed()==0)
 		{
 		}
+		gray = light.getBrightness();
+		lcd.putf("sdn", "gray:", gray,0);
+		lcd.disp();
+		while(touch.isPressed()==1)
+		{
+		}
+		while(touch.isPressed()==0)
+		{
+		}
 		return(avarage);
 	}
+
 	int ret_sum(){
 		return(sum);
 	}
@@ -72,8 +85,13 @@ extern "C"
 	}
 	int ret_black()
 	{
-		return(black)
+		return(black);
 	}
+	int ret_gray()
+	{
+		return(gray);
+	}
+	
 	void sonarwork(){}
 
 	void gyrowork(){}

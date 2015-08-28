@@ -33,7 +33,7 @@ extern "C"
         while(1)
         {
             lcd.clear();
-            lcd.putf("d",motorA.getCount(),0);
+            lcd.putf("d",motorB.getCount(),0);
             lcd.disp();
             clock.wait(1000);
             motorA.setCount(0);

@@ -66,12 +66,12 @@ extern "C"
 		int c;
 		if(pid < 0)
 		{
-			b = -35 + (pid/3);
-			c = -35 - (pid/3);
+			b = -35 + (pid/4);
+			c = -35 - (pid/4);
 		}else
 		{
-			b = -35 - (pid/3);
-			c = -35 + (pid/3);
+			b = -35 - (pid/4);
+			c = -35 + (pid/4);
 		}
 
 		motorC.setPWM(c);
@@ -85,7 +85,7 @@ extern "C"
 			{
 				if(motorA.getCount() < 200)
 				{
-					motorA.setPWM(100);
+					motorA.setPWM(50);
 				}else{
 					motorA.setPWM(0);
 				}
@@ -94,7 +94,7 @@ extern "C"
 			{
 				if(motorA.getCount() > -200){
 
-					motorA.setPWM(-100);
+					motorA.setPWM(-50);
 				}else{
 					motorA.setPWM(0);
 				}
@@ -102,6 +102,84 @@ extern "C"
 			}
 
 		}
+
+	}
+	void mode_in()
+	{
+		if(line < 0)
+		{
+			if(motorA.getCount() < 200)
+			{
+				motorA.setPWM(100);
+			}else{
+				motorA.setPWM(0);
+			}
+		}
+		if(line > 0)
+		{
+			if(motorA.getCount() > -200){
+
+				motorA.setPWM(-100);
+			}else{
+				motorA.setPWM(0);
+			}
+
+
+		}
+		int b;
+		int c;
+		if(pid < 0)
+		{
+			b = -35 + (pid/4);
+			c = -35 - (pid/4);
+		}else
+		{
+			b = -35 - (pid/4);
+			c = -35 + (pid/4);
+		}
+
+		motorC.setPWM(c);
+		motorB.setPWM(b);
+
+	}
+	void mode_out(int pid,int line)
+	{
+
+		if(line > 0)
+		{
+			if(motorA.getCount() < 200)
+			{
+				motorA.setPWM(100);
+			}else{
+				motorA.setPWM(0);
+			}
+		}
+		if(line < 0)
+		{
+			if(motorA.getCount() > -200){
+
+				motorA.setPWM(-100);
+			}else{
+				motorA.setPWM(0);
+			}
+
+
+		}
+		int b;
+		int c;
+		if(pid < 0)
+		{
+			b = -35 - (pid/4);
+			c = -35 + (pid/4);
+		}else
+		{
+			b = -35 + (pid/4);
+			c = -35 - (pid/4);
+		}
+
+		motorC.setPWM(c);
+		motorB.setPWM(b);
+
 
 	}
 
