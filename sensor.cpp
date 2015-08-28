@@ -19,10 +19,12 @@ extern "C"
 	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
 	int sum;
+	int white;
+	int black;
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
-		if(now < ava-30)
+		if(now < ava)
 		{
 			sum++;
 		}else{
@@ -36,7 +38,7 @@ extern "C"
 		Clock clock;
 		
 		Lcd lcd;
-		int white = 11000010;
+		int white;
 		int black;
 		int avarage;
 		lcd.clear();
@@ -55,7 +57,7 @@ extern "C"
 		black = light.getBrightness();
 		lcd.putf("sdn", "black:", black,4);
 		lcd.disp();
-		avarage = (white + black)/2;
+		avarage = (white + black+100)/2;
 		while(touch.isPressed()==0)
 		{
 		}
@@ -64,7 +66,14 @@ extern "C"
 	int ret_sum(){
 		return(sum);
 	}
-
+	int ret_white()
+	{
+		return(white);
+	}
+	int ret_black()
+	{
+		return(black)
+	}
 	void sonarwork(){}
 
 	void gyrowork(){}
