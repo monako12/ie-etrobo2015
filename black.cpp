@@ -1,5 +1,5 @@
 /* sample.cpp for TOPPERS/ATK(OSEK) */ 
-
+//made by okada
 // ECRobot C++ API
 #include "Clock.h"
 #include "drive.cpp"
@@ -8,6 +8,7 @@
 #include "Lcd.h"
 #include "barcode.cpp"
 
+#include "change_edge.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -15,7 +16,7 @@ extern "C"
 #include "kernel.h"
 #include "kernel_id.h"
 #include "ecrobot_interface.h"
-
+//　タイヤの一周はgetCountでとると380ぐらいの値が出る.
 // nxtOSEK hook to be invoked from an ISR in category 2
     void user_1ms_isr_type2(void)
     {
@@ -29,26 +30,27 @@ extern "C"
 
         
         int nowl;
-        int ret_cal = 300;
+        int ret_pid = 300;
         int ava;
         int sum;
 
         ava = lightavarage();
         int line;
-        int hoge = motorA.getCount();
         while(1)
         {
             nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
-            ret_cal = p_i_d(ava,nowl);
+            ret_pid = p_i_d(ava,nowl);
             sum = ret_sum();
-            curve(sum,line);
+            //curve(sum,line);
             lcd.clear();
-            lcd.putf("d", ret_cal);
+            lcd.putf("d", ret_pid);
             lcd.disp();
-            motora(ret_cal,line);
-            motorbc(ret_cal);           
-            clock.wait(5);
+            change_edge(ret_pid,line);
+            
+            clock.wait(3);
+
+
         }
 
 
