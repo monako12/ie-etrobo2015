@@ -1,3 +1,4 @@
+//made by okada
 #include "Motor.h"
 #include "math.h"
 #include "stdlib.h"
