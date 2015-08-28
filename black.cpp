@@ -49,8 +49,6 @@ extern "C"
             motora(ret_cal,line);
             motorbc(ret_cal);           
             clock.wait(5);
-            barcode();
-
         }
 
 

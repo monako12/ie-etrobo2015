@@ -38,8 +38,6 @@ extern "C"
 		Clock clock;
 		
 		Lcd lcd;
-		int white;
-		int black;
 		int avarage;
 		lcd.clear();
 		
@@ -72,7 +70,7 @@ extern "C"
 	}
 	int ret_black()
 	{
-		return(black)
+		return(black);
 	}
 	void sonarwork(){}
 
