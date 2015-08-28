@@ -22,14 +22,12 @@ extern "C"
 	int white;
 	int black;
 	int gray;
-	int judge;
-	int l;
 	int line_a;
 
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
-		if(now < ava)
+		if(now > ava)
 		{
 			sum++;
 		}else{

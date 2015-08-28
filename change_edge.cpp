@@ -1,5 +1,4 @@
 #include "stdlib.h"
-#include "drive.cpp"
 using namespace ecrobot;
 extern "C"
 {
@@ -8,34 +7,48 @@ extern "C"
 #include "ecrobot_interface.h"
 int count_B;
 int count_C;
-	int change_edge(int pid,int line)
-	{	int a;
-		int b;
 
-		count_B = Bcount();
-		count_C = Ccount();
-		switch(a < count_B && count_B < b)
-		{
-
-			case (a == 20 && b == 200):
-			edge_inpre();
-			edge_in(pid,line);
-			break;
-
-			case (a == 220 && b == 400):
-			edge_outpre();
-			edge_out();
-			break;
-
-			default:
-			break;
-
-
-
-
-
-		}
 
 	
 
+	
+	int motorcount(int pid, int line)
+	{
+		/*
+		if(-400 < count_B && count_B < -20)
+		{
+			mode_in(pid,line);
+			
+
+		}if (-549 < count_B && count_B < -401)
+		{
+			seto();
+			/ code /
+		}
+		if(-800 < count_B && count_B < -550)
+		{
+			mode_out(pid,line);
+			
+		}
+		*/
+		mode_in(pid,line);
+		//curve(pid,line);
+
+
+
+
+
+
 	}
+	int change_edge(int pid,int line)
+	{	int a = 0;
+		int b = 0;
+
+		count_B = Bcount();
+		count_C = Ccount();
+		motorcount(pid,line);
+		
+
+
+		}
+}

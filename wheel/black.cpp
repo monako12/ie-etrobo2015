@@ -4,6 +4,7 @@
 #include "Clock.h"
 #include "Lcd.h"
 #include "Motor.h"
+#include <Speaker.h>
 using namespace ecrobot;
 
 extern "C"
@@ -27,22 +28,49 @@ extern "C"
         Lcd lcd;
 
         
-        int sum;
+        
+        motorB.setPWM(100);
+        motorC.setPWM(100);
+        clock.wait(200);
+        motorC.setPWM(-100);
+        motorB.setPWM(-100);
+        clock.wait(700);
+        motorB.setPWM(-70);
+        motorC.setPWM(-70);
+        clock.wait(400);
+        motorC.setPWM(-50);
+        motorB.setPWM(-50);
+        clock.wait(400);
+        motorB.setPWM(-20);
+        motorC.setPWM(-20);
+        clock.wait(400);
+        motorC.setPWM(0);
+        motorB.setPWM(0);
+        clock.wait(400);
+        motorB.setPWM(30);
+        motorC.setPWM(50);
+        clock.wait(1000);
+        motorC.setPWM(50);
+        motorB.setPWM(30);
+        clock.wait(950);
+        motorB.setPWM(80);
+        motorC.setPWM(0);
+        motorA.setPWM(100);
+        clock.wait(4400);
+        
+        motorB.setPWM(0);
+        motorC.setPWM(0);
+        clock.wait(3300);
+        motorC.setPWM(100);
+        motorB.setPWM(100);
+        clock.wait(140);
+        motorB.setPWM(0);
+        motorC.setPWM(0);
 
 
-        while(1)
-        {
-            lcd.clear();
-            lcd.putf("d",motorB.getCount(),0);
-            lcd.disp();
-            clock.wait(1000);
-            motorA.setCount(0);
-
-            clock.wait(10);
 
 
-        }
-
+        
 
     }
 }

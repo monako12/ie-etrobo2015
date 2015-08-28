@@ -6,7 +6,7 @@
 #include "calculation.cpp"
 #include "sensor.cpp"
 #include "Lcd.h"
-
+#include "change_edge.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -28,7 +28,7 @@ extern "C"
 
         
         int nowl;
-        int ret_cal = 300;
+        int ret_pid = 300;
         int ava;
         int sum;
 
@@ -38,15 +38,15 @@ extern "C"
         {
             nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
-            ret_cal = p_i_d(ava,nowl);
+            ret_pid = p_i_d(ava,nowl);
             sum = ret_sum();
-            curve(sum,line);
+            //curve(sum,line);
             lcd.clear();
-            lcd.putf("d", ret_cal);
+            lcd.putf("d", ret_pid);
             lcd.disp();
-            motora(ret_cal,line);
-            motorbc(ret_cal);           
-            clock.wait(1);
+            change_edge(ret_pid,line);
+            
+            clock.wait(3);
 
 
         }

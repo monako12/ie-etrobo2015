@@ -1,6 +1,7 @@
 #include "Motor.h"
 #include "math.h"
 #include "stdlib.h"
+#include "Clock.h"
 using namespace ecrobot;
 extern "C"
 {
@@ -10,6 +11,7 @@ extern "C"
 	Motor motorA(PORT_A);
 	Motor motorB(PORT_B);
 	Motor motorC(PORT_C);
+	Clock clock;
 	
 	int Acount()
 	{
@@ -26,30 +28,6 @@ extern "C"
 		return(motorC.getCount());
 	}
 
-	void motora(int pid,int line)
-	{	
-		if(line < 0)
-		{
-			if(motorA.getCount() < 200)
-			{
-				motorA.setPWM(100);
-			}else{
-				motorA.setPWM(0);
-			}
-		}
-		if(line > 0)
-		{
-			if(motorA.getCount() > -200){
-
-				motorA.setPWM(-100);
-			}else{
-				motorA.setPWM(0);
-			}
-
-
-		}
-
-	}
 	void motorb(int pow)
 	{
 
@@ -59,23 +37,6 @@ extern "C"
 	void motorc(int pow)
 	{
 
-	}
-	void motorbc(int pid)
-	{
-		int b;
-		int c;
-		if(pid < 0)
-		{
-			b = -35 + (pid/4);
-			c = -35 - (pid/4);
-		}else
-		{
-			b = -35 - (pid/4);
-			c = -35 + (pid/4);
-		}
-
-		motorC.setPWM(c);
-		motorB.setPWM(b);
 	}
 	void curve(int sum,int line){
 
@@ -104,7 +65,7 @@ extern "C"
 		}
 
 	}
-	void mode_in()
+	void mode_in(int pid,int line)
 	{
 		if(line < 0)
 		{
@@ -117,7 +78,8 @@ extern "C"
 		}
 		if(line > 0)
 		{
-			if(motorA.getCount() > -200){
+
+			if(motorA.getCount() >= -200){
 
 				motorA.setPWM(-100);
 			}else{
@@ -147,6 +109,7 @@ extern "C"
 
 		if(line > 0)
 		{
+			
 			if(motorA.getCount() < 200)
 			{
 				motorA.setPWM(100);
@@ -156,6 +119,7 @@ extern "C"
 		}
 		if(line < 0)
 		{
+			
 			if(motorA.getCount() > -200){
 
 				motorA.setPWM(-100);
@@ -181,6 +145,34 @@ extern "C"
 		motorB.setPWM(b);
 
 
+	}
+	int seto()
+	{
+		
+		while(1)
+		{
+			int va = motorA.getCount();
+			motorB.setPWM(0);
+			motorC.setPWM(0);
+			if(va < 2)
+			{
+				motorA.setPWM(50);
+			}
+			if(va > 2)
+			{
+				motorA.setPWM(-50);
+			}
+			if(va == 0)
+			{
+				motorA.setPWM(0);
+				motorC.setPWM(20);
+				motorB.setPWM(20);
+				return(0);
+			}
+			
+		clock.wait(1);
+
+		}
 	}
 
 }
