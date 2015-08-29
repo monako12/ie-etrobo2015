@@ -22,12 +22,12 @@ class sensor{
 	int white;
 	int black;
 	int gray;
-	int line_a;
+
 public:
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
-		if(now > ava+100)
+		if(now > ava)
 		{
 			sum++;
 		}else{

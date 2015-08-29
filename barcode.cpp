@@ -20,9 +20,12 @@ extern "C"
 	Motor motorCC(PORT_C);
     Clock clocktime;
     LightSensor  light_b(PORT_3,true);
-
     int check = 0;
-    vector<int> array;
+    class Barcode{
+
+    public:
+
+        vector<int> array;
 
 
     void fix_Direction(int piyo){ //siteisita kazu no tyotto migi made zenrin wo mawasu
@@ -70,53 +73,53 @@ extern "C"
             lcd.putf("sdn","white:",white,0);
             lcd.putf("sdn","black:",black,0);
             lcd.putf("sdn","check:",check,0);
-          	lcd.disp();
-          	clocktime.wait(5);
+            lcd.disp();
+            clocktime.wait(5);
 
             if(COUNT == white_num) {
-         	    array.push_back(0);
-          	    white_num = 0;
-          	}
+              array.push_back(0);
+              white_num = 0;
+          }
 
-          	if(COUNT == black_num) {
-         	    array.push_back(1);
-          	    black_num = 0;
-           	}
+          if(COUNT == black_num) {
+              array.push_back(1);
+              black_num = 0;
+          }
 
-          	if(10 == array.size()) break;
-          	motorBB.setPWM(-26);
-            motorCC.setPWM(-19);
+          if(10 == array.size()) break;
+          motorBB.setPWM(-26);
+          motorCC.setPWM(-19);
+      }
+
+  }
+
+  void acquire(int white,int black){
+    int review;
+    int white_num = 0;
+    int except = 0;
+    int now_color = 0;
+    int now_motor = 0;
+
+    motorBB.setPWM(LEFT);
+    motorCC.setPWM(RIGHT);
+
+    while(1){
+        review = light_b.getBrightness();
+        if(white - 15 < review && white + 15 > review){
+            white_num++;
         }
 
-    }
-
-    void acquire(int white,int black){
-        int review;
-        int white_num = 0;
-        int except = 0;
-        int now_color = 0;
-        int now_motor = 0;
-
-        motorBB.setPWM(LEFT);
-        motorCC.setPWM(RIGHT);
-
-        while(1){
-            review = light_b.getBrightness();
-            if(white - 15 < review && white + 15 > review){
-                white_num++;
-            }
-
-            if(30 == white_num){
-                motorAA.setPWM(0);
+        if(30 == white_num){
+            motorAA.setPWM(0);
 //                        motorBB.setPWM(0);    //barcode no saisyo wo tyotto dake susumu tyousei ni tukau yatu
 //                        motorCC.setPWM(0);    //kokode stop sasete 109gyoume no atai wo tyousei suru
-                break;
-            }
-            lcd.clear();
-            lcd.putf("sdn","white_num:",white_num,0);
-            lcd.disp();
-            clocktime.wait(1);
+            break;
         }
+        lcd.clear();
+        lcd.putf("sdn","white_num:",white_num,0);
+        lcd.disp();
+        clocktime.wait(1);
+    }
 
 /*
         motorBB.setPWM(0);
@@ -175,4 +178,5 @@ extern "C"
 
         }
     }
+};
 }

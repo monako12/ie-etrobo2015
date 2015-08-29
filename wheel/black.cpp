@@ -37,7 +37,7 @@ extern "C"
         clock.wait(700);
         motorB.setPWM(-70);
         motorC.setPWM(-70);
-        clock.wait(400);
+        clock.wait(500);
         motorC.setPWM(-50);
         motorB.setPWM(-50);
         clock.wait(400);
@@ -47,23 +47,23 @@ extern "C"
         motorC.setPWM(0);
         motorB.setPWM(0);
         clock.wait(400);
-        motorB.setPWM(30);
-        motorC.setPWM(50);
+        motorB.setPWM(-30);
+        motorC.setPWM(70);
         clock.wait(1000);
-        motorC.setPWM(50);
-        motorB.setPWM(30);
-        clock.wait(950);
+        motorC.setPWM(70);
+        motorB.setPWM(-30);
+        clock.wait(890);
         motorB.setPWM(80);
         motorC.setPWM(0);
         motorA.setPWM(100);
-        clock.wait(4400);
+        clock.wait(4250);
         
         motorB.setPWM(0);
         motorC.setPWM(0);
         clock.wait(3300);
         motorC.setPWM(100);
         motorB.setPWM(100);
-        clock.wait(140);
+        clock.wait(130);
         motorB.setPWM(0);
         motorC.setPWM(0);
 

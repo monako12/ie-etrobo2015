@@ -12,7 +12,7 @@ extern "C"
 
 		
 	public:
-		double p_i_d(int ava,double cur)
+		int p_i_d(int ava,double cur)
 		{
 			double p;
 			double i;
