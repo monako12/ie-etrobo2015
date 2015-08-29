@@ -4,7 +4,9 @@
 #include "Clock.h"
 #include "Lcd.h"
 #include "Motor.h"
-#include <Speaker.h>
+#include "BTConnection.h"
+#include "Bluetooth.h"
+#include "LightSensor.h"
 using namespace ecrobot;
 
 extern "C"
@@ -15,6 +17,7 @@ extern "C"
     Motor motorA(PORT_A);
     Motor motorB(PORT_B);
     Motor motorC(PORT_C);
+    LightSensor  light(PORT_3,true);
 
 // nxtOSEK hook to be invoked from an ISR in category 2
     void user_1ms_isr_type2(void)
@@ -22,10 +25,32 @@ extern "C"
 
     }
 
+    void BtLogger::logSend(S8 a)
+    {
+        U8 data_log_buffer[32];
+
+        *((U32 *)(&data_log_buffer[0]))  = (U32)systick_get_ms();
+        *(( S8 *)(&data_log_buffer[4]))  =  (S8)a;
+        *(( S8 *)(&data_log_buffer[5]))  =  (S8)a;
+        *((U16 *)(&data_log_buffer[6]))  = (U16)a;
+        *((S32 *)(&data_log_buffer[8]))  = (S32)motorA.getCount();
+        *((S32 *)(&data_log_buffer[12])) = (S32)motorB.getCount();
+        *((S32 *)(&data_log_buffer[16])) = (S32)motorC.getCount();
+        *((S16 *)(&data_log_buffer[20])) = (S16)a;
+        *((S16 *)(&data_log_buffer[22])) = (S16)a;
+        *((S16 *)(&data_log_buffer[24])) = (S16)a;
+        *((S16 *)(&data_log_buffer[26])) = (S16)a;
+        *((S32 *)(&data_log_buffer[28])) = (S32)a;
+
+        ecrobot_send_bt_packet(data_log_buffer, 32);
+    }
+
     TASK(TaskMain)
     {
         Clock clock;
         Lcd lcd;
+        int a = 8;
+
 
         
         
@@ -57,7 +82,7 @@ extern "C"
         motorC.setPWM(0);
         motorA.setPWM(100);
         clock.wait(4250);
-        
+        BtLogger::logSend(a,0,0,0,0,0);
         motorB.setPWM(0);
         motorC.setPWM(0);
         clock.wait(3300);
@@ -73,4 +98,5 @@ extern "C"
         
 
     }
+    
 }
