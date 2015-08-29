@@ -5,9 +5,7 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
-#include "Lcd.h"
 #include "barcode.cpp"
-
 #include "change_edge.cpp"
 using namespace ecrobot;
 
@@ -27,6 +25,8 @@ extern "C"
     {
         Clock clock;
         Lcd lcd;
+        sensor sensor;
+        Cal cal;
 
         
         int nowl;
@@ -34,14 +34,14 @@ extern "C"
         int ava;
         int sum;
 
-        ava = lightavarage();
+        ava = sensor.lightavarage();
         int line;
         while(1)
         {
-            nowl = nowlight(ava);
-            line = cur_ava(nowl,ava);
-            ret_pid = p_i_d(ava,nowl);
-            sum = ret_sum();
+            nowl = sensor.nowlight(ava);
+            line = cal.cur_ava(nowl,ava);
+            ret_pid = cal.p_i_d(ava,nowl);
+            sum = sensor.ret_sum();
             //curve(sum,line);
             lcd.clear();
             lcd.putf("d", ret_pid);

@@ -3,11 +3,10 @@
 using namespace ecrobot;
 extern "C"
 {
-#include "kernel.h"
-#include "kernel_id.h"
-#include "ecrobot_interface.h"
+
 int count_B;
 int count_C;
+Drive drive;
 
 
 	
@@ -32,7 +31,7 @@ int count_C;
 			
 		}
 		*/
-		mode_in(pid,line);
+		drive.mode_in(pid,line);
 		//curve(pid,line);
 
 
@@ -45,8 +44,8 @@ int count_C;
 	{	int a = 0;
 		int b = 0;
 
-		count_B = Bcount();
-		count_C = Ccount();
+		count_B = drive.Bcount();
+		count_C = drive.Ccount();
 		motorcount(pid,line);
 		
 

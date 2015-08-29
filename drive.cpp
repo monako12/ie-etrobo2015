@@ -2,18 +2,18 @@
 #include "Motor.h"
 #include "math.h"
 #include "stdlib.h"
-#include "Clock.h"
+
 using namespace ecrobot;
 extern "C"
 {
-#include "kernel.h"
-#include "kernel_id.h"
-#include "ecrobot_interface.h"
+
 	Motor motorA(PORT_A);
 	Motor motorB(PORT_B);
 	Motor motorC(PORT_C);
 	Clock clock;
-	
+	class Drive{
+
+	public:
 	int Acount()
 	{
 		return(motorA.getCount());
@@ -175,5 +175,6 @@ extern "C"
 
 		}
 	}
+};
 
 }

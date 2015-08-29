@@ -14,9 +14,7 @@ using namespace std;
 
 extern "C"
 {
-#include "kernel.h"
-#include "kernel_id.h"
-#include "ecrobot_interface.h"
+
 	Motor motorAA(PORT_A);
 	Motor motorBB(PORT_B);
 	Motor motorCC(PORT_C);
