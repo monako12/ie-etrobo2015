@@ -7,8 +7,9 @@ extern "C"
 #include "kernel.h"
 #include "kernel_id.h"
 #include "ecrobot_interface.h"
-	class PaPa{
-    public:
+#include "drive.cpp"
+	
+	
 	void reset(int speed){
 		while(1){
 			int rotateA = nxt_motor_get_count(PORT_A);
@@ -120,5 +121,4 @@ extern "C"
             clock.wait(15000);
 		}
 	}
-    };
 }
