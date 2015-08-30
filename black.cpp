@@ -7,6 +7,7 @@
 #include "sensor.cpp"
 #include "barcode.cpp"
 #include "change_edge.cpp"
+#include "p_parking.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -27,7 +28,6 @@ extern "C"
         Lcd lcd;
         sensor sensor;
         Cal cal;
-
         
         int nowl;
         int ret_pid = 300;
@@ -35,6 +35,7 @@ extern "C"
         int sum;
 
         ava = sensor.lightavarage();
+        
         int line;
         while(1)
         {
