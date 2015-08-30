@@ -45,8 +45,14 @@ extern "C"
             }
         }
         
-        int forward(int rotate,int spin,int lspeed,int rspeed,int flag){
+        void forward(int spin,int lspeed,int rspeed,int flag){
             int nrotate;
+            int rotate;
+            if (flag == 0){
+                rotate = nxt_motor_get_count(PORT_B);
+            } else if (flag == 1) {
+                rotate = nxt_motor_get_count(PORT_C);
+            }
             while(1){
                 if (flag == 0){
                     nrotate = nxt_motor_get_count(PORT_B);
@@ -67,7 +73,7 @@ extern "C"
                 else {
                     motorB.setPWM(0);
                     motorC.setPWM(0);
-                    return nrotate;
+                    break;
                 }
             }
         }
@@ -109,17 +115,16 @@ extern "C"
                 //前輪角度
                 angle(rotateA,700,-100);
                 //回転
-                rotateB = forward(rotateB,290,80,0,0);
+                forward(290,80,0,0);
                 
                 //角度直し
                 reset(130);
                 //バック
-                rotateC = forward(rotateC,-780,40,40,1);
+                forward(-780,40,40,1);
                 clock.wait(5000);
                 
                 black(40,40);
-                rotateC = nxt_motor_get_count(PORT_C);
-                rotateC = forward(rotateC,130,40,40,1);
+                forward(130,40,40,1);
                 
                 angle(rotateA,-700,-100);
                 black(0,40);
