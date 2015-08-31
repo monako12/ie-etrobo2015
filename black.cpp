@@ -7,7 +7,6 @@
 #include "sensor.cpp"
 #include "barcode.cpp"
 #include "change_edge.cpp"
-#include "p_parking.cpp"
 using namespace ecrobot;
 
 extern "C"

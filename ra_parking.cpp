@@ -100,7 +100,7 @@ extern "C"
             }
         }
         
-        int right_angle_parking()
+        void right_angle_parking()
         {
             int rotateA;
             int rotateB;
@@ -111,14 +111,15 @@ extern "C"
                 rotateB = nxt_motor_get_count(PORT_B);
                 rotateC = nxt_motor_get_count(PORT_C);
                 
-                reset(130);
+                reset(-100);
+                forward(100,40,40,1);
                 //前輪角度
                 angle(rotateA,700,-100);
                 //回転
                 forward(290,80,0,0);
                 
                 //角度直し
-                reset(130);
+                reset(-100);
                 //バック
                 forward(-780,40,40,1);
                 clock.wait(5000);
@@ -127,7 +128,7 @@ extern "C"
                 forward(130,40,40,1);
                 
                 angle(rotateA,-700,-100);
-                black(0,40);
+                black(0,80);
                 reset(-100);
                 
                 clock.wait(10000);
