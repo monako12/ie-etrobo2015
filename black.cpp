@@ -48,7 +48,7 @@ extern "C"
             lcd.disp();
             change_edge(ret_pid,line);
             
-            clock.wait(3);
+            clock.wait(5);
 
 
         }
