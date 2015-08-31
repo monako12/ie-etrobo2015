@@ -142,7 +142,8 @@ extern "C"
                 black(0,80);
                 reset(-100);
                 
-                clock.wait(10000);
+                clock.wait(1000);
+                break;
                 
                 //angle(rotateA,-650,-100);
                 //rotateC = forward(rotateC,-120,0,70);
