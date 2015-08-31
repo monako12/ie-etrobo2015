@@ -116,7 +116,7 @@ extern "C"
                 black(0,80);
                 reset(100);
                 
-                clock.wait(10000);
+                clock.wait(1000);
                 break;
                 /*
                  //前進
@@ -167,7 +167,6 @@ extern "C"
                 
                 clock.wait(1000);
                 break;
-                
                 
                 /*
                  //手動
