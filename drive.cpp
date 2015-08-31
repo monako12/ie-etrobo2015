@@ -66,87 +66,84 @@ extern "C"
 		}
 
 	}
-	void mode_in(int pid,int line)
-	{
-		if(line < 0)
-		{
-			if(motorA.getCount() < 200)
-			{
-				motorA.setPWM(100);
-			}else{
-				motorA.setPWM(0);
-			}
+	  void mode_Black_Left(int pid,int line)
+	  {
+	    if(line < 0)
+	      {
+		if(motorA.getCount() <= 200)
+		  {
+		    motorA.setPWM(100);
+		  }else{
+		  motorA.setPWM(0);
 		}
-		if(line > 0)
-		{
-
-			if(motorA.getCount() >= -200){
-
-				motorA.setPWM(-100);
-			}else{
-				motorA.setPWM(0);
-			}
-
-
+	      }
+	    if(line > 0)
+	      {
+		
+		if(motorA.getCount() >= -200){
+		  
+		  motorA.setPWM(-100);
+		}else{
+		  motorA.setPWM(0);
 		}
-		int b;
-		int c;
-		if(pid < 0)
-		{
-			b = -35 + (pid/4);
-			c = -35 - (pid/4);
-		}else
-		{
-			b = -35 - (pid/4);
-			c = -35 + (pid/4);
+		
+		
+	      }
+	    int b;
+	    int c;
+	    if(pid < 0)
+	      {
+		b = -35 + (pid/4);
+		c = -35 - (pid/4);
+	      }else
+	      {
+		b = -30 + (pid/3);
+		c = -40 - (pid/4);
+	      }
+	    
+	    motorC.setPWM(c);
+	    motorB.setPWM(b);
+	    
+	  }
+	  void mode_Black_Right(int pid,int line){
+	    if(line < 0)
+	      {
+		if(motorA.getCount() >= -200)
+		  {
+		    motorA.setPWM(-100);
+		  }else{
+		  motorA.setPWM(0);
 		}
-
-		motorC.setPWM(c);
-		motorB.setPWM(b);
-
-	}
-	void mode_out(int pid,int line)
-	{
-
-		if(line > 0)
-		{
-			
-			if(motorA.getCount() < 200)
-			{
-				motorA.setPWM(100);
-			}else{
-				motorA.setPWM(0);
-			}
+	      }
+	    if(line > 0)
+	      {
+		
+		if(motorA.getCount() <= 200){
+		  
+		  motorA.setPWM(100);
+		}else{
+		  motorA.setPWM(0);
 		}
-		if(line < 0)
-		{
-			
-			if(motorA.getCount() > -200){
+		
+		
+	      }
+	    int b;
+	    int c;
+	    if(pid < 0)
+	      {
+		b = -35 - (pid/4);
+		c = -35 + (pid/4);
+	      }else
+	      {
+		b = -37 - (pid/4);
+		c = -37 + (pid/4);
+	      }
+	    
+	    motorC.setPWM(c);
+	    motorB.setPWM(b);
+	    
+	  }
 
-				motorA.setPWM(-100);
-			}else{
-				motorA.setPWM(0);
-			}
-
-
-		}
-		int b;
-		int c;
-		if(pid < 0)
-		{
-			b = -35 - (pid/4);
-			c = -35 + (pid/4);
-		}else
-		{
-			b = -35 + (pid/4);
-			c = -35 - (pid/4);
-		}
-
-		motorC.setPWM(c);
-		motorB.setPWM(b);
-
-
-	}
 	int seto()
 	{
 		

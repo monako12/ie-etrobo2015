@@ -31,7 +31,9 @@ Drive drive;
 			
 		}
 		*/
-		drive.mode_in(pid,line);
+		//drive.mode_Black_Left(pid,line);
+	  drive.mode_Black_Right(pid, line);
+		 
 		//curve(pid,line);
 
 
