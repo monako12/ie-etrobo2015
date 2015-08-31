@@ -15,9 +15,7 @@ using namespace std;
 
 extern "C"
 {
-#include "kernel.h"
-#include "kernel_id.h"
-#include "ecrobot_interface.h"
+
 	Motor motorAA(PORT_A);
 	Motor motorBB(PORT_B);
 	Motor motorCC(PORT_C);
@@ -26,7 +24,11 @@ extern "C"
 	GyroSensor   gyro_bar(PORT_1);
 
     int check = 0;
-    vector<int> array;
+    class Barcode{
+
+    public:
+
+        vector<int> array;
 
 
     void fix_Direction(int piyo){ //siteisita kazu no tyotto migi made zenrin wo mawasu
@@ -74,8 +76,8 @@ extern "C"
             lcd.putf("sdn","white:",white,0);
             lcd.putf("sdn","black:",black,0);
             lcd.putf("sdn","check:",check,0);
-          	lcd.disp();
-          	clocktime.wait(5);
+            lcd.disp();
+            clocktime.wait(5);
 
             if(COUNT == white_num) {
          	    array.push_back(0);
@@ -179,4 +181,5 @@ extern "C"
 
         }
     }
+};
 }

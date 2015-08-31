@@ -8,10 +8,7 @@ using namespace ecrobot;
 
 extern "C"
 {
-#include "kernel.h"
-#include "kernel_id.h"
-#include "ecrobot_interface.h"
-#include "Clock.h"
+
 
 	LightSensor  light(PORT_3,true);
 	SonarSensor  sonar(PORT_4);
@@ -19,12 +16,15 @@ extern "C"
 	TouchSensor  touch(PORT_2);
 	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
+    int avarage;
+class sensor{
+	
 	int sum;
 	int white;
 	int black;
 	int gray;
-	int line_a;
 
+public:
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
@@ -42,7 +42,6 @@ extern "C"
 		Clock clock;
 		
 		Lcd lcd;
-		int avarage;
 		lcd.clear();
 		
 		while(touch.isPressed()==0)
@@ -90,9 +89,14 @@ extern "C"
 	{
 		return(gray);
 	}
+    int ret_avarage()
+    {
+        return(avarage);
+    }
 	
 	void sonarwork(){}
 
 	void gyrowork(){}
+};
 
 }
