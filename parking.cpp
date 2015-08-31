@@ -59,9 +59,6 @@ extern "C"
                 } else if (tire == 1) {
                     nrotate = nxt_motor_get_count(PORT_C);
                 }
-                lcd.clear();
-                lcd.putf("d", nrotate);
-                lcd.disp();
                 if (nrotate > (rotate + ((-1) * number))){
                     motorB.setPWM((-1) * lspeed);
                     motorC.setPWM((-1) * rspeed);
@@ -123,13 +120,13 @@ extern "C"
                 break;
                 /*
                  //前進
-                 rotateC = forward(rotateC,780,40,40);
+                 forward(780,40,40,1);
                  //角度
-                 angle(rotateA,700,-100);
+                 angle(700,100);
                  //回転
-                 rotateB = turn(rotateB,-290,80);
+                 forward(-290,80,0,0);
                  //角度直し
-                 reset(-100);
+                 reset(100);
                  clock.wait(10000);
                  */
             }
@@ -174,11 +171,11 @@ extern "C"
                 
                 /*
                  //手動
-                 angle(rotateA,680,100);
+                 angle(680,100);
                  forward(290,80,0,0);
                  reset(100);
                  forward(150,40,40,1);
-                 angle(rotateA,-700,100);
+                 angle(-700,100);
                  forward(290,0,80,1);
                  reset(100);
                  clock.wait(10000);
