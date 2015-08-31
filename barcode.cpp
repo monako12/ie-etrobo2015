@@ -4,6 +4,7 @@
 #include "motor.h"
 #include "Lightsensor.h"
 #include "vector"
+#include "GyroSensor.h"
 using namespace ecrobot;
 using namespace std;
 
@@ -21,7 +22,8 @@ extern "C"
 	Motor motorBB(PORT_B);
 	Motor motorCC(PORT_C);
     Clock clocktime;
-    LightSensor  light_b(PORT_3,true);
+    LightSensor  light_bar(PORT_3,true);
+	GyroSensor   gyro_bar(PORT_1);
 
     int check = 0;
     vector<int> array;
@@ -54,7 +56,7 @@ extern "C"
         int white_num = 0;
         int black_num = 0;
         while(1){
-            review = light_b.getBrightness();
+            review = light_bar.getBrightness();
             if(white - 25 < review && white + 25 > review){
                 white_num++;
                 check++;
@@ -103,7 +105,7 @@ extern "C"
         motorCC.setPWM(RIGHT);
 
         while(1){
-            review = light_b.getBrightness();
+            review = light_bar.getBrightness();
             if(white - 15 < review && white + 15 > review){
                 white_num++;
             }
@@ -137,7 +139,7 @@ extern "C"
             lcd.putf("sdn","except:",except,0);
             lcd.putf("sdn","now_motor:",now_motor,0);
             if(now_motor == except){
-                now_color = light_b.getBrightness();
+                now_color = light_bar.getBrightness();
                 if(white - 30 < now_color && white + 30 > now_color){
                     array.push_back(0);
                     except += MOTORCOUNT;
