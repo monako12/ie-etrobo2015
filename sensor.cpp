@@ -16,6 +16,7 @@ extern "C"
 	TouchSensor  touch(PORT_2);
 	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
+    int avarage;
 class sensor{
 	
 	int sum;
@@ -41,7 +42,6 @@ public:
 		Clock clock;
 		
 		Lcd lcd;
-		int avarage;
 		lcd.clear();
 		
 		while(touch.isPressed()==0)
@@ -89,6 +89,10 @@ public:
 	{
 		return(gray);
 	}
+    int ret_avarage()
+    {
+        return(avarage);
+    }
 	
 	void sonarwork(){}
 

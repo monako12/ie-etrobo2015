@@ -22,7 +22,7 @@ extern "C"
 	int nowlight(int ava){
 		int now;
 		now = light.getBrightness();
-		if(now < ava)
+		if(now > ava)
 		{
 			sum++;
 		}else{
@@ -37,7 +37,7 @@ extern "C"
 		Clock clock;
 		
 		Lcd lcd;
-		int white = 11000010;
+		int white;
 		int black;
 		int avarage;
 		lcd.clear();
@@ -63,7 +63,7 @@ extern "C"
 		return(avarage);
 	}
 	int ret_sum(){
-		if(sum > 600)
+		if(sum > 500)
 		{
 			return(1);
 		}else

@@ -20,6 +20,19 @@ extern "C"
     {
 
     }
+    
+    void logSend()
+    {
+        U8 data_log_buffer[32];
+
+        *((S32 *)(&data_log_buffer[8]))  = (S32)motorA.getCount();
+        *((S32 *)(&data_log_buffer[12])) = (S32)motorB.getCount();
+        *((S32 *)(&data_log_buffer[16])) = (S32)motorC.getCount();
+        lcd.putf("d", 0);
+
+        ecrobot_send_bt_packet(data_log_buffer, 32);
+    }
+    
 
     TASK(TaskMain)
     {
@@ -27,7 +40,7 @@ extern "C"
         Lcd lcd;
         
         int nowl;
-        int ret_cal = 300;
+        int ret_pid = 300;
         int ava;
         int sum;
 
@@ -38,14 +51,15 @@ extern "C"
 
             nowl = nowlight(ava);
             line = cur_ava(nowl,ava);
-            ret_cal = p_i_d(ava,nowl);
+            ret_pid = p_i_d(ava,nowl);
             sum = ret_sum();
             //curve(sum,line);
             lcd.clear();
-            lcd.putf("d", ret_cal);
+            lcd.putf("d", ret_pid);
             lcd.disp();
-            motora(ret_cal,line,sum);
-            motorbc(ret_cal);           
+            mo(ret_pid,line,sum);
+            logSend();
+                    
             clock.wait(3);
         }
     }
