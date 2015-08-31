@@ -63,7 +63,7 @@ extern "C"
 		return(avarage);
 	}
 	int ret_sum(){
-		if(sum > 500)
+		if(sum > 700)
 		{
 			return(1);
 		}else
