@@ -20,7 +20,7 @@ extern "C"
     {
 
     }
-    
+    /*
     void logSend()
     {
         U8 data_log_buffer[32];
@@ -32,7 +32,7 @@ extern "C"
 
         ecrobot_send_bt_packet(data_log_buffer, 32);
     }
-    
+    */
 
     TASK(TaskMain)
     {
@@ -58,7 +58,7 @@ extern "C"
             lcd.putf("d", ret_pid);
             lcd.disp();
             mo(ret_pid,line,sum);
-            logSend();
+            //logSend();
                     
             clock.wait(3);
         }
