@@ -11,7 +11,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -55 //barcode ikko bunn no haba
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -24
+#define RIGHT -26
 
 extern "C"
 {
@@ -35,7 +35,7 @@ extern "C"
                 diff = piyo - now;
     
                 if(abs(diff) < 3){
-                    motorAA.setPWM(-100);//ittan migi muku
+                   // motorAA.setPWM(-100);//ittan migi muku
                     clocktime.wait(50);
                     motorAA.setPWM(0);
                     break;
@@ -204,6 +204,7 @@ extern "C"
                         lcd.putf("sdn","now:",velocity,0);
                         lcd.disp();
                         barcode(white,black);
+                        break;
                     }
                     motorCC.setPWM(-60);
                     motorBB.setPWM(-60);
