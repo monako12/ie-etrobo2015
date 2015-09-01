@@ -51,11 +51,7 @@ extern "C"
             
             clock.wait(5);
 
-            //bar.barcode(sensor.ret_white(),sensor.ret_black());
-            if(hoge){
-                bar.ride_bord(sensor.ret_white(),sensor.ret_black());
-                hoge = false;
-            }
+
         }
 
 
