@@ -94,12 +94,12 @@ extern "C"
 		int c;
 		if(pid > 0)
 		{
-			b = -35 - (pid/4);
-			c = -35 + (pid/3);
+			b = -35 - (pid/3);
+			c = -35 + (pid/4);
 		}else
 		{
-			b = -35 + (pid/3);
-			c = -35 - (pid/4);
+			b = -35 + (pid/4);
+			c = -35 - (pid/3);
 		}
 
 		motorC.setPWM(c);
