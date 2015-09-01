@@ -27,6 +27,7 @@ extern "C"
         Lcd lcd;
         sensor sensor;
         Cal cal;
+        Barcode bar;
         
         int nowl;
         int ret_pid = 300;
@@ -34,7 +35,7 @@ extern "C"
         int sum;
 
         ava = sensor.lightavarage();
-        
+        bool hoge=true;
         int line;
         while(1)
         {
@@ -50,7 +51,11 @@ extern "C"
             
             clock.wait(3);
 
-
+            //bar.barcode(sensor.ret_white(),sensor.ret_black());
+            if(hoge){
+                bar.ride_bord(sensor.ret_white(),sensor.ret_black());
+                hoge=false;
+            }
         }
 
 
