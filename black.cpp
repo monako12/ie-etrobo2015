@@ -51,9 +51,6 @@ extern "C"
             
             clock.wait(5);
 
-
         }
-
-
     }
 }
