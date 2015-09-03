@@ -1,4 +1,4 @@
-/* sample.cpp for TOPPERS/ATK(OSEK) */ 
+/* sample.cpp for TOPPERS/ATK(OSEK) */
 //made by okada
 // ECRobot C++ API
 #include "Clock.h"
@@ -28,11 +28,13 @@ extern "C"
         sensor sensor;
         Cal cal;
         Barcode bar;
-        
+    Drive drive;
+
         int nowl;
         int ret_pid = 300;
         int ava;
         int sum;
+    int pos;
 
         ava = sensor.lightavarage();
         bool hoge=true;
@@ -43,13 +45,15 @@ extern "C"
             line = cal.cur_ava(nowl,ava);
             ret_pid = cal.p_i_d(ava,nowl);
             sum = sensor.ret_sum();
+      pos = drive.position();
             //curve(sum,line);
             lcd.clear();
-            lcd.putf("d", ret_pid);
+      lcd.putf("dn",pos);
+    lcd.putf("d", ret_pid);
             lcd.disp();
             change_edge(ret_pid,line);
-            
-            clock.wait(5);
+
+            clock.wait(9);
 
         }
     }
