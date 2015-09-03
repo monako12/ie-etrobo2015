@@ -48,7 +48,7 @@ extern "C"
     
     //関数 プロトタイプ宣言
     int move(int);
-    int moving_distance(int n1 ,int n2);
+    int moving_distance(int);
     
     TASK(TaskMain)
     {
@@ -94,7 +94,7 @@ extern "C"
                      */
                     if(measure1 != 0){
                         if(measure1+20 < measure2){
-                            move((measure1*360)/(8*3));
+                            move(moving_distance(measure1));
                             count++;
                         }
                     }
@@ -104,17 +104,23 @@ extern "C"
                      move(720);  //ここの値は適当
                      }*/
                     if(distance < 20){
-                        if(distance > 250){
-                            move(measure2 - measure1);
-                        }
+                        count++;
                     }
-                    count++;
                     break;
                 case 3:
+                    if(distance >250){
+                        move(moving_distance(measure2-measure1));
+                        count++;
+                    }
+                    break;
+                case 4:
                     if(distance < 20){
-                        if(distance > 250){
-                            move(500);
-                        }
+                        count++;
+                    }
+                case 5:
+                    if(distance > 250){
+                        move(500);
+                        count++;
                     }
                     break;
                 default:
@@ -138,35 +144,34 @@ extern "C"
         }
     }
     
-    int move(int distance)
-    while(motorB.getCount() > -distance && motorC.getCount() > -distance){
-        motorB.setPWM(-50);
-        motorC.setPWM(-50);
+    int move(int distance){
+        while(motorB.getCount() > -distance && motorC.getCount() > -distance){
+            motorB.setPWM(-50);
+            motorC.setPWM(-50);
+        }
+        motorB.setPWM(0);
+        motorC.setPWM(0);
+        motorB.reset();
+        motorC.reset();
+        
+        return 0;
     }
-    motorB.setPWM(0);
-    motorC.setPWM(0);
-    motorB.reset();
-    motorC.reset();
     
-    return 0;
-}
-
-
-int moving_distance(int m1 ,int m2){
-    int deg;
-    int distance;
-    int pi = 3; //円周率
-    int r = 4; //後輪の半径
     
-    motorB.reset();
-    motorC.reset();
+    int moving_distance(int distance){
+        int deg;
+        int pi = 3; //円周率
+        int r = 4; //後輪の半径
+        
+        motorB.reset();
+        motorC.reset();
+        
+        deg = (distance*360) / (2*pi*r);
+        
+        return deg;
+    }
     
-    distance = m2 - m1;
-    deg = (distance*360) / (2*pi*r);
-    
-    return deg;
-}
-
 }
 //end:
+
 
