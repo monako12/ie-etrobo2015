@@ -27,34 +27,10 @@ using namespace ecrobot;
 extern "C"
 {
     
-<<<<<<< HEAD
     class Train{
         
     public:
         
-=======
-    LightSensor  light(PORT_3);
-    SonarSensor  sonar(PORT_4);
-    GyroSensor   gyro(PORT_1);
-    TouchSensor  touch(PORT_2);
-    
-    Motor       motorA(PORT_A);
-    Motor       motorB(PORT_B);
-    Motor       motorC(PORT_C);
-    
-    /* nxtOSEK hook to be invoked from an ISR in category 2 */
-    void user_1ms_isr_type2(void)
-    {
-        SleeperMonitor(); // needed for I2C device and Clock classes
-    }
-    
-    //関数 プロトタイプ宣言
-    int move(int);
-    int moving_distance(int);
-    
-    TASK(TaskMain)
-    {
->>>>>>> origin/master
         Clock clock;
         Lcd lcd;
         
@@ -140,7 +116,6 @@ extern "C"
                         if(distance < 20){
                             count++;
                         }
-<<<<<<< HEAD
                         break;
                     case 3:
                         if(distance >250){
@@ -179,95 +154,10 @@ extern "C"
                 lcd.disp();
                 
                 clock.wait(150); //計測できる範囲を伸ばすため値を大きくしている。
-=======
-                    }
-                    /*if( distance < 20 ){
-                     if(measure1+20 < measure2){
-                     move(moving_distance(measure1 ,measure2));
-                     count++;
-                     }
-                     }
-                     else{
-                     motorB.setPWM(0);
-                     motorC.setPWM(0);
-                     */
-                    if(measure1 != 0){
-                        if(measure1+20 < measure2){
-                            move(moving_distance(measure1));
-                            count++;
-                        }
-                    }
-                    break;
-                case 2:
-                    /*if( distance < 30){
-                     move(720);  //ここの値は適当
-                     }*/
-                    if(distance < 20){
-                        count++;
-                    }
-                    break;
-                case 3:
-                    if(distance >250){
-                        move(moving_distance(measure2-measure1));
-                        count++;
-                    }
-                    break;
-                case 4:
-                    if(distance < 20){
-                        count++;
-                    }
-                case 5:
-                    if(distance > 250){
-                        move(500);
-                        count++;
-                    }
-                    break;
-                default:
-                    motorB.setPWM(0);
-                    motorC.setPWM(0);
-                    break;
->>>>>>> origin/master
             }
         }
-<<<<<<
         
     };
-    }
-    
-    int move(int distance){
-        while(motorB.getCount() > -distance && motorC.getCount() > -distance){
-            motorB.setPWM(-50);
-            motorC.setPWM(-50);
-        }
-        motorB.setPWM(0);
-        motorC.setPWM(0);
-        motorB.reset();
-        motorC.reset();
-        
-        return 0;
-    }
-<<<<<<< HEAD
-
-=======
-    
-    
->>>>>>> origin/master
-    int moving_distance(int distance){
-        int deg;
-        int pi = 3; //円周率
-        int r = 4; //後輪の半径
-        
-        motorB.reset();
-        motorC.reset();
-        
-        deg = (distance*360) / (2*pi*r);
-        
-        return deg;
-    }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
     
 }
 //end:

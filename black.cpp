@@ -29,25 +29,16 @@ extern "C"
         sensor sensor;
         Cal cal;
         Barcode bar;
-<<<<<<< HEAD
         Train train;
         Drive drive;
-        
-=======
-    Drive drive;
 
->>>>>>> origin/master
+        
         int nowl;
         int ret_pid = 300;
         int ava;
         int sum;
-<<<<<<< HEAD
         train.train();
         int pos;
-=======
-    int pos;
-
->>>>>>> origin/master
         ava = sensor.lightavarage();
         bool hoge=true;
         int line;
