@@ -246,7 +246,12 @@ extern "C"
         
         return 0;
     }
+<<<<<<< HEAD
 
+=======
+    
+    
+>>>>>>> origin/master
     int moving_distance(int distance){
         int deg;
         int pi = 3; //円周率
@@ -259,7 +264,10 @@ extern "C"
         
         return deg;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     
 }
 //end:
