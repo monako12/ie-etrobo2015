@@ -94,7 +94,9 @@ public:
         return(avarage);
     }
 	
-	void sonarwork(){}
+	int sonarwork(){
+		return(sonar.getDistance());
+	}
 
 	void gyrowork(){}
 };

@@ -14,7 +14,15 @@ CPU ATMEL_AT91SAM7S256
     USEPARAMETERACCESS = FALSE;
     USERESSCHEDULER = FALSE;
   };
+EVENT EventSleepI2C
+  {
+    MASK = AUTO;
+  };
 
+  EVENT EventSleep
+  {
+    MASK = AUTO;
+  };
   /* Definition of application mode */
   APPMODE appmode1{};
 
@@ -29,5 +37,7 @@ CPU ATMEL_AT91SAM7S256
     ACTIVATION = 1;
     SCHEDULE = FULL;
     STACKSIZE = 512;
+    EVENT = EventSleepI2C;
+    EVENT = EventSleep;
   };
 };
