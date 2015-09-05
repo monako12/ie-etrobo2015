@@ -23,16 +23,15 @@ extern "C"
     LightSensor  light_bar(PORT_3,true);
 	GyroSensor   gyro_bar(PORT_1);
 
-    int check = 0;
     class Barcode{
         public:
             vector<int> array;
-        void fix_Direction(int piyo){ //siteisita kazu no tyotto migi made zenrin wo mawasu
+        void fix_Direction(int hope){ //siteisita kazu no tyotto migi made zenrin wo mawasu
             int now;
             int diff;
             while(true){
                 now = motorAA.getCount();
-                diff = piyo - now;
+                diff = hope - now;
     
                 if(abs(diff) < 3){
                    // motorAA.setPWM(-100);//ittan migi muku
@@ -49,51 +48,7 @@ extern "C"
             }
         }
 
-        void getbar(int white, int black){  //kekkyoku tukattenai
-            int review;
-            int white_num = 0;
-            int black_num = 0;
-            while(1){
-                review = light_bar.getBrightness();
-                if(white - 25 < review && white + 25 > review){
-                    white_num++;
-                    check++;
-                }
-
-                if(black - 25 < review && black + 25 > review){
-                    black_num++;
-                    check++;
-                }
-
-                lcd.clear();
-                lcd.putf("dn", review,0);
-                lcd.putf("sdn","white_num:",white_num,0);
-                lcd.putf("sdn","black_num:",black_num,0);
-                lcd.putf("sdn","white:",white,0);
-                lcd.putf("sdn","black:",black,0);
-                lcd.putf("sdn","check:",check,0);
-                lcd.disp();
-                clocktime.wait(5);
-
-                if(COUNT == white_num) {
-             	    array.push_back(0);
-              	    white_num = 0;
-              	}
-
-              	if(COUNT == black_num) {
-             	    array.push_back(1);
-              	    black_num = 0;
-               	}
-
-              	if(10 == array.size()) break;
-              	motorBB.setPWM(-26);
-                motorCC.setPWM(-19);
-            }
-
-        }
-
         void acquire(int white,int black){
-            int review;
             int white_num = 0;
             int except = 0;
             int now_color = 0;
@@ -103,15 +58,15 @@ extern "C"
             motorCC.setPWM(RIGHT);
 
             while(1){
-                review = light_bar.getBrightness();
-                if(white - 10 < review && white + 15 > review){
+                now_color = light_bar.getBrightness();
+                if(white - 10 < now_color && white + 15 > now_color){
                     white_num++;
                 }
 
                 if(30 == white_num){
                     motorAA.setPWM(0);
-//                            motorBB.setPWM(0);    //barcode no saisyo wo tyotto dake susumu tyousei ni tukau yatu
-//                            motorCC.setPWM(0);    //kokode stop sasete 109gyoume no atai wo tyousei suru
+                            //motorBB.setPWM(0);    //barcode no saisyo wo tyotto dake susumu tyousei ni tukau yatu
+                            //motorCC.setPWM(0);    //kokode stop sasete 109gyoume no atai wo tyousei suru
                     break;
                 }
                 lcd.clear();
@@ -154,18 +109,15 @@ extern "C"
                 lcd.disp();
                 clocktime.wait(1);
             }
-
+            motorBB.setPWM(0);
+            motorCC.setPWM(0);
         }
 
         void barcode(int white,int black){
-            motorBB.setPWM(0);
-            motorCC.setPWM(0);
             fix_Direction(0);
- //           getbar(white,black);
+            ride_bord();
+            fix_Direction(0);
             acquire(white,black);
-
-            motorBB.setPWM(0);
-            motorCC.setPWM(0);
             lcd.clear();
             for(int i=0; i<8; i++){
                 lcd.putf("d",array[i],0);
@@ -178,7 +130,7 @@ extern "C"
             clocktime.wait(600);
         }
 
-        void ride_bord(int white, int black){
+        void ride_bord(){
             int velocity;
             int borderline;
             int diff_gyro;
@@ -203,7 +155,7 @@ extern "C"
                         lcd.putf("sdn","border:",borderline,0);
                         lcd.putf("sdn","now:",velocity,0);
                         lcd.disp();
-                        barcode(white,black);
+                        clocktime.wait(600);
                         break;
                     }
                     motorCC.setPWM(-60);
