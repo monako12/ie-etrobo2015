@@ -115,7 +115,7 @@ extern "C"
 
         void barcode(int white,int black){
             fix_Direction(0);
-            ride_bord();
+            ride_bord(900);
             fix_Direction(0);
             acquire(white,black);
             lcd.clear();
@@ -130,7 +130,7 @@ extern "C"
             clocktime.wait(600);
         }
 
-        void ride_bord(){
+        void ride_bord(int time){
             int velocity;
             int borderline;
             int diff_gyro;
@@ -160,7 +160,7 @@ extern "C"
                     }
                     motorCC.setPWM(-60);
                     motorBB.setPWM(-60);
-                    clocktime.wait(900);
+                    clocktime.wait(time);
                     flag = true;
                 }
                 lcd.putf("sdn","diff:",diff_gyro,0);
