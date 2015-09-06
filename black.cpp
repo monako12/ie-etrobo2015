@@ -8,6 +8,9 @@
 #include "barcode.cpp"
 #include "change_edge.cpp"
 #include "train.cpp"
+#include "parking.cpp"
+#include "figurel.cpp"
+
 using namespace ecrobot;
 
 extern "C"
@@ -31,7 +34,6 @@ extern "C"
         Barcode bar;
         Train train;
         Drive drive;
-
         
         int nowl;
         int ret_pid = 300;
