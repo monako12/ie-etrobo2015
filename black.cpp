@@ -5,6 +5,7 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
+#include "unknown.cpp"
 #include "barcode.cpp"
 #include "change_edge.cpp"
 #include "train.cpp"
@@ -31,13 +32,13 @@ extern "C"
         Barcode bar;
         Train train;
         Drive drive;
+        Unknown unknown;
 
         
         int nowl;
         int ret_pid = 300;
         int ava;
         int sum;
-        train.train();
         int pos;
         ava = sensor.lightavarage();
         bool hoge=true;

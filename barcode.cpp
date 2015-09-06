@@ -3,8 +3,8 @@
 #include "clock.h"
 #include "motor.h"
 #include "Lightsensor.h"
-#include "vector"
 #include "GyroSensor.h"
+#include "vector"
 using namespace ecrobot;
 using namespace std;
 
@@ -125,9 +125,11 @@ extern "C"
 
             lcd.disp();
             clocktime.wait(500);
-            motorCC.setPWM(-35);
-            motorBB.setPWM(-35);
-            clocktime.wait(600);
+            motorCC.setPWM(-35);//yomitottara sonomama
+            motorBB.setPWM(-35);//hashiritudukeru
+            clocktime.wait(500);
+            motorBB.setPWM(0);
+            motorCC.setPWM(0);
         }
 
         void ride_bord(int time){
