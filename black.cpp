@@ -61,6 +61,8 @@ extern "C"
       lcd.putf("dn",pos);
     lcd.putf("d", ret_pid);
             lcd.disp();
+            //bar.barcode(sensor.ret_white(),sensor.ret_black());
+            unknown.Capture_unknown(bar.array);
             change_edge(ret_pid,line);
 
             clock.wait(9);

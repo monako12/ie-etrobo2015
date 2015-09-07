@@ -1,6 +1,7 @@
 extern "C"
 {
     Barcode bar;
+    Parking par;
 
     class Unknown{
         public:
@@ -73,12 +74,17 @@ extern "C"
                 }
             }
 
+            //Show_map(114514);
+        }
+
+        void Show_map(int num){
             lcd.clear();
+            lcd.putf("dn",num,5);
             for(int i=4; i>=0; i--){
                 for(int j=0; j<6; j++){
                     lcd.putf("d",map[i][j],0);
                 }
-                lcd.putf("n");
+                    lcd.putf("n");
             }
             lcd.putf("n");
 
@@ -91,8 +97,7 @@ extern "C"
         void Modify_map(){
             bool flag=true;//初期状態動作のためflag=1
             
-            while(flag)
-            {
+            while(flag){
                 flag = false;
                 for(int i=0; i<4; i++){
                     for(int j=1; j<5; j++){
@@ -102,49 +107,37 @@ extern "C"
                                     if( j < 3 ){
                                         map[i][j]=2;
                                     }
-                                }
                                     else{
                                         map[i][j]=4;                         
                                     }
-                                flag=true;
+                                    flag=true;
+                                }
                                 break;
                             case 2:
                                 if( map[i][j+1] = 0){
                                     map[i][j]=0;
-                                }
-                                else if(map[i][j+1] = 4){
+                                    flag=true;
+                                }else if(map[i][j+1] = 4){
                                     map[i][j]=4;
+                                    flag=true;
                                 }
-                            case 3:
-                                map[i][j]=0;
-                                flag=true;
                                 break;
                             case 4:
                                 if( map[i][j-1] = 0 ){
-                                    map[i][j]=3;
+                                    map[i][j]=0;
+                                    flag=true;
                                 }
-                                flag=true;
                                 break;
+
                             default:
                                 break;
                         }//switch__end
                     }//for_end
                 }//for_end
             }//while_end
-            lcd.clear();
-            lcd.putf("sn","hoge");
-            for(int i=4; i>=0; i--){
-                for(int j=0; j<6; j++){
-                    lcd.putf("d",map[i][j],0);
-                }
-                lcd.putf("n");
-            }
-            lcd.putf("n");
-            for(int i=0; i<8; i++){
-                lcd.putf("d",array[i],0);
-            }
-            lcd.disp();
-    }
+            Show_map(5555);
+        }
+
         void Set_position(){
             map[0][1] = 0;
             map[0][2] = 1;
@@ -161,25 +154,27 @@ extern "C"
         void Retire(){}
 
         void Capture_unknown(vector<int> &temp){
-            Check_barcode(temp);
-            Make_map();
+            //Check_barcode(temp);
+            //Make_map();
             //Right_turn();
-           Modify_map();
+            Left_turn();
+           //Modify_map();
+           //Show_map(364364);
             while(true){
                 clock.wait(100);
             }
         }
 
         void Right_turn(){
-            motorB.setPWM(0);
-            motorC.setPWM(0);
-            bar.fix_Direction(50);
-            motorC.setPWM(80);
-            motorB.setPWM(-99);
-            clock.wait(2500);
-            motorC.setPWM(0);
-            motorB.setPWM(0);
-            bar.fix_Direction(0);
+            par.angle(680,100);
+            par.forward(290,80,0,0);
+            par.reset(100);
+        }
+
+        void Left_turn(){
+            par.angle(-680,100);
+            par.forward(290,0,80,1);
+            par.reset(100);
         }
     };
 }
