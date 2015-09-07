@@ -7,7 +7,6 @@ extern "C"
             int map[5][6];
             int start_pos[2];
             int array[8];
-
         void Check_barcode(vector<int> &temp){
             lcd.clear();
             if(temp[8] != 1){
