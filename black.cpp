@@ -5,12 +5,13 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
-#include "unknown.cpp"
 #include "barcode.cpp"
 #include "change_edge.cpp"
 #include "train.cpp"
 #include "parking.cpp"
+#include "unknown.cpp"
 #include "figurel.cpp"
+#include "checkmotor.cpp"
 
 using namespace ecrobot;
 
@@ -38,6 +39,7 @@ extern "C"
         Unknown unknown;
 	ChangeEdge ce;
 
+        Checkmotor checkmotor;
 
         int nowl;
         int ret_pid = 300;
@@ -66,7 +68,7 @@ extern "C"
 	      count++;
 	      }*/
 	    drive.mode_Black_Left(ret_pid,line);
-	      
+
             //ce.change_edge(ret_pid,line);
 
             clock.wait(9);
