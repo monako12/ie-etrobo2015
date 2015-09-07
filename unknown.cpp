@@ -86,13 +86,65 @@ extern "C"
                 lcd.putf("d",array[i],0);
             }
             lcd.disp();
-            while(true){
-                clock.wait(100);
-            }
         }
 
-        void Modify_map(){}
-
+        void Modify_map(){
+            bool flag=true;//初期状態動作のためflag=1
+            
+            while(flag)
+            {
+                flag = false;
+                for(int i=0; i<4; i++){
+                    for(int j=1; j<5; j++){
+                        switch( map[i][j] ){
+                            case 1: 
+                                if( map[i+1][j] = 0){
+                                    if( j < 3 ){
+                                        map[i][j]=2;
+                                    }
+                                }
+                                    else{
+                                        map[i][j]=4;                         
+                                    }
+                                flag=true;
+                                break;
+                            case 2:
+                                if( map[i][j+1] = 0){
+                                    map[i][j]=0;
+                                }
+                                else if(map[i][j+1] = 4){
+                                    map[i][j]=4;
+                                }
+                            case 3:
+                                map[i][j]=0;
+                                flag=true;
+                                break;
+                            case 4:
+                                if( map[i][j-1] = 0 ){
+                                    map[i][j]=3;
+                                }
+                                flag=true;
+                                break;
+                            default:
+                                break;
+                        }//switch__end
+                    }//for_end
+                }//for_end
+            }//while_end
+            lcd.clear();
+            lcd.putf("sn","hoge");
+            for(int i=4; i>=0; i--){
+                for(int j=0; j<6; j++){
+                    lcd.putf("d",map[i][j],0);
+                }
+                lcd.putf("n");
+            }
+            lcd.putf("n");
+            for(int i=0; i<8; i++){
+                lcd.putf("d",array[i],0);
+            }
+            lcd.disp();
+    }
         void Set_position(){
             map[0][1] = 0;
             map[0][2] = 1;
@@ -109,9 +161,10 @@ extern "C"
         void Retire(){}
 
         void Capture_unknown(vector<int> &temp){
-            //Check_barcode(temp);
-            //Make_map();
-            Right_turn();
+            Check_barcode(temp);
+            Make_map();
+            //Right_turn();
+           Modify_map();
             while(true){
                 clock.wait(100);
             }
