@@ -1,10 +1,4 @@
-#include "math.h"
-#include "stdlib.h"
-#include "clock.h"
-#include "motor.h"
-#include "GyroSensor.h"
 #include "vector"
-using namespace ecrobot;
 using namespace std;
 
 #define COUNT 50

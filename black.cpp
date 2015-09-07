@@ -5,12 +5,13 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
-#include "unknown.cpp"
 #include "barcode.cpp"
 #include "change_edge.cpp"
 #include "train.cpp"
 #include "parking.cpp"
+#include "unknown.cpp"
 #include "figurel.cpp"
+#include "checkmotor.cpp"
 
 using namespace ecrobot;
 
@@ -36,6 +37,7 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
+        Checkmotor checkmotor;
 
         
         int nowl;
@@ -59,8 +61,6 @@ extern "C"
       lcd.putf("dn",pos);
     lcd.putf("d", ret_pid);
             lcd.disp();
-            bar.barcode(sensor.ret_white(),sensor.ret_black());
-            unknown.Capture_unknown(bar.array);
             change_edge(ret_pid,line);
 
             clock.wait(9);

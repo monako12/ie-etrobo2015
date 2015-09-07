@@ -1,9 +1,7 @@
-#include "vector"
-
-using namespace ecrobot;
-using namespace std;
 extern "C"
 {
+    Barcode bar;
+
     class Unknown{
         public:
             int map[5][6];
@@ -96,7 +94,14 @@ extern "C"
 
         void Modify_map(){}
 
-        void Set_position(){}
+        void Set_position(){
+            map[0][1] = 0;
+            map[0][2] = 1;
+            map[0][3] = 0;
+            map[0][4] = 1;
+
+
+        }
 
         void Path_trace(){}
 
@@ -105,9 +110,24 @@ extern "C"
         void Retire(){}
 
         void Capture_unknown(vector<int> &temp){
-            Check_barcode(temp);
-            Make_map();
+            //Check_barcode(temp);
+            //Make_map();
+            Right_turn();
+            while(true){
+                clock.wait(100);
+            }
+        }
 
+        void Right_turn(){
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            bar.fix_Direction(50);
+            motorC.setPWM(80);
+            motorB.setPWM(-99);
+            clock.wait(2500);
+            motorC.setPWM(0);
+            motorB.setPWM(0);
+            bar.fix_Direction(0);
         }
     };
 }
