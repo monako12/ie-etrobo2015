@@ -5,8 +5,8 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
+#include "pid_run.cpp"
 #include "barcode.cpp"
-#include "change_edge.cpp"
 #include "train.cpp"
 #include "parking.cpp"
 #include "unknown.cpp"
@@ -37,37 +37,33 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
-	ChangeEdge ce;
+	PIDrun pidrun;
 
         Checkmotor checkmotor;
 
-        int nowl;
+/*        int nowl;
         int ret_pid = 300;
         int ava;
         int sum;
-        int pos;
-        ava = sensor.lightavarage();
-        bool hoge=true;
-        int line;
+        int pos;*/
+//        ava = sensor.lightavarage();
+        bool hoge=false;
+//        int line;
 
 	int count = 0;
         while(1)
         {
-            nowl = sensor.nowlight(ava);
+/*            nowl = sensor.nowlight(ava);
             line = cal.cur_ava(nowl,ava);
             ret_pid = cal.p_i_d(ava,nowl);
             sum = sensor.ret_sum();
-      pos = drive.position();
+      pos = drive.position();*/
             //curve(sum,line);
-            lcd.clear();
-      lcd.putf("dn",pos);
-    lcd.putf("d", ret_pid);
-            lcd.disp();
 	    /*if(count == 0){
 	      drive.fix_position(ret_pid,line);
 	      count++;
 	      }*/
-	    drive.mode_Black_Left(ret_pid,line);
+	    pidrun.pid_running(hoge);
 
             //ce.change_edge(ret_pid,line);
 
