@@ -77,23 +77,6 @@ extern "C"
             //Show_map(114514);
         }
 
-        void Show_map(int num){
-            lcd.clear();
-            lcd.putf("dn",num,5);
-            for(int i=4; i>=0; i--){
-                for(int j=0; j<6; j++){
-                    lcd.putf("d",map[i][j],0);
-                }
-                    lcd.putf("n");
-            }
-            lcd.putf("n");
-
-            for(int i=0; i<8; i++){
-                lcd.putf("d",array[i],0);
-            }
-            lcd.disp();
-        }
-
         void Modify_map(){
             bool flag=true;//初期状態動作のためflag=1
             
@@ -103,7 +86,7 @@ extern "C"
                     for(int j=1; j<5; j++){
                         switch( map[i][j] ){
                             case 1: 
-                                if( map[i+1][j] = 0){
+                                if(map[i+1][j] == 0){
                                     if( j < 3 ){
                                         map[i][j]=2;
                                     }
@@ -114,17 +97,20 @@ extern "C"
                                 }
                                 break;
                             case 2:
-                                if( map[i][j+1] = 0){
+                                if(map[i][j+1] == 0){
                                     map[i][j]=0;
                                     flag=true;
-                                }else if(map[i][j+1] = 4){
+                                }else if(map[i][j+1] == 4){
                                     map[i][j]=4;
                                     flag=true;
                                 }
                                 break;
                             case 4:
-                                if( map[i][j-1] = 0 ){
+                                if(map[i][j-1] == 0 ){
                                     map[i][j]=0;
+                                    flag=true;
+                                }else if(map[i][j-1] == 2){
+                                    map[i][j]=2;
                                     flag=true;
                                 }
                                 break;
@@ -135,7 +121,6 @@ extern "C"
                     }//for_end
                 }//for_end
             }//while_end
-            Show_map(5555);
         }
 
         void Set_position(){
@@ -154,12 +139,13 @@ extern "C"
         void Retire(){}
 
         void Capture_unknown(vector<int> &temp){
-            //Check_barcode(temp);
-            //Make_map();
+            Check_barcode(temp);
+            Make_map();
+            Show_map(114514);
             //Right_turn();
-            Left_turn();
-           //Modify_map();
-           //Show_map(364364);
+            //Left_turn();
+            Modify_map();
+            Show_map(364364);
             while(true){
                 clock.wait(100);
             }
@@ -175,6 +161,23 @@ extern "C"
             par.angle(-680,100);
             par.forward(290,0,80,1);
             par.reset(100);
+        }
+
+        void Show_map(int num){
+            lcd.clear();
+            lcd.putf("dn",num,5);
+            for(int i=4; i>=0; i--){
+                for(int j=0; j<6; j++){
+                    lcd.putf("d",map[i][j],0);
+                }
+                lcd.putf("n");
+            }
+            lcd.putf("n");
+
+            for(int i=0; i<8; i++){
+                lcd.putf("d",array[i],0);
+            }
+            lcd.disp();
         }
     };
 }
