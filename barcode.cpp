@@ -68,7 +68,6 @@ extern "C"
                 clocktime.wait(1);
             }
 
-
             motorBB.setPWM(0);
             motorCC.setPWM(0);
             clocktime.wait(800);
