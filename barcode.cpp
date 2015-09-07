@@ -2,14 +2,13 @@
 #include "stdlib.h"
 #include "clock.h"
 #include "motor.h"
-#include "Lightsensor.h"
 #include "GyroSensor.h"
 #include "vector"
 using namespace ecrobot;
 using namespace std;
 
 #define COUNT 50
-#define MOTORCOUNT -55 //barcode ikko bunn no haba
+#define MOTORCOUNT -44 //barcode ikko bunn no haba
 #define LEFT -26 //kotei de onegaisimasu
 #define RIGHT -26
 
@@ -54,16 +53,16 @@ extern "C"
             int now_color = 0;
             int now_motor = 0;
 
-            motorBB.setPWM(LEFT);
+            motorBB.setPWM(LEFT); //pid seigyo ireyoukana?
             motorCC.setPWM(RIGHT);
 
             while(1){
                 now_color = light_bar.getBrightness();
-                if(white - 10 < now_color && white + 15 > now_color){
+                if(white - 10 < now_color && white + 35 > now_color){
                     white_num++;
                 }
 
-                if(30 == white_num){
+                if(60 == white_num){
                     motorAA.setPWM(0);
                             //motorBB.setPWM(0);    //barcode no saisyo wo tyotto dake susumu tyousei ni tukau yatu
                             //motorCC.setPWM(0);    //kokode stop sasete 109gyoume no atai wo tyousei suru
@@ -93,7 +92,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(white - 30 < now_color && white + 30 > now_color){
+                    if(white - 10 < now_color && white + 50 > now_color){
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
@@ -115,7 +114,7 @@ extern "C"
 
         void barcode(int white,int black){
             fix_Direction(0);
-            ride_bord(900);
+            ride_bord(1400);
             fix_Direction(0);
             acquire(white,black);
             lcd.clear();
