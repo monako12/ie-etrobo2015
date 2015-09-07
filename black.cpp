@@ -36,8 +36,9 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
+	ChangeEdge ce;
 
-        
+
         int nowl;
         int ret_pid = 300;
         int ava;
@@ -46,7 +47,8 @@ extern "C"
         ava = sensor.lightavarage();
         bool hoge=true;
         int line;
-        
+
+	int count = 0;
         while(1)
         {
             nowl = sensor.nowlight(ava);
@@ -59,10 +61,16 @@ extern "C"
       lcd.putf("dn",pos);
     lcd.putf("d", ret_pid);
             lcd.disp();
-            change_edge(ret_pid,line);
+	    /*if(count == 0){
+	      drive.fix_position(ret_pid,line);
+	      count++;
+	      }*/
+	    drive.mode_Black_Left(ret_pid,line);
+	      
+            //ce.change_edge(ret_pid,line);
 
             clock.wait(9);
 
         }
-    }
+	    }
 }

@@ -78,7 +78,7 @@ extern "C"
         {
     if(motorA.getCount() <= 200)
       {
-        motorA.setPWM(100);
+        motorA.setPWM(80);
       }else{
       motorA.setPWM(0);
     }
@@ -87,13 +87,10 @@ extern "C"
         {
 
     if(motorA.getCount() >= -200){
-
-      motorA.setPWM(-100);
+      motorA.setPWM(-80);
     }else{
       motorA.setPWM(0);
     }
-
-
         }
       int b;
       int c;
@@ -101,11 +98,12 @@ extern "C"
         {
     b = -35 + (pid/4);
     c = -35 - (pid/4);
-        }else
-        {
+		}else
+		{
     b = -30 + (pid/3);
     c = -40 - (pid/4);
         }
+
 
       motorC.setPWM(c);
       motorB.setPWM(b);
@@ -116,7 +114,7 @@ extern "C"
         {
     if(motorA.getCount() >= -200)
       {
-        motorA.setPWM(-100);
+        motorA.setPWM(-80);
       }else{
       motorA.setPWM(0);
     }
@@ -126,12 +124,11 @@ extern "C"
 
     if(motorA.getCount() <= 200){
 
-      motorA.setPWM(100);
+      motorA.setPWM(80);
     }else{
       motorA.setPWM(0);
 
     }
-
 
         }
       int b;
@@ -140,8 +137,7 @@ extern "C"
         {
     b = -35 - (pid/4);
     c = -35 + (pid/4);
-        }else
-        {
+        }else{
     b = -37 - (pid/4);
     c = -37 + (pid/4);
         }
@@ -151,7 +147,88 @@ extern "C"
 
     }
 
-  int seto()
+	int dash(int pid,int line){
+		if(line < 0)
+		{
+			if(motorA.getCount() <= -40)
+			{
+				motorA.setPWM(-25);
+			}else
+			{
+				motorA.setPWM(0);
+			}
+		}
+		if(line > 0)
+		{
+			if(motorA.getCount() >= 40)
+			{
+				motorA.setPWM(25);
+				}else
+				{
+					motorA.setPWM(0);
+					{
+				}
+			}
+		}
+		int b;
+		int c;
+		if(pid < 0)
+		{
+			b = -85 + (pid/4);
+			c = -85 - (pid/4);
+		}else
+		{
+			b = -79 + (pid/3);
+			c = -92 - (pid/4);
+		}
+		motorC.setPWM(c);
+		motorB.setPWM(b);
+	}
+
+	int fix_position(int pid,int line){
+		int b;
+		int c;
+		int fix_distance;
+		while(1){
+		  motorB.reset();
+		  motorC.reset();
+		  if(line > 0){  //-------------------------
+		    if(motorA.getCount() >= -80){
+		      motorA.setPWM(-60);
+		    }else{
+		      motorA.setPWM(0);
+		    }
+		    b = -30 + (pid/3);
+		    c = -40 - (pid/4);
+		    motorC.setPWM(c);
+		    motorB.setPWM(b);
+		    fix_distance = position();
+		  }else{
+		    //if(fix_distance == )
+		    motorB.reset();
+		    motorC.reset();
+		    while(position()<40){
+		      back();
+		    }
+		    motorB.setPWM(0);
+		    motorC.setPWM(0);
+		    break;
+		  }
+		}
+		motorB.reset();
+		motorC.reset();
+	}
+
+    void back(){
+      if(motorA.getCount() >= -600){
+	motorA.setPWM(-100);
+      }else{
+	motorA.setPWM(0);
+	motorC.setPWM(60);
+	motorB.setPWM(-40);
+      }      
+    }
+/*  int seto()
   {
 
     while(1)
@@ -178,7 +255,7 @@ extern "C"
     clock.wait(1);
 
     }
-  }
+  }*/
 };
 
 }
