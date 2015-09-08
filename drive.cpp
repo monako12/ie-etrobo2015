@@ -138,8 +138,8 @@ extern "C"
     b = -35 - (pid/4);
     c = -35 + (pid/4);
         }else{
-    b = -37 - (pid/4);
-    c = -37 + (pid/4);
+    b = -40 - (pid/4);
+    c = -30 + (pid/3);
         }
 
       motorC.setPWM(c);
@@ -226,7 +226,7 @@ extern "C"
 	motorA.setPWM(0);
 	motorC.setPWM(60);
 	motorB.setPWM(-40);
-      }      
+      }
     }
 /*  int seto()
   {

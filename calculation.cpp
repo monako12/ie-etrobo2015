@@ -10,7 +10,7 @@ extern "C"
 	int a = 1;
 	class Cal{
 
-		
+
 	public:
 		int p_i_d(int ava,double cur)
 		{
