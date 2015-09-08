@@ -6,9 +6,10 @@ extern "C"
     class Unknown{
         public:
             int map[5][6];
-            int start_pos[2];
+            int start_pos;
             int array[8];
-        void Check_barcode(vector<int> &temp){
+            vector<int> sol_route;
+        int Check_barcode(vector<int> &temp){
             lcd.clear();
             if(temp[8] != 1){
                 lcd.clear();
@@ -21,17 +22,15 @@ extern "C"
                     }
                 }
                 lcd.disp();
-                while(true){
-                    clock.wait(100);
-                }
-
+                Retire();
+                return(1);
             }
 
             lcd.putf("sn","hoge");
             for(int i=0; i < 8; i++){
                 array[i] = temp[i];
             }
-            for(int i=0; i < 9; i++){
+            for(int i=0; i < 8; i++){
                 if(i%2 == 0){
                     lcd.putf("d",array[i],0);
                 }else{
@@ -39,6 +38,7 @@ extern "C"
                 }
             }
             lcd.disp();
+            return(0);
         }
 
         void Make_map(){
@@ -57,7 +57,6 @@ extern "C"
                 map[4][j] = 5;
             }
 
-
             for(int j=0; j<4; j++){
                 if(array[2*j] == 0){
                     if(array[2*j+1] == 0){
@@ -73,7 +72,6 @@ extern "C"
                     }
                 }
             }
-
             //Show_map(114514);
         }
 
@@ -123,6 +121,58 @@ extern "C"
             }//while_end
         }
 
+        int Search_route(){ //sol_route ni route wo push siteikuyatu
+            int i = 0;
+            int j = 0;
+            bool danger = false;
+            if(1 == map[0][3]){ //decide start position
+                start_pos = 3;
+            }else if(1 == map[0][2]){
+                start_pos = 2;
+            }else if(1 == map[0][1]){
+                start_pos = 1;
+            }else if(1 == map[0][4]){
+                start_pos = 4;
+            }else{
+                Retire();
+                return(1);
+            }
+
+            j = start_pos;
+            while(5 != sol_route.back()){
+                sol_route.push_back(map[i][j]);
+                switch( map[i][j] ){
+                    case 1:
+                        i++;
+                        break;
+                    case 2:
+                        j++;
+                        break;
+                    case 4:
+                        j--;
+                    case 0:
+                        danger = true;
+                        sol_route.push_back(5);
+                    default:
+                        break;
+                }
+            }
+
+            if(danger){
+                Retire();
+                return(1);
+            }
+
+            lcd.clear();
+            for(int i = 0; i != sol_route.size(); i++){
+                lcd.putf("d",sol_route[i],0);
+            }
+            lcd.putf("n");
+            lcd.disp();
+
+            return(0);
+        }
+
         void Set_position(){
             map[0][1] = 0;
             map[0][2] = 1;
@@ -136,16 +186,35 @@ extern "C"
 
         void Return_line(){}
 
-        void Retire(){}
+        void Retire(){
+            motorA.setPWM(100);
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            lcd.clear();
+            lcd.putf("sn","hands up");
+            lcd.disp();
+            while(true){
+                clock.wait(10);
+            }
+        }
 
-        void Capture_unknown(vector<int> &temp){
-            Check_barcode(temp);
+        int Capture_unknown(vector<int> &temp){
+            int call_retire = 0;
+
+            call_retire = Check_barcode(temp);
             Make_map();
-            Show_map(114514);
+            //Show_map(114514);
             //Right_turn();
             //Left_turn();
             Modify_map();
-            Show_map(364364);
+            //Show_map(364364);
+            call_retire += Search_route();
+            if(0 != call_retire){
+                Retire();
+                return(1);
+            }
+            Set_position();
+            Path_trace();
             while(true){
                 clock.wait(100);
             }
