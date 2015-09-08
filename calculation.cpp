@@ -1,16 +1,12 @@
-#include "Lcd.h"
 using namespace ecrobot;
 extern "C"
 {
 
-	Lcd lcd;
 	double p_coe = 0.34;
 	double i_coe = 0.34;
 	double d_coe = 0.34;
 	int a = 1;
 	class Cal{
-
-
 	public:
 		int p_i_d(int ava,double cur)
 		{
@@ -18,8 +14,7 @@ extern "C"
 			double i;
 			double d;
 			double delta_t = 5;
-			double diff[3];
-			double cur2;
+			double diff[3] = {};
 			double integral = 0;
 			diff[0] = diff[1];
 			diff[1] = cur - ava;
