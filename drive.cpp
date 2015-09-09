@@ -41,34 +41,6 @@ extern "C"
       motorC.setPWM(0);
     }
 
-    void curve(int sum,int line){
-
-    if(sum > 100){
-
-      if(line < 0)
-      {
-        if(motorA.getCount() < 200)
-        {
-          motorA.setPWM(50);
-        }else{
-          motorA.setPWM(0);
-        }
-      }
-      if(line > 0)
-      {
-        if(motorA.getCount() > -200){
-
-          motorA.setPWM(-50);
-        }else{
-          motorA.setPWM(0);
-        }
-
-      }
-
-    }
-
-  }
-
     void mode_Black_Left(int pid,int line){
       if(line < 0){
 	if(motorA.getCount() <= 200){
@@ -156,22 +128,24 @@ extern "C"
     motorB.setPWM(b);
     
     }
-    
+
     int fix_position(int pid, int line, int distance){
-      motor_count_reset();
+      int power = 0;
       if(line > 0){
 	if(motorA.getCount() >= -80){
 	  motorA.setPWM(-60);
 	}else{
 	  motorA.setPWM(0);
 	}
+	if(pid < 0)pid=0;
+	if((-pid + position()) < - 100)power = -100;
 	motorB.setPWM(-pid);
-	motorC.setPWM(-pid+(position()));
+	motorC.setPWM(power);
 	distance = position();
       }else{
 	motor_stop();
-	clock.wait(10000);
-	motor_count_reset();
+	clock.wait(1000);
+	/*motor_count_reset();	
 	while(position()<(-distance/2)){
 	  back(distance);
 	  lcd.clear();
@@ -179,9 +153,9 @@ extern "C"
 	  lcd.putf("d", (-distance/2));
 	  lcd.disp();
 	}
-	motor_stop();
+	  motor_stop();*/
 	motorA_position_reset();
-	clock.wait(1000);
+	//clock.wait(1000);
       }
       return position();
     }

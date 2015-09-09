@@ -30,14 +30,12 @@ extern "C"
 
   void PIDrun::display(){
     lcd.clear();
-    lcd.putf("dn", drive.position());
-    lcd.putf("d", ret_pid);
+    lcd.putf("sdn","position: ", drive.position(),5);
+    lcd.putf("sd","pid_value: ", ret_pid,5);
     lcd.disp();
   }
   
   void PIDrun::pid_running(bool hoge){
-    //			int sum = sen.ret_sum();
-    //			int pos = drive.position();
     parameter();
     display();
     if(hoge == true){
@@ -54,8 +52,9 @@ extern "C"
   }
 
   void PIDrun::fix_position(){
+    drive.motor_count_reset();
     int distance = 100;
-    while(distance > 0 || -5 > distance){
+    while(1){
       parameter();
       display();
       distance = drive.fix_position(ret_pid, line, distance);
