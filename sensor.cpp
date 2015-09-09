@@ -18,7 +18,7 @@ extern "C"
 	TouchSensor  touchblack(PORT_2);
     int avarage;
 class sensor{
-	
+
 	int sum;
 	int white;
 	int black;
@@ -40,18 +40,18 @@ public:
 
 	int lightavarage(){
 		Clock clock;
-		
+
 		Lcd lcd;
 		lcd.clear();
-		
+
 		while(touch.isPressed()==0)
 		{
 		}
 		white = light.getBrightness();
 		lcd.putf("sdn", "white:", white,0);
 		lcd.disp();
-		
-		
+
+
 		while(touchblack.isPressed()==1)
 		{
 		}
@@ -71,7 +71,12 @@ public:
 		while(touch.isPressed()==0)
 		{
 		}
-		return(avarage);
+		if(avarage < gray){
+			return(gray + 20)
+		}
+		else{
+			return(avarage)
+		}
 	}
 
 	int ret_sum(){
@@ -93,7 +98,7 @@ public:
     {
         return(avarage);
     }
-	
+
 	int sonarwork(){
 		return(sonar.getDistance());
 	}
