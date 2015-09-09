@@ -37,7 +37,7 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
-	PIDrun pidrun;
+	    PIDrun pidrun;
 
         Checkmotor checkmotor;
 
@@ -58,6 +58,8 @@ extern "C"
             sum = sensor.ret_sum();
 	    pos = drive.position();*/
             //curve(sum,line);
+            bar.barcode(sensor.ret_white(),sensor.ret_black());
+            unknown.Capture_unknown(bar.array);
 	pidrun.fix_position();
 	//	while(drive.position()<100){
 	drive.motor_count_reset();//後輪の回転数をリセット

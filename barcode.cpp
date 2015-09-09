@@ -64,6 +64,7 @@ extern "C"
                 }
                 lcd.clear();
                 lcd.putf("sdn","white_num:",white_num,0);
+                lcd.putf("sdn","now_color:",now_color,0);
                 lcd.disp();
                 clocktime.wait(1);
             }
