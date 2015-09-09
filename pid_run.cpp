@@ -22,7 +22,17 @@ extern "C"
     void fix_position();
     int parameter();
     void display();
+	int retb();
+	int retw();
   };
+
+  int retb(){
+	  return(black);
+  }
+
+  int retw(){
+	  return(white);
+  }
 
   int PIDrun::parameter(){
     nowl = sen.nowlight(ava);
