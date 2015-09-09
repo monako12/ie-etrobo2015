@@ -22,7 +22,7 @@ extern "C"
                     }
                 }
                 lcd.disp();
-                Retire();
+                Retire(801);
                 return(1);
             }
 
@@ -72,7 +72,6 @@ extern "C"
                     }
                 }
             }
-            //Show_map(114514);
         }
 
         void Modify_map(){
@@ -134,7 +133,7 @@ extern "C"
             }else if(1 == map[0][4]){
                 start_pos = 4;
             }else{
-                Retire();
+                Retire(12345);
                 return(1);
             }
 
@@ -150,25 +149,20 @@ extern "C"
                         break;
                     case 4:
                         j--;
+                        break;
                     case 0:
                         danger = true;
                         sol_route.push_back(5);
+                        break;
                     default:
                         break;
                 }
             }
 
             if(danger){
-                Retire();
+                Retire(start_pos);
                 return(1);
             }
-
-            lcd.clear();
-            for(int i = 0; i != sol_route.size(); i++){
-                lcd.putf("d",sol_route[i],0);
-            }
-            lcd.putf("n");
-            lcd.disp();
 
             return(0);
         }
@@ -186,10 +180,11 @@ extern "C"
 
         void Return_line(){}
 
-        void Retire(){
+        void Retire(int hoge){
             motorA.setPWM(100);
             motorB.setPWM(0);
             motorC.setPWM(0);
+//            Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
             lcd.disp();
@@ -203,18 +198,21 @@ extern "C"
 
             call_retire = Check_barcode(temp);
             Make_map();
-            //Show_map(114514);
-            //Right_turn();
-            //Left_turn();
             Modify_map();
-            //Show_map(364364);
             call_retire += Search_route();
             if(0 != call_retire){
-                Retire();
+                Retire(1919);
                 return(1);
             }
-            Set_position();
+//            Set_position();
             Path_trace();
+            lcd.clear();
+            Show_map(start_pos);
+            lcd.putf("s","route:");
+            for(int i = 0; i != sol_route.size(); i++){
+                lcd.putf("d",sol_route[i],0);
+            }
+            lcd.disp();
             while(true){
                 clock.wait(100);
             }
@@ -234,17 +232,16 @@ extern "C"
 
         void Show_map(int num){
             lcd.clear();
+            for(int i=0; i<8; i++){
+                lcd.putf("d",array[i],0);
+            }
+            lcd.putf("n");
             lcd.putf("dn",num,5);
             for(int i=4; i>=0; i--){
                 for(int j=0; j<6; j++){
                     lcd.putf("d",map[i][j],0);
                 }
                 lcd.putf("n");
-            }
-            lcd.putf("n");
-
-            for(int i=0; i<8; i++){
-                lcd.putf("d",array[i],0);
             }
             lcd.disp();
         }

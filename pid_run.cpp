@@ -15,8 +15,6 @@ extern "C"
     int line;
   public:
 
-	int black = sen.ret_black();
-	int white = sen.ret_white();
     void pid_running(bool);
     void pid_dash();
     void fix_position();
@@ -26,11 +24,13 @@ extern "C"
 	int retw();
   };
 
-  int retb(){
+  int PIDrun::retb(){
+      int black = sen.ret_black();
 	  return(black);
   }
 
-  int retw(){
+  int PIDrun::retw(){
+      int white = sen.ret_white();
 	  return(white);
   }
 
