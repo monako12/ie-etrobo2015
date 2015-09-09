@@ -40,10 +40,10 @@ extern "C"
 	PIDrun pidrun;
 
         Checkmotor checkmotor;
-		
-	while(1){
+	pidrun.fix_position();	
+	/*while(1){
 	  pidrun.pid_running(false);
-	}
+	  }*/
 
 	//ce.change_edge(ret_pid,line);
 	clock.wait(9);

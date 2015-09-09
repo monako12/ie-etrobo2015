@@ -37,6 +37,7 @@ extern "C"
     }
 
     void motor_stop(){
+      motorA.setPWM(0);
       motorB.setPWM(0);
       motorC.setPWM(0);
     }
@@ -130,48 +131,64 @@ extern "C"
     }
 
     int fix_position(int pid, int line, int distance){
-      int power = 0;
-      if(line > 0){
+      int B_power = 0;
+      int C_power = 1;
+      if(line >= 0){
 	if(motorA.getCount() >= -80){
 	  motorA.setPWM(-60);
 	}else{
 	  motorA.setPWM(0);
 	}
-	if(pid < 0)pid=0;
-	if((-pid + position()) < - 100)power = -100;
-	motorB.setPWM(-pid);
-	motorC.setPWM(power);
+	B_power = power_Adjustment(pid, B_power);
+	C_power = power_Adjustment(pid, C_power);
+	motorB.setPWM(B_power);
+	motorC.setPWM(C_power);
 	distance = position();
       }else{
 	motor_stop();
 	clock.wait(1000);
-	/*motor_count_reset();	
+	motor_count_reset();	
 	while(position()<(-distance/2)){
 	  back(distance);
-	  lcd.clear();
-	  lcd.putf("dn",position());
-	  lcd.putf("d", (-distance/2));
-	  lcd.disp();
 	}
-	  motor_stop();*/
-	motorA_position_reset();
-	//clock.wait(1000);
+	  motor_stop();
+	  motorA_position_reset();
+	clock.wait(1000);
       }
       return position();
     }
     
-    void back(int distance){
-      if(motorA.getCount() >= -600){
-	motorA.setPWM(-100);
+    void back(){
+      if(motorA.getCount() >= -300){
+	motorA.setPWM(-80);
       }else{
 	motorA.setPWM(0);
-	motorC.setPWM(60);
-	motorB.setPWM(-40);
+	motorC.setPWM(50);
+	motorB.setPWM(0);
+      }
+    }
+
+    int power_Adjustment(int pid, int power){
+      if(-pid <= -60) pid = 60;
+      if(power == 1){
+	return -pid;
+      }else{
+	if((-pid - position()/3) <= -30) return -30;
+	else return (-pid -position()/3);
       }
     }
     
     void motorA_position_reset(){
-      motorA.setPWM(-nxt_motor_get_count(PORT_A));
+      while(motorA.getCount() >= 5 || -5 >= motorA.getCount()){
+	if(motorA.getCount() <= 0){
+	  motorA.setPWM(40);
+	}else{
+	  motorA.setPWM(-40);
+	}
+	lcd.clear();
+	lcd.putf("sdn", "motorACount:", motorA.getCount(),5);
+	lcd.disp();	    
+      }
     }
 
 };

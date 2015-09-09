@@ -15,24 +15,14 @@ extern "C"
     int line;
   public:
 
-	int black = sen.ret_black();
-	int white = sen.ret_white();
     void pid_running(bool);
     void pid_dash();
     void fix_position();
     int parameter();
     void display();
-	int retb();
-	int retw();
+    int retb();
+    int retw();
   };
-
-  int retb(){
-	  return(black);
-  }
-
-  int retw(){
-	  return(white);
-  }
 
   int PIDrun::parameter(){
     nowl = sen.nowlight(ava);
