@@ -5,8 +5,8 @@
 #include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
+#include "pid_run.cpp"
 #include "barcode.cpp"
-#include "change_edge.cpp"
 #include "train.cpp"
 #include "parking.cpp"
 #include "unknown.cpp"
@@ -37,34 +37,42 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
+	PIDrun pidrun;
+
         Checkmotor checkmotor;
 
-        
-        int nowl;
-        int ret_pid = 300;
-        int ava;
+//        int nowl;
+//        int ret_pid = 300;
+//        int ava;
         int sum;
         int pos;
-        ava = sensor.lightavarage();
+//        ava = sensor.lightavarage();
         bool hoge=true;
-        int line;
-        
-        while(1)
-        {
-            nowl = sensor.nowlight(ava);
+//        int line;
+
+	int count = 0;
+	//	while(1){
+	  /*nowl = sensor.nowlight(ava);
             line = cal.cur_ava(nowl,ava);
             ret_pid = cal.p_i_d(ava,nowl);
             sum = sensor.ret_sum();
-      pos = drive.position();
+	    pos = drive.position();*/
             //curve(sum,line);
-            lcd.clear();
-      lcd.putf("dn",pos);
-    lcd.putf("d", ret_pid);
-            lcd.disp();
-            change_edge(ret_pid,line);
-
+	pidrun.fix_position();
+	//	while(drive.position()<100){
+	drive.motor_count_reset();//後輪の回転数をリセット
+	while(drive.position()<100){
+	  pidrun.pid_running(false);
+	}
+	while(1){
+	  pidrun.pid_dash();
+	}
+		lcd.clear();
+		lcd.putf("dn",pos);
+//		lcd.putf("d", ret_pid);
+		lcd.disp();
+            //ce.change_edge(ret_pid,line);
             clock.wait(9);
-
-        }
-    }
+	    //}
+	    }
 }
