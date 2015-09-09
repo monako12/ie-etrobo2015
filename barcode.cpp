@@ -2,7 +2,7 @@
 using namespace std;
 
 #define COUNT 50
-#define MOTORCOUNT -45 //barcode ikko bunn no haba
+#define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
 #define RIGHT -26
 
@@ -52,7 +52,7 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                if(white - 5 < now_color){
+                if(white - 5 < now_color){ tyousei hituyou
                     white_num++;
                 }
 
@@ -86,7 +86,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(white - 5 < now_color){
+                    if(white - 5 < now_color){ //tyousei hituyou
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
@@ -108,7 +108,7 @@ extern "C"
 
         void barcode(int white,int black){
             fix_Direction(0);
-            ride_bord(1000);
+            ride_bord(1000); //tyousei hituyou
             fix_Direction(0);
             acquire(white,black);
             lcd.clear();
@@ -152,7 +152,7 @@ extern "C"
                     clocktime.wait(800);
                     break;
                 }
-                if(diff_gyro > 16){
+                if(diff_gyro > 16){ //tyousei hituyou
                     motorCC.setPWM(0);
                     motorBB.setPWM(0);
                     clock.wait(800);
