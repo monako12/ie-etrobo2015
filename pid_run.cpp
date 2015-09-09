@@ -6,14 +6,17 @@ extern "C"
   sensor sen;
   Cal calcu;
   Drive drive;
-  
+
   int ava = sen.lightavarage();
-  
+
   class PIDrun{
     int nowl;
     int ret_pid;
     int line;
   public:
+
+	int black = sen.ret_black();
+	int white = sen.ret_white();
     void pid_running(bool);
     void pid_dash();
     void fix_position();
@@ -34,7 +37,7 @@ extern "C"
     lcd.putf("sd","pid_value: ", ret_pid,5);
     lcd.disp();
   }
-  
+
   void PIDrun::pid_running(bool hoge){
     parameter();
     display();
@@ -60,5 +63,5 @@ extern "C"
       distance = drive.fix_position(ret_pid, line, distance);
     }
   }
-  
+
 }
