@@ -24,6 +24,16 @@ extern "C"
     int retw();
   };
 
+  int PIDrun::retb(){
+      int black = sen.ret_black();
+	  return(black);
+  }
+
+  int PIDrun::retw(){
+      int white = sen.ret_white();
+	  return(white);
+  }
+
   int PIDrun::parameter(){
     nowl = sen.nowlight(ava);
     ret_pid = calcu.p_i_d(ava,nowl);

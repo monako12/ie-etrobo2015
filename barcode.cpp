@@ -2,7 +2,7 @@
 using namespace std;
 
 #define COUNT 50
-#define MOTORCOUNT -44 //barcode ikko bunn no haba
+#define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
 #define RIGHT -26
 
@@ -52,7 +52,7 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                if(white - 10 < now_color && white + 35 > now_color){
+                if(white - 5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -64,6 +64,7 @@ extern "C"
                 }
                 lcd.clear();
                 lcd.putf("sdn","white_num:",white_num,0);
+                lcd.putf("sdn","now_color:",now_color,0);
                 lcd.disp();
                 clocktime.wait(1);
             }
@@ -85,7 +86,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(white - 10 < now_color && white + 50 > now_color){
+                    if(white - 5 < now_color){ //tyousei hituyou
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
@@ -107,7 +108,7 @@ extern "C"
 
         void barcode(int white,int black){
             fix_Direction(0);
-            ride_bord(1400);
+            ride_bord(1000); //tyousei hituyou
             fix_Direction(0);
             acquire(white,black);
             lcd.clear();
@@ -132,26 +133,29 @@ extern "C"
 
             gyro_bar.setOffset(0);
             motorAA.setPWM(0);
-            motorBB.setPWM(-35);
-            motorCC.setPWM(-35);
+            motorBB.setPWM(-20);
+            motorCC.setPWM(-20);
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
                 lcd.clear();
-                if(diff_gyro > 25){
-                    if(flag){
-                        motorBB.setPWM(0);
-                        motorCC.setPWM(0);
-                        lcd.putf("sn","hoge");
-                        lcd.putf("sdn","diff:",diff_gyro,0);
-                        lcd.putf("sdn","border:",borderline,0);
-                        lcd.putf("sdn","now:",velocity,0);
-                        lcd.disp();
-                        clocktime.wait(600);
-                        break;
-                    }
+                if(flag){
+                    motorBB.setPWM(0);
+                    motorCC.setPWM(0);
+                    lcd.putf("sn","hoge");
+                    lcd.putf("sdn","diff:",diff_gyro,0);
+                    lcd.putf("sdn","border:",borderline,0);
+                    lcd.putf("sdn","now:",velocity,0);
+                    lcd.disp();
+                    clocktime.wait(800);
+                    break;
+                }
+                if(diff_gyro > 16){ //tyousei hituyou
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(800);
                     motorCC.setPWM(-60);
                     motorBB.setPWM(-60);
                     clocktime.wait(time);
