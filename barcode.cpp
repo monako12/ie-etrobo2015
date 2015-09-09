@@ -52,7 +52,7 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                if(white - 5 < now_color){ tyousei hituyou
+                if(white - 5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
