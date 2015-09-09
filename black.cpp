@@ -40,41 +40,13 @@ extern "C"
 	    PIDrun pidrun;
 
         Checkmotor checkmotor;
-
-//        int nowl;
-//        int ret_pid = 300;
-//        int ava;
-        int sum;
-        int pos;
-//        ava = sensor.lightavarage();
-        bool hoge=true;
-//        int line;
-
-	int count = 0;
-	//	while(1){
-	  /*nowl = sensor.nowlight(ava);
-            line = cal.cur_ava(nowl,ava);
-            ret_pid = cal.p_i_d(ava,nowl);
-            sum = sensor.ret_sum();
-	    pos = drive.position();*/
-            //curve(sum,line);
-            bar.barcode(sensor.ret_white(),sensor.ret_black());
-            unknown.Capture_unknown(bar.array);
-	pidrun.fix_position();
-	//	while(drive.position()<100){
-	drive.motor_count_reset();//後輪の回転数をリセット
-	while(drive.position()<100){
+		
+	while(1){
 	  pidrun.pid_running(false);
 	}
-	while(1){
-	  pidrun.pid_dash();
-	}
-		lcd.clear();
-		lcd.putf("dn",pos);
-//		lcd.putf("d", ret_pid);
-		lcd.disp();
-            //ce.change_edge(ret_pid,line);
-            clock.wait(9);
-	    //}
-	    }
+
+	//ce.change_edge(ret_pid,line);
+	clock.wait(9);
+	//}
+    }
 }
