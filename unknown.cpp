@@ -182,16 +182,23 @@ extern "C"
         }
 
         void Path_trace(){
+<<<<<<< HEAD
             int distance=20;//今は適当な値を入れている
             int test_date [] = {1, 2, 1, 4, 5};
             //for(int i = 0; i != sol_route.size(); i++){
               for(int i = 0; i < 5 ; i++){
                 switch(test_date[i]){
+=======
+            int distance=30;//今は適当な値を入れている
+            for(int i = 0; i != sol_route.size(); i++){
+                switch(sol_route[i]){
+>>>>>>> 578456406070b0d7df3f4d0a2b395afafe619354
                     case 1:
                         Go_straight(distance);
                         break;
                     case 2:
                         Right_turn();
+<<<<<<< HEAD
                         Go_straight(distance);
                         break;
                     case 4:
@@ -208,6 +215,16 @@ extern "C"
             while(true){
                 clock.wait(10);
             }
+=======
+                        break;
+                    case 4:
+                        Left_turn();
+                        break;
+                    case 5: //end
+                    break;
+                }
+            }
+>>>>>>> 578456406070b0d7df3f4d0a2b395afafe619354
             
         }
 
@@ -266,8 +283,12 @@ extern "C"
         
         void Go_straight(int distance)
         {
+<<<<<<< HEAD
             motorA.setPWM(0);
             tra.move(tra.moving_distance(distance));
+=======
+            tra.moving_distance(distance);
+>>>>>>> 578456406070b0d7df3f4d0a2b395afafe619354
         }
         
 
