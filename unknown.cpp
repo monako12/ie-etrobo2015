@@ -2,6 +2,8 @@ extern "C"
 {
     Barcode bar;
     Parking par;
+    Train tra;
+    
 
     class Unknown{
         public:
@@ -176,7 +178,25 @@ extern "C"
 
         }
 
-        void Path_trace(){}
+        void Path_trace(){
+            int distance=30;//今は適当な値を入れている
+            for(int i = 0; i != sol_route.size(); i++){
+                switch(sol_route[i]){
+                    case 1:
+                        Go_straight(distance);
+                        break;
+                    case 2:
+                        Right_turn();
+                        break;
+                    case 4:
+                        Left_turn();
+                        break;
+                    case 5: //end
+                    break;
+                }
+            }
+            
+        }
 
         void Return_line(){}
 
@@ -229,6 +249,13 @@ extern "C"
             par.forward(290,0,80,1);
             par.reset(100);
         }
+        
+        
+        void Go_straight(int distance)
+        {
+            tra.moving_distance(distance);
+        }
+        
 
         void Show_map(int num){
             lcd.clear();
