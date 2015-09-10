@@ -64,8 +64,6 @@ extern "C"
     
     void train()
     {
-        
-        
         int distance;
         int measure0=0, measure1=0, measure2=0;
         int count=1;
