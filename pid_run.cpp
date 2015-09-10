@@ -14,6 +14,7 @@ extern "C"
 
     void pid_running(bool);
     void pid_dash();
+    int line_side_check();
     void fix_position();
     int parameter();
     void display();
@@ -62,16 +63,46 @@ extern "C"
     drive.dash(ret_pid,line);
   }
 
-  void PIDrun::fix_position(){
-    line_side_check(nowl);
-    
+  int PIDrun::line_side_check(){
+    int find_out_side = 2;
+    bool goto_side = false;
     drive.motor_count_reset();
-    int distance = 100;
-    while(1){
+    while(drive.position() >= -100){
       parameter();
       display();
-      distance = drive.fix_position(ret_pid, line, distance);
+      find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
+      if(find_out_side == 1)break;
     }
+    drive.motor_stop();
+    drive.Return_to_position(goto_side);
+    
+    if(find_out_side != 1){
+      drive.motor_count_reset();
+      goto_side = true;
+      while(drive.position() >= -100){
+	parameter();
+	display();
+	find_out_side = drive.LeftSide_line_check(nowl, retb()) == 1? 0:2;
+	if(find_out_side == 0)break;
+      }
+      drive.motor_stop();
+      drive.Return_to_position(goto_side);
+    }
+    return find_out_side;
   }
-
+  
+  void PIDrun::fix_position(){
+    //if(line_side_check() == 0){
+      int distance = 100;
+      drive.motor_count_reset();
+      while(1){
+	parameter();
+	display();
+	distance = drive.fix_position(ret_pid, line, distance);
+      }
+      //}
+  }
+  
 }
+
+

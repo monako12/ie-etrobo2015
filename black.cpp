@@ -7,9 +7,9 @@
 #include "sensor.cpp"
 #include "pid_run.cpp"
 #include "barcode.cpp"
-#include "train.cpp"
+//#include "train.cpp"
 #include "parking.cpp"
-#include "unknown.cpp"
+//#include "unknown.cpp"
 #include "figurel.cpp"
 #include "checkmotor.cpp"
 
@@ -34,12 +34,12 @@ extern "C"
         sensor sensor;
         Cal cal;
         Barcode bar;
-        Train train;
+        //Train train;
         Drive drive;
-        Unknown unknown;
-	    PIDrun pidrun;
-
+        //Unknown unknown;
+	PIDrun pidrun;
         Checkmotor checkmotor;
+	
 	pidrun.fix_position();	
 	/*while(1){
 	  pidrun.pid_running(false);

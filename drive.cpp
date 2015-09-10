@@ -13,7 +13,6 @@ extern "C"
   Motor motorC(PORT_C);
   Clock clock;
   Lcd lcd;
-  PIDrun pidrun;
   
   class Drive{
   public:
@@ -132,31 +131,47 @@ extern "C"
     
     }
 
-    int line_side_check(int light_value){
-      int find_out = 0;
-      while(position() <= 100){
-	motorB.setPWM(-60);
-	motorC.setPWM(-20);
-	if(light_value == retb()){
-	  find_out = 1;
-	  return find_out;
+    int RightSide_line_check(int light_value, int black){
+      bool find_out = 0;
+      if(motorA.getCount() <= 80){
+	motorA.setPWM(60);
+      }else{
+	motorA.setPWM(0);
+      }
+      motorB.setPWM(-60);
+      motorC.setPWM(-20);
+      if(light_value <= black + 10){
+	find_out = 1;
+      }
+      return find_out;
+    }
+
+    int LeftSide_line_check(int light_value, int black){
+      bool find_out = 0;
+      if(motorA.getCount() >= -80){
+	motorA.setPWM(-60);
+      }else{
+	motorA.setPWM(0);
+      }
+      motorB.setPWM(-20);
+      motorC.setPWM(-60);
+      if(light_value == black){
+	find_out = 1;
+      }
+      return find_out;
+    }
+
+    void Return_to_position(bool side){
+      if(side == true){
+	while(0 >= position()){
+	  motorB.setPWM(20);
+	  motorC.setPWM(60);
 	}
-      }
-      while(position() != 0){
-	motorB.setPWM(60);
-	motorC.setPWM(20);
-      }
-      while(position() <= 100){
-	motorB.setPWM(-20);
-	motorC.setPWM(-60);
-	if(light_value == retb()){
-	  find_out = 2;
-	  return find_out;
+      }else{
+	while(0 >= position()){
+	  motorB.setPWM(60);
+	  motorC.setPWM(20);
 	}
-      }
-      while(position() != 0){
-	motorB.setPWM(20);
-	motorC.setPWM(60);
       }
     }
 
