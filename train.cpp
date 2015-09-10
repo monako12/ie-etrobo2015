@@ -11,6 +11,7 @@
  タイヤ一回転(360°)での移動距離は約24cm
  */
 
+
 // ECRobot++ API
 #include "LightSensor.h"
 #include "SonarSensor.h"
@@ -35,6 +36,7 @@ extern "C"
         Lcd lcd;
         
         int move(int distance){
+            if(flag = 0){
             while(motorB.getCount() > -distance && motorC.getCount() > -distance){
                 motorB.setPWM(-50);
                 motorC.setPWM(-50);
@@ -46,7 +48,20 @@ extern "C"
             
             return 0;
         }
-        
+            else if(flag = 1){
+                //ライントレースで走る部分
+                while(motorB.getCount() > -distance && motorC.getCount() > -distance){
+                    pidrun.pid_running(false);
+                }
+                motorB.setPWM(0);
+                motorC.setPWM(0);
+                motorB.reset();
+                motorC.reset();
+            
+                return 0;
+            }
+        }
+    
         
         int moving_distance(int distance){
             int deg;
@@ -92,34 +107,24 @@ extern "C"
                             else{
                             }
                         }
-                        /*if( distance < 20 ){
-                         if(measure1+20 < measure2){
-                         move(moving_distance(measure1 ,measure2));
-                         count++;
-                         }
-                         }
-                         else{
-                         motorB.setPWM(0);
-                         motorC.setPWM(0);
-                         */
                         if(measure1 != 0){
                             if(measure1+20 < measure2){
-                                move(moving_distance(measure1));
+                                clock.sleep(1200);
+                                move(moving_distance(measure1),1);//ライントレース
                                 count++;
                             }
                         }
                         break;
                     case 2:
-                        /*if( distance < 30){
-                         move(720);  //ここの値は適当
-                         }*/
                         if(distance < 20){
                             count++;
                         }
                         break;
                     case 3:
                         if(distance >250){
-                            move(moving_distance(measure2-measure1));
+                            clock.sleep(1200);
+                            move(moving_distance(measure2-measure1),0);
+                            move(200,1);//ライントレース
                             count++;
                         }
                         break;
@@ -130,7 +135,9 @@ extern "C"
                         break;
                     case 5:
                         if(distance > 250){
-                            move(500);
+                            clock.sleep(1200);
+                            move(500,0);
+                            move(500,1);//ライントレース
                             count++;
                         }
                         break;

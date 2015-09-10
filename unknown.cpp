@@ -95,11 +95,14 @@ extern "C"
                                     flag=true;
                                 }
                                 break;
-                            case 2:
+                            case 2://要修正
                                 if(map[i][j+1] == 0){
                                     map[i][j]=0;
                                     flag=true;
                                 }else if(map[i][j+1] == 4){
+                                    if(map[i][j-1] == 2 || map[i][j-1]==0){ //注意
+                                        map[i][j+1] =2;
+                                    }
                                     map[i][j]=4;
                                     flag=true;
                                 }
@@ -179,21 +182,31 @@ extern "C"
         }
 
         void Path_trace(){
-            int distance=30;//今は適当な値を入れている
-            for(int i = 0; i != sol_route.size(); i++){
-                switch(sol_route[i]){
+            int distance=20;//今は適当な値を入れている
+            int test_date [] = {1, 2, 1, 4, 5};
+            //for(int i = 0; i != sol_route.size(); i++){
+              for(int i = 0; i < 5 ; i++){
+                switch(test_date[i]){
                     case 1:
                         Go_straight(distance);
                         break;
                     case 2:
                         Right_turn();
+                        Go_straight(distance);
                         break;
                     case 4:
                         Left_turn();
+                        Go_straight(distance);
                         break;
                     case 5: //end
-                    break;
+                    
+                         break;
+                    default:
+                        break;
                 }
+            }
+            while(true){
+                clock.wait(10);
             }
             
         }
@@ -215,7 +228,7 @@ extern "C"
 
         int Capture_unknown(vector<int> &temp){
             int call_retire = 0;
-
+            
             call_retire = Check_barcode(temp);
             Make_map();
             Modify_map();
@@ -253,7 +266,8 @@ extern "C"
         
         void Go_straight(int distance)
         {
-            tra.moving_distance(distance);
+            motorA.setPWM(0);
+            tra.move(tra.moving_distance(distance));
         }
         
 
