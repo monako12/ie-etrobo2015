@@ -3,6 +3,7 @@
 #include "math.h"
 #include "stdlib.h"
 #include "Lcd.h"
+
 using namespace ecrobot;
 extern "C"
 {
@@ -12,6 +13,7 @@ extern "C"
   Motor motorC(PORT_C);
   Clock clock;
   Lcd lcd;
+  PIDrun pidrun;
   
   class Drive{
   public:
@@ -130,6 +132,34 @@ extern "C"
     
     }
 
+    int line_side_check(int light_value){
+      int find_out = 0;
+      while(position() <= 100){
+	motorB.setPWM(-60);
+	motorC.setPWM(-20);
+	if(light_value == retb()){
+	  find_out = 1;
+	  return find_out;
+	}
+      }
+      while(position() != 0){
+	motorB.setPWM(60);
+	motorC.setPWM(20);
+      }
+      while(position() <= 100){
+	motorB.setPWM(-20);
+	motorC.setPWM(-60);
+	if(light_value == retb()){
+	  find_out = 2;
+	  return find_out;
+	}
+      }
+      while(position() != 0){
+	motorB.setPWM(20);
+	motorC.setPWM(60);
+      }
+    }
+
     int fix_position(int pid, int line, int distance){
       int B_power = 0;
       int C_power = 1;
@@ -149,7 +179,7 @@ extern "C"
 	clock.wait(1000);
 	motor_count_reset();	
 	while(position()<(-distance/2)){
-	  back(distance);
+	  back();
 	}
 	  motor_stop();
 	  motorA_position_reset();

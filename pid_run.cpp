@@ -7,9 +7,8 @@ extern "C"
   Cal calcu;
   Drive drive;
 
-  int ava = sen.lightavarage();
-
   class PIDrun{
+    int ava;
     int nowl;
     int ret_pid;
     int line;
@@ -25,16 +24,17 @@ extern "C"
   };
 
   int PIDrun::retb(){
-      int black = sen.ret_black();
-	  return(black);
+    int black = sen.ret_black();
+    return(black);
   }
 
   int PIDrun::retw(){
-      int white = sen.ret_white();
-	  return(white);
+    int white = sen.ret_white();
+    return(white);
   }
 
   int PIDrun::parameter(){
+    ava = sen.lightavarage();
     nowl = sen.nowlight(ava);
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
@@ -65,6 +65,8 @@ extern "C"
   }
 
   void PIDrun::fix_position(){
+    line_side_check(nowl);
+    
     drive.motor_count_reset();
     int distance = 100;
     while(1){
