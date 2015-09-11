@@ -4,7 +4,8 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -26
+#define RIGHT -28
+#define BORDER 16
 
 extern "C"
 {
@@ -15,6 +16,7 @@ extern "C"
     Clock clocktime;
     LightSensor  light_bar(PORT_3,true);
 	GyroSensor   gyro_bar(PORT_1);
+	PIDrun pidrun;
 
     class Barcode{
         public:
@@ -47,12 +49,10 @@ extern "C"
             int now_color = 0;
             int now_motor = 0;
 
-            motorBB.setPWM(LEFT); //pid seigyo ireyoukana?
-            motorCC.setPWM(RIGHT);
-
             while(1){
                 now_color = light_bar.getBrightness();
-                if(white - 5 < now_color){ //tyousei hituyou
+                pidrun.pid_running(false);
+                if(white + 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -72,6 +72,7 @@ extern "C"
             motorBB.setPWM(0);
             motorCC.setPWM(0);
             clocktime.wait(800);
+            fix_Direction(-30);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
 
@@ -108,7 +109,7 @@ extern "C"
 
         void barcode(int white,int black){
             fix_Direction(0);
-            ride_bord(1000); //tyousei hituyou
+            ride_bord(800); //tyousei hituyou 1000ga iikana?
             fix_Direction(0);
             acquire(white,black);
             lcd.clear();
@@ -123,31 +124,6 @@ extern "C"
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-        }
-
-        void search_bord(){
-            int velocity;
-            int borderline;
-            int diff_gyro;
-            bool flag=false;
-
-            borderline = gyro_bar.getAnglerVelocity();
-
-            gyro_bar.setOffset(0);
-            while(flag){
-                velocity = gyro_bar.getAnglerVelocity();
-                diff_gyro = velocity - borderline;
-                if(diff_gyro > 16){ //tyousei hituyou
-                    motorCC.setPWM(0);
-                    motorBB.setPWM(0);
-                    clock.wait(800);
-                    clocktime.wait(10);
-                    flag = true;
-                }
-                lcd.putf("sdn","diff:",diff_gyro,0);
-                lcd.disp();
-                clocktime.wait(5);
-            }
         }
 
         void ride_bord(int time){
@@ -177,7 +153,7 @@ extern "C"
                     clocktime.wait(800);
                     break;
                 }
-                if(diff_gyro > 16){ //tyousei hituyou
+                if(diff_gyro > BORDER){
                     motorCC.setPWM(0);
                     motorBB.setPWM(0);
                     clock.wait(800);
@@ -189,6 +165,32 @@ extern "C"
                 lcd.putf("sdn","diff:",diff_gyro,0);
                 lcd.disp();
                 clocktime.wait(5);
+            }
+        }
+
+        void search_bord(){
+            int velocity;
+            int borderline;
+            int diff_gyro;
+
+            gyro_bar.setOffset(0);
+            motorAA.setPWM(0);
+            motorBB.setPWM(-20);
+            motorCC.setPWM(-20);
+            borderline = gyro_bar.getAnglerVelocity();
+
+            while(true){
+                pidrun.pid_running(false);
+                velocity = gyro_bar.getAnglerVelocity();
+                diff_gyro = velocity - borderline;
+
+                if(diff_gyro > BORDER){ //tyousei hituyou
+                    motorAA.setPWM(0);
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(1000);
+                    break;
+                }
             }
         }
     };

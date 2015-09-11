@@ -4,7 +4,6 @@ extern "C"
     Barcode bar;
     Parking par;
     Train tra;
-    
 
     class Unknown{
         public:
@@ -173,13 +172,21 @@ extern "C"
         }
 
         void Set_position(){
+            int flag = true;
             map[0][1] = 0;
             map[0][2] = 1;
             map[0][3] = 0;
             map[0][4] = 1;
 
-
-
+            bar.search_bord();
+            bar.fix_Direction(0);
+            motorB.setPWM(30);
+            motorC.setPWM(30);
+            clock.wait(800);
+            bar.fix_Direction(0);
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            Right_turn();
         }
 
         void Path_trace(){
@@ -239,7 +246,6 @@ extern "C"
                 Retire(1919);
                 return(1);
             }
-            //Set_position();
             Path_trace();
             lcd.clear();
             Show_map(start_pos);
@@ -248,9 +254,8 @@ extern "C"
                 lcd.putf("d",sol_route[i],0);
             }
             lcd.disp();
-            while(true){
-                clock.wait(100);
-            }
+            Set_position();
+            clock.wait(3000);
         }
 
         void Right_turn(){
