@@ -1,7 +1,9 @@
+#define DISTANCE 20
 extern "C"
 {
     Barcode bar;
     Parking par;
+    Train train;
 
     class Unknown{
         public:
@@ -172,6 +174,10 @@ extern "C"
             map[0][2] = 1;
             map[0][3] = 0;
             map[0][4] = 1;
+
+            if(3 == start_pos){
+                train.
+            }
 
 
         }
