@@ -1,6 +1,4 @@
-
 using namespace ecrobot;
-
 extern "C"
 {
   sensor sen;
