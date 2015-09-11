@@ -46,7 +46,6 @@ extern "C"
             
             return 0;
         }
-    }
     
     
     int moving_distance(int distance){

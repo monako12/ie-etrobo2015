@@ -125,6 +125,31 @@ extern "C"
             motorCC.setPWM(0);
         }
 
+        void search_bord{
+            int velocity;
+            int borderline;
+            int diff_gyro;
+            bool flag=false;
+
+            borderline = gyro_bar.getAnglerVelocity();
+
+            gyro_bar.setOffset(0);
+            while(flag){
+                velocity = gyro_bar.getAnglerVelocity();
+                diff_gyro = velocity - borderline;
+                if(diff_gyro > 16){ //tyousei hituyou
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(800);
+                    clocktime.wait(time);
+                    flag = true;
+                }
+                lcd.putf("sdn","diff:",diff_gyro,0);
+                lcd.disp();
+                clocktime.wait(5);
+            }
+        }
+
         void ride_bord(int time){
             int velocity;
             int borderline;

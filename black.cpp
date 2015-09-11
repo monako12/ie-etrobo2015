@@ -31,7 +31,6 @@ extern "C"
     {
         Clock clock;
         Lcd lcd;
-        sensor sensor;
         Cal cal;
         Barcode bar;
         Train train;
@@ -40,9 +39,13 @@ extern "C"
 	    PIDrun pidrun;
 
         Checkmotor checkmotor;
+
+        checkmotor.checkmotor();
 		
 	while(1){
-	  pidrun.pid_running(false);
+	    pidrun.pid_running(false);
+        bar.barcode(pidrun.retw(),pidrun.retb());
+        unknown.Capture_unknown(bar.array);
 	}
 
 	//ce.change_edge(ret_pid,line);
