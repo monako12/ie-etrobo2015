@@ -76,7 +76,7 @@ extern "C"
             }
         }
 
-void Modify_map(){
+        void Modify_map(){
             bool flag=true;//初期状態動作のためflag=1
             
             while(flag){
@@ -189,7 +189,10 @@ void Modify_map(){
             bar.fix_Direction(0);
             motorB.setPWM(0);
             motorC.setPWM(0);
-            Right_turn();
+            par.angle(680,100);
+            par.forward(90,80,0,0);
+            par.reset(100);
+            Go_straight(DISTANCE/2);
         }
 
         void Path_trace(){
@@ -239,11 +242,15 @@ void Modify_map(){
         }
 
         int Capture_unknown(vector<int> &temp){
-            int call_retire = 0;
+ /*           int call_retire = 0;
 
             call_retire = Check_barcode(temp);
             Make_map();
             Modify_map();
+            lcd.clear();
+            lcd.putf("sn","muri");
+            lcd.disp();
+            clock.wait(5000);
             call_retire += Search_route();
             if(0 != call_retire){
                 Retire(1919);
@@ -256,7 +263,7 @@ void Modify_map(){
             for(int i = 0; i != sol_route.size(); i++){
                 lcd.putf("d",sol_route[i],0);
             }
-            lcd.disp();
+            lcd.disp();*/
             Set_position();
             clock.wait(3000);
         }

@@ -109,7 +109,7 @@ extern "C"
 
         void barcode(int white,int black){
             fix_Direction(0);
-            ride_bord(800); //tyousei hituyou 1000ga iikana?
+            ride_bord(850); //tyousei hituyou 1000ga iikana?
             fix_Direction(0);
             acquire(white,black);
             lcd.clear();
