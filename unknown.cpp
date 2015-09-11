@@ -76,7 +76,7 @@ extern "C"
             }
         }
 
-        void Modify_map(){
+void Modify_map(){
             bool flag=true;//初期状態動作のためflag=1
             
             while(flag){
@@ -84,13 +84,16 @@ extern "C"
                 for(int i=0; i<4; i++){
                     for(int j=1; j<5; j++){
                         switch( map[i][j] ){
-                            case 1: 
+                            case 1:
+                                if(map[i+1][j]==0 && map[i][j+1]==0 && map[i][j-1]==0){
+                                    map[i][j]=0;//上左右0の場合は0
+                                }
                                 if(map[i+1][j] == 0){
                                     if( j < 3 ){
                                         map[i][j]=2;
                                     }
                                     else{
-                                        map[i][j]=4;                         
+                                        map[i][j]=4;
                                     }
                                     flag=true;
                                 }

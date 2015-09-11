@@ -146,7 +146,7 @@ extern "C"
             {
                 reset(100);
                 
-                forward(450,40,40,MOTOR_C);
+                forward(1400,40,40,MOTOR_C);
                 
                 angle(350,100);
                 forward(310,40,40,MOTOR_C);
@@ -155,7 +155,7 @@ extern "C"
                 forward(-820,40,40,MOTOR_C);
                 
                 angle(-650,100);
-                forward(120,0,70,MOTOR_C);
+                forward(100,0,70,MOTOR_C);
                 reset(100);
                 
                 clock.wait(5000);
@@ -169,7 +169,7 @@ extern "C"
                 
                 forward(90,40,40,MOTOR_C);
                 
-                angle(-700,100);
+                angle(-680,100);
                 bforward(0,80);
                 reset(100);
                 
