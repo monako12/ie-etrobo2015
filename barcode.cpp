@@ -125,7 +125,7 @@ extern "C"
             motorCC.setPWM(0);
         }
 
-        void search_bord{
+        void search_bord(){
             int velocity;
             int borderline;
             int diff_gyro;
@@ -141,7 +141,7 @@ extern "C"
                     motorCC.setPWM(0);
                     motorBB.setPWM(0);
                     clock.wait(800);
-                    clocktime.wait(time);
+                    clocktime.wait(10);
                     flag = true;
                 }
                 lcd.putf("sdn","diff:",diff_gyro,0);

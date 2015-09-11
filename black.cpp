@@ -44,8 +44,6 @@ extern "C"
 		
 	while(1){
 	    pidrun.pid_running(false);
-        bar.barcode(pidrun.retw(),pidrun.retb());
-        unknown.Capture_unknown(bar.array);
 	}
 
 	//ce.change_edge(ret_pid,line);
