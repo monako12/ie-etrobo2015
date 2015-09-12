@@ -15,7 +15,7 @@ extern "C"
   Motor motorC(PORT_C);
   Clock clock;
   Lcd lcd;
-  SensorGet sensor;
+  //SensorGet sensor;
   Cal cal;
   
   class Drive{
@@ -110,7 +110,6 @@ extern "C"
       
     motorC.setPWM(c);
     motorB.setPWM(b);
-      
   }
     
   void Drive::dash(int pid,int line){
@@ -139,7 +138,6 @@ extern "C"
     }
     motorC.setPWM(c);
     motorB.setPWM(b);
-    
   }
 
   int Drive::RightSide_line_check(int light_value, int black){
@@ -213,7 +211,7 @@ extern "C"
     }
     return position();
   }
-    
+
   void Drive::back(){
     if(motorA.getCount() >= -300){
       motorA.setPWM(-80);
@@ -260,11 +258,12 @@ extern "C"
       }
       else {
 	motorA.setPWM(0);
-	break;
+	motorC.setPWM(50);
+	motorB.setPWM(0);
       }
     }
   }
-    
+
   void Drive::forward(int number,int lspeed,int rspeed,int tire){
     if (tire == MOTOR_B){
       srotate = nxt_motor_get_count(PORT_B);
