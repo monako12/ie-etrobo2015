@@ -37,16 +37,12 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
-	    PIDrun pidrun;
+	PIDrun pidrun;
         Nihonbashi nihonbashi;
         Parking par;
-    nihonbashi.stop_ex();
-
-		CatchGray catchg;
+	CatchGray catchg;
 	while(1){
-        
-        //bar.search_bord();
-	    //pidrun.pid_running(false);
+	  pidrun.pid_running(false);
 	}
 
 	//ce.change_edge(ret_pid,line);
