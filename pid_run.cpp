@@ -4,8 +4,10 @@ extern "C"
   SensorGet sen;
   Cal calcu;
   Drive drive;
-  int ava = sen.lightavarage();
+
+  int Execute_Touch_Pressed = sen.lightavarage(); //多分、インクルードされた時にだけ実行される
   class PIDrun{
+    int ava;
     int nowl;
     int ret_pid;
     int line;
@@ -32,6 +34,7 @@ extern "C"
   }
 
   void PIDrun::parameter(){
+    ava = sen.ret_avarage(); //変更の可能性あり
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);

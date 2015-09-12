@@ -61,7 +61,7 @@ public:
     /*if(avarage < gray){
       return(gray + 20);
       }else{*/
-      return(avarage);
+    return(avarage);
       //}
   }
 
