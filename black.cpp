@@ -12,7 +12,8 @@
 //#include "unknown.cpp"
 #include "figurel.cpp"
 #include "checkmotor.cpp"
-
+#include "Nihonbashi.cpp"
+#include "catch_gray.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -36,17 +37,16 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
-	PIDrun pidrun;
-
-        Checkmotor checkmotor;
+	    PIDrun pidrun;
+        Nihonbashi Nihonbashi;
         Parking par;
-
+		CatchGray catchg;
 	while(1){
-	    pidrun.pid_running(false);
+	    //pidrun.pid_running(false);
 	}
 
 	//ce.change_edge(ret_pid,line);
-	clock.wait(9);
+	//clock.wait(9);
 	//}
     }
 }
