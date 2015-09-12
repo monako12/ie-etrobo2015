@@ -5,7 +5,7 @@ extern "C"
   Cal calcu;
   Drive drive;
 
-  int Execute_Touch_Pressed = sen.lightavarage(); //多分、インクルードされた時にだけ実行される
+  int Execute_Touch_Pressed = sen.lightavarage(); //どのタイミングで実行されるかわからん
   class PIDrun{
     int ava;
     int nowl;
