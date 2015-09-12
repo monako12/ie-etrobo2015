@@ -8,14 +8,14 @@ using namespace ecrobot;
 
 extern "C"
 {
-  LightSensor  light(PORT_3,true);
-  SonarSensor  sonar(PORT_4);
-  GyroSensor   gyro(PORT_1);
-  TouchSensor  touch(PORT_2);
-  TouchSensor  touchwhite(PORT_2);
-  TouchSensor  touchblack(PORT_2);
-  int avarage;
-class sensor{
+	LightSensor  light(PORT_3,true);
+	SonarSensor  sonar(PORT_4);
+	GyroSensor   gyro(PORT_1);
+	TouchSensor  touch(PORT_2);
+	TouchSensor  touchwhite(PORT_2);
+	TouchSensor  touchblack(PORT_2);
+    int avarage;
+class SensorGet{
 
   int white;
   int black;

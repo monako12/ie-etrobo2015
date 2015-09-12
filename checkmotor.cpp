@@ -9,10 +9,10 @@ extern "C"
             int result_b;
             int result_c;
 
-            motorB.setPWM(-50);
-            motorC.setPWM(-50);
+            motorB.setPWM(-100);
+            motorC.setPWM(-100);
 
-            clock.wait(2000);
+            clock.wait(2500);
             motorB.setPWM(0);
             motorC.setPWM(0);
             clock.wait(500);

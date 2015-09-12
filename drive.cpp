@@ -7,12 +7,16 @@
 using namespace ecrobot;
 extern "C"
 {
+#define MOTOR_B 0
+#define MOTOR_C 1
 
   Motor motorA(PORT_A);
   Motor motorB(PORT_B);
   Motor motorC(PORT_C);
   Clock clock;
   Lcd lcd;
+  SensorGet sensor;
+  Cal cal;
   
   class Drive{
   public:
@@ -29,12 +33,18 @@ extern "C"
     void back();
     int power_Adjustment(int, int);
     void motorA_position_reset();
+    void angle(int, int);
+    void forward(int, int, int, int);
+    void bforward(int, int);
   };
+
+  int nrotate; //現在の回転数
+  int srotate; //初期の回転数
   
   int Drive::position(){
     return((motorB.getCount()+motorC.getCount())/2);
   }
-
+      
   void Drive::motor_count_reset(){
     motorB.reset();
     motorC.reset();
@@ -211,6 +221,7 @@ extern "C"
       motorB.setPWM(0);
       motorC.setPWM(50);
     }
+<<<<<<< HEAD
   }
 
   int Drive::power_Adjustment(int pid, int power){
@@ -235,5 +246,66 @@ extern "C"
       lcd.disp();	    
     }
   }
-
+      
+    void angle(int number,int speed){
+        srotate = nxt_motor_get_count(PORT_A);
+        while(1){
+            nrotate = nxt_motor_get_count(PORT_A);
+            if (nrotate < (srotate + number)){
+                motorA.setPWM(speed);
+            }
+            else if (nrotate > (srotate + number)){
+                motorA.setPWM((-1) * speed);
+            }
+            else {
+                motorA.setPWM(0);
+                break;
+            }
+        }
+    }
+    
+    void forward(int number,int lspeed,int rspeed,int tire){
+        if (tire == MOTOR_B){
+            srotate = nxt_motor_get_count(PORT_B);
+        } else if (tire == MOTOR_C) {
+            srotate = nxt_motor_get_count(PORT_C);
+        }
+        while(1){
+            if (tire == MOTOR_B){
+                nrotate = nxt_motor_get_count(PORT_B);
+            } else if (tire == MOTOR_C) {
+                nrotate = nxt_motor_get_count(PORT_C);
+            }
+            if (nrotate > (srotate + ((-1) * number))){
+                motorB.setPWM((-1) * lspeed);
+                motorC.setPWM((-1) * rspeed);
+            }
+            else if (nrotate < (srotate + ((-1) * number))){
+                motorB.setPWM(lspeed);
+                motorC.setPWM(rspeed);
+            }
+            else {
+                motorB.setPWM(0);
+                motorC.setPWM(0);
+                break;
+            }
+        }
+    }
+      
+    void bforward(int lspeed,int rspeed){
+        while(1){
+            int now = sensor.nowlight(0);
+            int ava = sensor.ret_avarage();
+            int color = cal.cur_ava(now,(double)ava);
+            if (color < 0){
+                motorB.setPWM(0);
+                motorC.setPWM(0);
+                break;
+            }
+            else if (color > 0){
+            motorB.setPWM((-1) * lspeed);
+            motorC.setPWM((-1) * rspeed);
+            }
+        }
+    }
 }

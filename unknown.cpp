@@ -1,6 +1,9 @@
+#define DISTANCE 20
 extern "C"
 {
+
     Barcode bar;
+    Drive dri;
     Parking par;
     Train tra;
     
@@ -97,18 +100,20 @@ extern "C"
                                 break;
                             case 2:
                                 if(map[i][j+1] == 0){
-                                    map[i][j]=0;
+                                    map[i][j]=4;//修正箇所9/11
                                     flag=true;
-                                }else if(map[i][j+1] == 4){
+                                }
+                                else if(map[i][j+1] == 4){
                                     map[i][j]=4;
                                     flag=true;
                                 }
                                 break;
                             case 4:
                                 if(map[i][j-1] == 0 ){
-                                    map[i][j]=0;
+                                    map[i][j]=2;//修正箇所9/11
                                     flag=true;
-                                }else if(map[i][j-1] == 2){
+                                }
+                                else if(map[i][j-1] == 2){
                                     map[i][j]=2;
                                     flag=true;
                                 }
@@ -176,24 +181,36 @@ extern "C"
             map[0][4] = 1;
 
 
+
         }
 
         void Path_trace(){
-            int distance=30;//今は適当な値を入れている
-            for(int i = 0; i != sol_route.size(); i++){
-                switch(sol_route[i]){
+            int distance=20;//今は適当な値を入れている
+            int test_date [] = {1, 2, 1, 4, 5};
+            //for(int i = 0; i != sol_route.size(); i++){
+              for(int i = 0; i < 5 ; i++){
+                switch(test_date[i]){
                     case 1:
+
                         Go_straight(distance);
                         break;
                     case 2:
                         Right_turn();
+                        Go_straight(distance);
                         break;
                     case 4:
                         Left_turn();
+                        Go_straight(distance);
                         break;
                     case 5: //end
-                    break;
+                    
+                         break;
+                    default:
+                        break;
                 }
+            }
+            while(true){
+                clock.wait(10);
             }
             
         }
@@ -204,7 +221,7 @@ extern "C"
             motorA.setPWM(100);
             motorB.setPWM(0);
             motorC.setPWM(0);
-//            Show_map(hoge);
+            //Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
             lcd.disp();
@@ -224,7 +241,7 @@ extern "C"
                 Retire(1919);
                 return(1);
             }
-//            Set_position();
+            //Set_position();
             Path_trace();
             lcd.clear();
             Show_map(start_pos);
@@ -239,23 +256,21 @@ extern "C"
         }
 
         void Right_turn(){
-            par.angle(680,100);
-            par.forward(290,80,0,0);
+            dri.angle(680,100);
+            dri.forward(290,80,0,0);
             par.reset(100);
         }
 
         void Left_turn(){
-            par.angle(-680,100);
-            par.forward(290,0,80,1);
+            dri.angle(-680,100);
+            dri.forward(290,0,80,1);
             par.reset(100);
         }
-        
-        
-        void Go_straight(int distance)
-        {
-            tra.moving_distance(distance);
+
+        void Go_straight(int distance){
+            motorA.setPWM(0);
+            tra.move(tra.moving_distance(distance));
         }
-        
 
         void Show_map(int num){
             lcd.clear();
