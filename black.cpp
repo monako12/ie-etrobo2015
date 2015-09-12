@@ -7,9 +7,9 @@
 #include "drive.cpp"
 #include "pid_run.cpp"
 #include "barcode.cpp"
-//#include "train.cpp"
+#include "train.cpp"
 #include "parking.cpp"
-//#include "unknown.cpp"
+#include "unknown.cpp"
 #include "figurel.cpp"
 #include "checkmotor.cpp"
 #include "Nihonbashi.cpp"
@@ -37,12 +37,12 @@ extern "C"
         Train train;
         Drive drive;
         Unknown unknown;
-	    PIDrun pidrun;
+	PIDrun pidrun;
         Nihonbashi Nihonbashi;
         Parking par;
-		CatchGray catchg;
+	CatchGray catchg;
 	while(1){
-	    //pidrun.pid_running(false);
+	  pidrun.pid_running(false);
 	}
 
 	//ce.change_edge(ret_pid,line);

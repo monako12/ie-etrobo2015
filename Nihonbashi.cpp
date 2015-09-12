@@ -18,7 +18,7 @@ void Nihonbashi::nihon()
 
 void Nihonbashi::stop_ex()
 {
-	Barcode.search_bord();
+  //	Barcode.search_bord();
 }
 
 
