@@ -1,5 +1,6 @@
 extern "C"
 {
+	//Barcode bar;
 	class Nihonbashi{
     int nowl;
     int ret_pid;
@@ -14,11 +15,12 @@ extern "C"
 void Nihonbashi::nihon()
 {
 
+
 }
 
 void Nihonbashi::stop_ex()
 {
-	Barcode.search_bord();
+	bar.search_bord();
 }
 
 
