@@ -41,9 +41,10 @@ extern "C"
         Nihonbashi Nihonbashi;
         Parking par;
 	CatchGray catchg;
-	while(1){
+	pidrun.fix_position();
+	/*while(1){
 	  pidrun.pid_running(false);
-	}
+	  }*/
 
 	//ce.change_edge(ret_pid,line);
 	//clock.wait(9);
