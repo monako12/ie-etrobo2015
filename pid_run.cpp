@@ -35,7 +35,6 @@ extern "C"
   }
 
   int PIDrun::parameter(){
-    ava = sen.lightavarage();
     nowl = sen.nowlight(ava);
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
