@@ -9,12 +9,9 @@ extern "C"
     
     class Figurel{
     public:
-        int nrotate; //現在の回転数
-        int srotate; //初期の回転数
         
         Cal cal;
-        sensor sensor;
-        Parking parking;
+        Drive dri;
         Barcode barcode;
         
         void figurel()
@@ -25,7 +22,7 @@ extern "C"
                 //灰色検知から少し前に進むとか入れるかも
                 barcode.ride_bord(300);
                 
-                parking.forward(370,60,60,MOTOR_C);
+                dri.forward(370,60,60,MOTOR_C);
                 
                 //立って止まる（関数で作った方がいいかも？急に止まると倒れるので徐々にスピードを落とさないといけない）
                 motorB.setPWM(100);
@@ -48,7 +45,7 @@ extern "C"
                 
                 clock.wait(5000);
                 
-                parking.forward(290,0,60,MOTOR_C);
+                dri.forward(290,0,60,MOTOR_C);
                 //立って方向転換するまで
                 //何故か右斜めに進むからちょっと左斜め向きに入れないといけない？
                 //↑これは本体が決まってから値を細かく調整

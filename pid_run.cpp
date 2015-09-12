@@ -1,7 +1,7 @@
 using namespace ecrobot;
 extern "C"
 {
-  sensor sen;
+  SensorGet sen;
   Cal calcu;
   Drive drive;
 
@@ -21,6 +21,8 @@ extern "C"
     int retb();
     int retw();
   };
+
+  int ava = sen.lightavarage();
 
   int PIDrun::retb(){
     int black = sen.ret_black();
@@ -51,10 +53,10 @@ extern "C"
     parameter();
     display();
     if(hoge == true){
-      drive.mode_Black_Right(ret_pid,line);/*左側のエッジ(黒の左側)を走る*/
+      drive.Left_Edge_Trace(ret_pid,line);/*左側のエッジ(黒の左側)を走る*/
     }
     else{
-      drive.mode_Black_Left(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
+      drive.Right_Edge_Trace(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
     }
   }
 
@@ -100,7 +102,7 @@ extern "C"
 	display();
 	distance = drive.fix_position(ret_pid, line, distance);
       }
-      //}
+      // }
   }
   
 }
