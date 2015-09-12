@@ -12,7 +12,7 @@
 #include "unknown.cpp"
 #include "figurel.cpp"
 #include "checkmotor.cpp"
-
+#include "Nihonbashi.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -37,10 +37,7 @@ extern "C"
         Drive drive;
         Unknown unknown;
 	    PIDrun pidrun;
-
-        Checkmotor checkmotor;
-
-        checkmotor.checkmotor();
+        Nihonbashi Nihonbashi;
 		
 	while(1){
 	    pidrun.pid_running(false);
