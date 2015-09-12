@@ -17,7 +17,7 @@ extern "C"
 	TouchSensor  touchwhite(PORT_2);
 	TouchSensor  touchblack(PORT_2);
     int avarage;
-class sensor{
+class SensorGet{
 
 	int sum;
 	int white;

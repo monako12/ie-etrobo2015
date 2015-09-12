@@ -2,9 +2,9 @@
 //made by okada
 // ECRobot C++ API
 #include "Clock.h"
-#include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
+#include "drive.cpp"
 #include "pid_run.cpp"
 #include "barcode.cpp"
 #include "train.cpp"
@@ -37,11 +37,8 @@ extern "C"
         Drive drive;
         Unknown unknown;
 	    PIDrun pidrun;
-
-        Checkmotor checkmotor;
-
-        checkmotor.checkmotor();
-		
+        Parking par;
+        
 	while(1){
 	    pidrun.pid_running(false);
 	}

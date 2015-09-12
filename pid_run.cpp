@@ -1,7 +1,7 @@
 using namespace ecrobot;
 extern "C"
 {
-  sensor sen;
+  SensorGet sen;
   Cal calcu;
   Drive drive;
 
