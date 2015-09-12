@@ -40,7 +40,8 @@ extern "C"
 	PIDrun pidrun;
 
         Checkmotor checkmotor;
-		
+
+	//pidrun.fix_position();
 	while(1){
 	  pidrun.pid_running(false);
 	}
