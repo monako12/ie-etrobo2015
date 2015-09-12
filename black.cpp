@@ -2,9 +2,9 @@
 //made by okada
 // ECRobot C++ API
 #include "Clock.h"
-#include "drive.cpp"
 #include "calculation.cpp"
 #include "sensor.cpp"
+#include "drive.cpp"
 #include "pid_run.cpp"
 #include "barcode.cpp"
 #include "train.cpp"
@@ -38,13 +38,13 @@ extern "C"
         Unknown unknown;
 	    PIDrun pidrun;
         Nihonbashi Nihonbashi;
-		
+        Parking par;
 	while(1){
-	    pidrun.pid_running(false);
+	    //pidrun.pid_running(false);
 	}
 
 	//ce.change_edge(ret_pid,line);
-	clock.wait(9);
+	//clock.wait(9);
 	//}
     }
 }

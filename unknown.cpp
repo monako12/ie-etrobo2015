@@ -1,9 +1,12 @@
 #define DISTANCE 20
 extern "C"
 {
+
     Barcode bar;
+    Drive dri;
     Parking par;
     Train tra;
+    
 
     class Unknown{
         public:
@@ -84,16 +87,13 @@ extern "C"
                 for(int i=0; i<4; i++){
                     for(int j=1; j<5; j++){
                         switch( map[i][j] ){
-                            case 1:
-                                if(map[i+1][j]==0 && map[i][j+1]==0 && map[i][j-1]==0){
-                                    map[i][j]=0;//上左右0の場合は0
-                                }
+                            case 1: 
                                 if(map[i+1][j] == 0){
                                     if( j < 3 ){
                                         map[i][j]=2;
                                     }
                                     else{
-                                        map[i][j]=4;
+                                        map[i][j]=4;                         
                                     }
                                     flag=true;
                                 }
@@ -175,24 +175,13 @@ extern "C"
         }
 
         void Set_position(){
-            int flag = true;
             map[0][1] = 0;
             map[0][2] = 1;
             map[0][3] = 0;
             map[0][4] = 1;
 
-            bar.search_bord();
-            bar.fix_Direction(0);
-            motorB.setPWM(30);
-            motorC.setPWM(30);
-            clock.wait(800);
-            bar.fix_Direction(0);
-            motorB.setPWM(0);
-            motorC.setPWM(0);
-            par.angle(680,100);
-            par.forward(90,80,0,0);
-            par.reset(100);
-            Go_straight(DISTANCE/2);
+
+
         }
 
         void Path_trace(){
@@ -242,20 +231,17 @@ extern "C"
         }
 
         int Capture_unknown(vector<int> &temp){
- /*           int call_retire = 0;
+            int call_retire = 0;
 
             call_retire = Check_barcode(temp);
             Make_map();
             Modify_map();
-            lcd.clear();
-            lcd.putf("sn","muri");
-            lcd.disp();
-            clock.wait(5000);
             call_retire += Search_route();
             if(0 != call_retire){
                 Retire(1919);
                 return(1);
             }
+            //Set_position();
             Path_trace();
             lcd.clear();
             Show_map(start_pos);
@@ -263,20 +249,21 @@ extern "C"
             for(int i = 0; i != sol_route.size(); i++){
                 lcd.putf("d",sol_route[i],0);
             }
-            lcd.disp();*/
-            Set_position();
-            clock.wait(3000);
+            lcd.disp();
+            while(true){
+                clock.wait(100);
+            }
         }
 
         void Right_turn(){
-            par.angle(680,100);
-            par.forward(290,80,0,0);
+            dri.angle(680,100);
+            dri.forward(290,80,0,0);
             par.reset(100);
         }
 
         void Left_turn(){
-            par.angle(-680,100);
-            par.forward(290,0,80,1);
+            dri.angle(-680,100);
+            dri.forward(290,0,80,1);
             par.reset(100);
         }
 
