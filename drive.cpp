@@ -15,7 +15,7 @@ extern "C"
   Motor motorC(PORT_C);
   Clock clock;
   Lcd lcd;
-  SensorGet sensor;
+  //SensorGet sensor;
   Cal cal;
   
   class Drive{
