@@ -1,7 +1,7 @@
 using namespace ecrobot;
 extern "C"
 {
-	SensorGet sens;
+        SensorGet sens;
 	int bw_ava = sens.ret_avarage();
 	int l_gray = sens.ret_gray();
 class CatchGray{

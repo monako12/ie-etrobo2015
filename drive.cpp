@@ -15,7 +15,7 @@ extern "C"
   Motor motorC(PORT_C);
   Clock clock;
   Lcd lcd;
-  //SensorGet sensor;
+  SensorGet sensor;
   Cal cal;
   
   class Drive{
@@ -290,11 +290,11 @@ extern "C"
 	break;
       }
     }
-  }
+    }
       
   void Drive::bforward(int lspeed,int rspeed){
     while(1){
-      int now = sensor.nowlight(0);
+      int now = sensor.nowlight();
       int ava = sensor.ret_avarage();
       int color = cal.cur_ava(now,(double)ava);
       if (color < 0){

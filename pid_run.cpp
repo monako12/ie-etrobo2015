@@ -4,9 +4,8 @@ extern "C"
   SensorGet sen;
   Cal calcu;
   Drive drive;
-
+  int ava = sen.lightavarage();
   class PIDrun{
-    int ava;
     int nowl;
     int ret_pid;
     int line;
@@ -16,13 +15,11 @@ extern "C"
     void pid_dash();
     int line_side_check();
     void fix_position();
-    int parameter();
+    void parameter();
     void display();
     int retb();
     int retw();
   };
-
-  int ava = sen.lightavarage();
 
   int PIDrun::retb(){
     int black = sen.ret_black();
@@ -34,17 +31,19 @@ extern "C"
     return(white);
   }
 
-  int PIDrun::parameter(){
-    nowl = sen.nowlight(ava);
+  void PIDrun::parameter(){
+    nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
-    return ret_pid;
   }
 
   void PIDrun::display(){
     lcd.clear();
     lcd.putf("sdn","position: ", drive.position(),5);
-    lcd.putf("sd","pid_value: ", ret_pid,5);
+    lcd.putf("sdn","ava", sen.ret_avarage(),5);
+    lcd.putf("sdn","nowlight: ", nowl, 5);
+    lcd.putf("sdn","pid_value: ", ret_pid,5);
+    lcd.putf("sd","line: ", line, 5);
     lcd.disp();
   }
 

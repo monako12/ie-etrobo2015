@@ -36,12 +36,13 @@ extern "C"
         Barcode bar;
         Train train;
         Drive drive;
-        Unknown unknown;
+	Unknown unknown;
 	PIDrun pidrun;
         Nihonbashi nihonbashi;
-        Parking par;
+	Parking par;
 	CatchGray catchg;
 	while(1){
+	  //bar.search_bord();
 	  pidrun.pid_running(false);
 	}
 
