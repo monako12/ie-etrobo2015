@@ -13,6 +13,7 @@
 #include "figurel.cpp"
 #include "checkmotor.cpp"
 #include "Nihonbashi.cpp"
+#include "catch_gray.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -39,6 +40,7 @@ extern "C"
 	    PIDrun pidrun;
         Nihonbashi Nihonbashi;
         Parking par;
+		CatchGray catchg;
 	while(1){
 	    //pidrun.pid_running(false);
 	}
