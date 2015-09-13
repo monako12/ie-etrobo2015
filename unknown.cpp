@@ -87,13 +87,17 @@ extern "C"
                 for(int i=0; i<4; i++){
                     for(int j=1; j<5; j++){
                         switch( map[i][j] ){
-                            case 1: 
+                            case 1:
+                                if(map[i+1][j]==0 && map[i][j+1]==0 && map[i][j-1]==0){
+                                    map[i][j]=0;//上左右0の場合は0 9/11
+                                    flag=true;
+                                }
                                 if(map[i+1][j] == 0){
                                     if( j < 3 ){
                                         map[i][j]=2;
                                     }
                                     else{
-                                        map[i][j]=4;                         
+                                        map[i][j]=4;
                                     }
                                     flag=true;
                                 }
@@ -104,8 +108,13 @@ extern "C"
                                     flag=true;
                                 }
                                 else if(map[i][j+1] == 4){
-                                    map[i][j]=4;
-                                    flag=true;
+                                    if(map[i][j-1] == 0){//修正箇所9/13
+                                        map[i][j]=0;
+                                    }
+                                    else{
+                                        map[i][j]=4;
+                                    }
+                                flag=true;
                                 }
                                 break;
                             case 4:
@@ -114,8 +123,13 @@ extern "C"
                                     flag=true;
                                 }
                                 else if(map[i][j-1] == 2){
-                                    map[i][j]=2;
-                                    flag=true;
+                                    if(map[i][j+1] == 0){//修正箇所9/13
+                                        map[i][j]=0;
+                                    }
+                                    else{
+                                        map[i][j]=2;
+                                    }
+                                flag=true;
                                 }
                                 break;
 
