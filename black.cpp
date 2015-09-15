@@ -41,6 +41,8 @@ extern "C"
         Nihonbashi nihonbashi;
 	Parking par;
 	CatchGray catchg;
+	
+	int trace_side = pidrun.fix_position();
 	while(1){
 	  //bar.search_bord();
 	  pidrun.pid_running(false);
