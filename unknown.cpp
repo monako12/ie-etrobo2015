@@ -180,7 +180,18 @@ extern "C"
             map[0][3] = 0;
             map[0][4] = 1;
 
-
+            bar.search_bord();
+            bar.fix_Direction(0);
+            motorB.setPWM(30);
+            motorC.setPWM(30);
+            clock.wait(800);
+            bar.fix_Direction(0);
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            dri.angle(680,100);
+            dri.forward(90,80,0,0);
+            par.reset(100);
+            Go_straight(DISTANCE/2);
 
         }
 
@@ -231,7 +242,7 @@ extern "C"
         }
 
         int Capture_unknown(vector<int> &temp){
-            int call_retire = 0;
+/*            int call_retire = 0;
 
             call_retire = Check_barcode(temp);
             Make_map();
@@ -252,6 +263,10 @@ extern "C"
             lcd.disp();
             while(true){
                 clock.wait(100);
+            }*/
+            //Set_position();
+            while(true){
+                pidrun.pid_running(false);
             }
         }
 
