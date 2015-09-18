@@ -1,7 +1,7 @@
 /* test_move*/
 /*
  メモ
- 9/15　完成 たぶん....
+ 9/18　完成 たぶん....
  motorAは+で右回り-で左回り
  motorB,Cは-で直進
  motorB = 左
@@ -35,9 +35,17 @@ extern "C"
         Drive drive;
 
         int move(int distance){
-            while(motorB.getCount() > -distance && motorC.getCount() > -distance){
-                motorB.setPWM(-50);
-                motorC.setPWM(-50);
+            if(distance>0){//前進
+                while(motorB.getCount() > -distance && motorC.getCount() > -distance){
+                    motorB.setPWM(-50);
+                    motorC.setPWM(-50);
+                }
+            }
+            else{//後退
+                while(motorB.getCount() < -distance && motorC.getCount() < -distance){
+                    motorB.setPWM(50);
+                    motorC.setPWM(50);
+                }
             }
             motorB.setPWM(0);
             motorC.setPWM(0);
@@ -102,7 +110,6 @@ extern "C"
                                 }
                                 pidrun.pid_running(false);
                             }
-                            //move(moving_distance(measure1-10));//ライントレース
                             count++;
                         }
                     }
@@ -116,7 +123,6 @@ extern "C"
                                 drive.motor_stop();
                                 break;
                             }
-                            //clock.sleep(1200);
                             pidrun.pid_running(false);
                         }
                         count++;
@@ -132,7 +138,6 @@ extern "C"
                                 drive.motor_stop();
                                 break;
                             }
-                            //clock.sleep(1200);
                             pidrun.pid_running(false);
                         }
                         count++;

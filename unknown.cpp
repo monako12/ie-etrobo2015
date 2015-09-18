@@ -79,7 +79,7 @@ extern "C"
             }
         }
 
-        void Modify_map(){
+        void Modify_map(){ //9_18
         /*
             int map_dummy[5][6]={ //test_date
                 {  0,  1,  1,  1,  1,  0, },
@@ -234,37 +234,72 @@ extern "C"
 
         }
 
-        void Path_trace(){
+        void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
-            int test_date [] = {1, 2, 1, 4, 5};
+            int test_date [] = {4, 1, 1, 1, 5};
             //for(int i = 0; i != sol_route.size(); i++){
               for(int i = 0; i < 5 ; i++){
                 switch(test_date[i]){
                     case 1:
-
-                        Go_straight(distance);
+                        switch(test_date[i-1]){
+                            case 1:
+                                Go_straight(distance);
+                                break;
+                             case 2:
+                                Right_turn();
+                                Go_straight(distance);
+                                break;
+                             case 4:
+                                Left_turn();
+                                Go_straight(distance);
+                                break;
+                             default:
+                                Go_straight(distance);
+                                break;
+                        }
                         break;
                     case 2:
-                        Right_turn();
-                        Go_straight(distance);
+                        switch(test_date[i-1]){
+                            case 1:
+                                Right_turn();
+                                Go_straight(distance);
+                                break;
+                             case 2:
+                                Go_straight(distance);
+                                break;
+                             case 4://本来ならありえない
+                                //Go_straight(distance);
+                                break;
+                             default:
+                                //Go_straight(distance);
+                                break;
+                        }
                         break;
                     case 4:
-                        Left_turn();
-                        Go_straight(distance);
+                        switch(test_date[i-1]){
+                            case 1:
+                                Left_turn();
+                                Go_straight(distance);
+                                break;
+                             case 2://本来ならありえない
+                                //Go_straight(distance);
+                                break;
+                             case 4:
+                                Go_straight(distance);
+                                break;
+                             default:
+                                //Go_straight(distance);
+                                break;
+                        }
                         break;
                     case 5: //end
-                    
                          break;
                     default:
                         break;
                 }
             }
-            while(true){
-                clock.wait(10);
-            }
-            
         }
-
+        
         void Return_line(){}
 
         void Retire(int hoge){
