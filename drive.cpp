@@ -34,7 +34,7 @@ extern "C"
     int fix_position(int, int, int, int, int);
     void back(int);
     int power_Adjustment(int, int);
-    void motorA_position_reset();
+    void motorA_position_set(int);
     void angle(int, int);
     void forward(int, int, int, int);
     void bforward(int, int);
@@ -214,7 +214,7 @@ extern "C"
       }
       back_distance = -distance/3;
       motor_stop();
-      motorA_position_reset();
+      motorA_position_set(100);
       clock.wait(1000);
     }
     return back_distance;
@@ -258,8 +258,9 @@ extern "C"
     return return_Power;
   }
     
-  void Drive::motorA_position_reset(){
-    while(motorA.getCount() > 0 || 0 > motorA.getCount()){
+  void Drive::motorA_position_set(int range){
+    if(range < 0) range *= -1;
+    while(motorA.getCount() >= range || -1*range >= motorA.getCount()){
       if(motorA.getCount() <= 0){
 	motorA.setPWM(40);
       }else{
