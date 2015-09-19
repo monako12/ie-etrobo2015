@@ -21,6 +21,9 @@ extern "C"
       i = i_coe*integral;
       d = d_coe*(diff[1]-diff[0])/delta_t;
       cur = p + i + d;
+
+      if(cur > 100) cur = 100;
+      if(cur < -100) cur = -100;
       
       return (int)cur;
     }

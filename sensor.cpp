@@ -20,6 +20,7 @@ class SensorGet{
   int white;
   int black;
   int gray;
+  int Threshold;
 
 public:
   int nowlight(){
@@ -58,11 +59,12 @@ public:
     while(touch.isPressed()==0)
       {
       }
-    /*if(avarage < gray){
-      return(gray + 20);
-      }else{*/
-    return(avarage);
-      //}
+    if(avarage < gray){
+      Threshold = gray + 20;
+    }else{
+      Threshold = avarage;
+    }
+    return(0);
   }
 
   int ret_white(){
@@ -73,6 +75,9 @@ public:
   }
   int ret_gray(){
     return(gray);
+  }
+  int ret_Threshold(){
+    return(Threshold);
   }
   int ret_avarage(){
     return(avarage);
