@@ -13,7 +13,7 @@ extern "C"
     int line;
   public:
 
-    void pid_running(bool);
+    void pid_running(int);
     void pid_dash();
     int line_side_check();
     int fix_position();
@@ -34,7 +34,7 @@ extern "C"
   }
 
   void PIDrun::parameter(){
-    ava = sen.ret_avarage(); //変更の可能性あり
+    ava = sen.ret_Threshold(); //変更の可能性あり
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
@@ -50,15 +50,16 @@ extern "C"
     lcd.disp();
   }
 
-  void PIDrun::pid_running(bool hoge){
+  void PIDrun::pid_running(int hoge){
     parameter();
     display();
-    if(hoge == true){
+    if(hoge == 1){
       drive.Left_Edge_Trace(ret_pid,line);/*左側のエッジ(黒の左側)を走る*/
     }
     else{
       drive.Right_Edge_Trace(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
     }
+    clock.wait(1);
   }
 
   void PIDrun::pid_dash(){
@@ -68,7 +69,7 @@ extern "C"
 
   int PIDrun::line_side_check(){
     int find_out_side = 2;
-    int roop_range = -400;
+    int roop_range = -300;
     int rooping_serch_count = 0;
     bool goto_side;
     drive.motor_count_reset();
@@ -78,7 +79,7 @@ extern "C"
       while(drive.position() >= roop_range){ //左探査
 	parameter();
 	display();
-	find_out_side = drive.LeftSide_line_check(nowl, line) == 1? 0:2;
+	find_out_side = drive.LeftSide_line_check(nowl, retb()) == 1? 0:2;
 	if(find_out_side == 0)break;
       }
       drive.motor_stop();
@@ -91,7 +92,7 @@ extern "C"
 	while(drive.position() >= roop_range){ //右探査
 	  parameter();
 	  display();
-	  find_out_side = drive.RightSide_line_check(nowl, line) == 1? 1:2;
+	  find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
 	  if(find_out_side == 1)break;
 	}
 	drive.motor_stop();
@@ -111,16 +112,16 @@ extern "C"
       drive.motor_count_reset();
       line_side = line_side_check();
       if(line_side == 0){ //左側にラインがある時の修正処理
-	while(distance > 20){
+	while(distance > 35){
 	  parameter();
 	  display();
-	  distance = drive.fix_position(ret_pid, line, line_side, distance);
+	  distance = drive.fix_position(ret_pid, nowl, line_side, distance, retb());
 	}
       }else if(line_side == 1){ //右側にラインがある時の修正処理
-	while(distance > 20){
+	while(distance > 35){
 	  parameter();
 	  display();
-	  distance = drive.fix_position(ret_pid, line, line_side, distance);
+	  distance = drive.fix_position(ret_pid, nowl, line_side, distance, retb());
 	}
       }
       return line_side;

@@ -45,7 +45,7 @@ extern "C"
 	int trace_side = pidrun.fix_position();
 	while(1){
 	  //bar.search_bord();
-	  pidrun.pid_running(false);
+	  pidrun.pid_running(trace_side); //引数は1(leftEdge)か1以外(rightEdge)
 	}
 
 	//ce.change_edge(ret_pid,line);

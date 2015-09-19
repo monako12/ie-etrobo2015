@@ -31,7 +31,7 @@ extern "C"
     int RightSide_line_check(int, int);
     int LeftSide_line_check(int, int);
     void Return_to_position(bool);
-    int fix_position(int, int, int, int);
+    int fix_position(int, int, int, int, int);
     void back(int);
     int power_Adjustment(int, int);
     void motorA_position_reset();
@@ -39,8 +39,6 @@ extern "C"
     void forward(int, int, int, int);
     void bforward(int, int);
   };
-
-
   
   int Drive::position(){
     return((motorB.getCount()+motorC.getCount())/2);
@@ -58,54 +56,52 @@ extern "C"
   }
 
   void Drive::Right_Edge_Trace(int pid,int line){
+    int b,c;
     if(line < 0){
-      if(motorA.getCount() <= 200){
-	motorA.setPWM(80);
+      if(motorA.getCount() <= 350){
+	motorA.setPWM(70);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() >= -200){
-	motorA.setPWM(-80);
+      if(motorA.getCount() >= -350){
+	motorA.setPWM(-70);
       }else{
 	motorA.setPWM(0);
       }
     }
-    int b;
-    int c;
     if(pid < 0){
-      b = -35 + (pid/4);
-      c = -35 - (pid/4);
+      b = - 50 + pid/3;
+      c = - 35 - pid/3;
     }else{
-      b = -30 + (pid/3);
-      c = -40 - (pid/4);
+      b = - 45 + pid/3;
+      c = - 40 - pid/3;
     }
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
     
   void Drive::Left_Edge_Trace(int pid,int line){
+    int b,c;
     if(line < 0){
-      if(motorA.getCount() >= -200){
-	motorA.setPWM(-80);
+      if(motorA.getCount() >= -350){
+	motorA.setPWM(-70);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 200){
-	motorA.setPWM(80);
+      if(motorA.getCount() <= 350){
+	motorA.setPWM(70);
       }else{
 	motorA.setPWM(0);
       }
     }
-    int b;
-    int c;
     if(pid < 0){
-      b = -35 - (pid/4);
-      c = -35 + (pid/4);
+      b = -35 - pid/3;
+      c = -50 + pid/3;
     }else{
-      b = -40 - (pid/4);
-      c = -30 + (pid/3);
+      b = -40 - pid/3;
+      c = -45 + pid/3;
     }
       
     motorC.setPWM(c);
@@ -139,31 +135,31 @@ extern "C"
     motorB.setPWM(b);
   }
 
-  int Drive::RightSide_line_check(int light_value, int line){
+  int Drive::RightSide_line_check(int light_value, int black_line){
     int find_out = 0;
-    if(motorA.getCount() <= 80){
+    if(motorA.getCount() <= 200){
       motorA.setPWM(60);
     }else{
       motorA.setPWM(0);
     }
     motorB.setPWM(-90);
     motorC.setPWM(-10);
-    if(line < 0){
+    if(light_value <= black_line+20){
       find_out = 1;
     }
     return find_out;
   }
 
-  int Drive::LeftSide_line_check(int light_value, int line){
+  int Drive::LeftSide_line_check(int light_value, int black_line){
     int find_out = 0;
-    if(motorA.getCount() >= -80){
+    if(motorA.getCount() >= -200){
       motorA.setPWM(-60);
     }else{
       motorA.setPWM(0);
     }
     motorB.setPWM(-10);
     motorC.setPWM(-90);
-    if(line < 0){
+    if(light_value <= black_line+20){
       find_out = 1;
     }
     return find_out;
@@ -183,23 +179,23 @@ extern "C"
     }
   }
 
-  int Drive::fix_position(int pid, int line, int line_side, int back_distance){
+  int Drive::fix_position(int pid, int light_value, int line_side, int back_distance, int black_line){
     int B_power, C_power;
     int slow_power = 0;
     int fast_power = 1;
     int distance = position();;
-    if(line >= 0){
+    if(light_value > black_line+20){
       if(line_side == 0){  //ラインが左にあるときの処理
-	if(motorA.getCount() >= -200){
-	  motorA.setPWM(-60);
+	if(motorA.getCount() >= -300){
+	  motorA.setPWM(-80);
 	}else{
 	  motorA.setPWM(0);
 	}
 	B_power = power_Adjustment(pid, slow_power);
 	C_power = power_Adjustment(pid, fast_power);
       }else if(line_side == 1){ //ラインが右にあるときの処理
-	if(motorA.getCount() <= 200){
-	  motorA.setPWM(60);
+	if(motorA.getCount() <= 300){
+	  motorA.setPWM(80);
 	}else{
 	  motorA.setPWM(0);
 	}
@@ -212,8 +208,8 @@ extern "C"
     }else{
       motor_stop();
       clock.wait(1000);
-      motor_count_reset();	
-      while(position()<(-distance/2)){
+      motor_count_reset();
+      while(position()<(-distance/3)){
 	back(line_side);
       }
       back_distance = -distance/3;
@@ -246,30 +242,29 @@ extern "C"
   }
 
   int Drive::power_Adjustment(int pid, int power){
-    if(-pid <= -60) pid = 60;
+    int return_Power;
+    if(pid >= 80) pid = 80;
     if(power == 1){
-      return -pid;
+      return_Power = -pid;
     }else{
-      if((-pid - position()/3) <= -30){
-	return -30;
-      }else if(-pid - position()/3 >= 0){
-	return 0;
+      if((-pid - position()/2) <= -50){
+	return_Power = -60;
+	}else if(-pid - position()/2 >= -10){
+	return_Power = -10;
       }else{
-	return (-pid - position()/3);
+	return_Power = (-pid - position()/2);
       }
     }
+    return return_Power;
   }
     
   void Drive::motorA_position_reset(){
     while(motorA.getCount() > 0 || 0 > motorA.getCount()){
       if(motorA.getCount() <= 0){
-	motorA.setPWM(35);
+	motorA.setPWM(40);
       }else{
-	motorA.setPWM(-35);
+	motorA.setPWM(-40);
       }
-      lcd.clear();
-      lcd.putf("sdn", "motorACount:", motorA.getCount(),5);
-      lcd.disp();	    
     }
   }
       
