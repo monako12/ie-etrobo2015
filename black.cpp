@@ -42,10 +42,10 @@ extern "C"
 	Parking par;
 	CatchGray catchg;
 	
-	int trace_side = pidrun.fix_position();
+	//int trace_side = pidrun.fix_position(); //左で見つかると1を返す
 	while(1){
 	  //bar.search_bord();
-	  pidrun.pid_running(trace_side); //引数は1(leftEdge)か1以外(rightEdge)
+	  pidrun.pid_running(1); //引数は1(leftEdge)か1以外(rightEdge)
 	}
 
 	//ce.change_edge(ret_pid,line);
