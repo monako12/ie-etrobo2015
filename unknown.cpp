@@ -6,7 +6,7 @@ extern "C"
     Drive dri;
     Parking par;
     Train tra;
-    
+
 
     class Unknown{
         public:
@@ -310,7 +310,7 @@ extern "C"
                 }
             }
         }
-        
+
         void Return_line(){}
 
         void Retire(int hoge){
@@ -351,7 +351,7 @@ extern "C"
             }*/
             //Set_position();
             while(true){
-                pidrun.pid_running(false);
+                pidrun.pid_running(false,0);
             }
         }
 

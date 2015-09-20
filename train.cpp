@@ -108,7 +108,7 @@ extern "C"
                                 drive.motor_stop();
                                 break;
                                 }
-                                pidrun.pid_running(false);
+                                pidrun.pid_running(false,0);
                             }
                             count++;
                         }
@@ -123,7 +123,7 @@ extern "C"
                                 drive.motor_stop();
                                 break;
                             }
-                            pidrun.pid_running(false);
+                            pidrun.pid_running(false,0);
                         }
                         count++;
 
@@ -138,7 +138,7 @@ extern "C"
                                 drive.motor_stop();
                                 break;
                             }
-                            pidrun.pid_running(false);
+                            pidrun.pid_running(false,0);
                         }
                         count++;
                     }

@@ -27,14 +27,14 @@ extern "C"
             while(true){
                 now = motorAA.getCount();
                 diff = hope - now;
-    
+
                 if(abs(diff) < 3){
                    // motorAA.setPWM(-100);//ittan migi muku
                     clocktime.wait(50);
                     motorAA.setPWM(0);
                     break;
                 }
-    
+
                 if(diff > 0){
                     motorAA.setPWM(100);
                 }else{
@@ -51,7 +51,7 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(false);
+                pidrun.pid_running(false,0);
                 if(white + 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
@@ -180,7 +180,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(false);
+                pidrun.pid_running(false,0);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
