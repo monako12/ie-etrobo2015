@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -28
+#define RIGHT -26
 #define BORDER 16
 
 extern "C"
@@ -21,20 +21,19 @@ extern "C"
     class Barcode{
         public:
             vector<int> array;
-        void fix_Direction(int hope){ //siteisita kazu no tyotto migi made zenrin wo mawasu
+        void fix_Direction(int hope){ //sei no suu de migi muku
             int now;
             int diff;
             while(true){
                 now = motorAA.getCount();
                 diff = hope - now;
-
+    
                 if(abs(diff) < 3){
-                   // motorAA.setPWM(-100);//ittan migi muku
                     clocktime.wait(50);
                     motorAA.setPWM(0);
                     break;
                 }
-
+    
                 if(diff > 0){
                     motorAA.setPWM(100);
                 }else{
@@ -51,8 +50,10 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(false,0);
-                if(white + 10 < now_color){ //tyousei hituyou
+                pidrun.pid_running(2,10);
+                //motorBB.setPWM(-25);
+                //motorCC.setPWM(-25);
+                if(white + 20 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -71,8 +72,8 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            clocktime.wait(800);
-            fix_Direction(-30);
+            fix_Direction(0);
+            clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
 
@@ -108,9 +109,19 @@ extern "C"
         }
 
         void barcode(int white,int black){
-            fix_Direction(0);
+            /*fix_Direction(0);
             ride_bord(850); //tyousei hituyou 1000ga iikana?
+            fix_Direction(0);*/
+            /*search_bord(30);
+            motorAA.setPWM(0);
+            fix_Direction(-60);
+            clock.wait(400);
+            ride_bord2(400);
             fix_Direction(0);
+            search_bord(30);
+            ride_bord2(300);*/
+            ride_bord_final();
+            clock.wait(100000000);
             acquire(white,black);
             lcd.clear();
             for(int i=0; i<8; i++){
@@ -124,6 +135,26 @@ extern "C"
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
+        }
+
+        void ride_bord_final(){
+            search_bord(30);
+            motorAA.setPWM(0);
+            fix_Direction(-60);
+            clock.wait(400);
+            ride_bord2(400);
+            fix_Direction(0);
+            search_bord(30);
+            ride_bord2(300);
+        }
+
+        void ride_bord2(int time){
+            motorCC.setPWM(-65);
+            motorBB.setPWM(-60);
+            clock.wait(time);
+            motorBB.setPWM(0);
+            motorCC.setPWM(0);
+            clock.wait(1200);
         }
 
         void ride_bord(int time){

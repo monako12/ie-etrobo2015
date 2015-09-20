@@ -6,7 +6,7 @@ extern "C"
     Drive dri;
     Parking par;
     Train tra;
-
+    
 
     class Unknown{
         public:
@@ -310,7 +310,7 @@ extern "C"
                 }
             }
         }
-
+        
         void Return_line(){}
 
         void Retire(int hoge){
@@ -327,7 +327,7 @@ extern "C"
         }
 
         int Capture_unknown(vector<int> &temp){
-/*            int call_retire = 0;
+            int call_retire = 0;
 
             call_retire = Check_barcode(temp);
             Make_map();
@@ -348,7 +348,7 @@ extern "C"
             lcd.disp();
             while(true){
                 clock.wait(100);
-            }*/
+            }
             //Set_position();
             while(true){
                 pidrun.pid_running(false,0);
