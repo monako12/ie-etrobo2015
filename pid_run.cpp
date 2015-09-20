@@ -85,7 +85,7 @@ extern "C"
       drive.motor_stop();
       drive.Return_to_position(goto_side);
       clock.wait(100);
-      
+
       if(find_out_side != 0){ //左にラインが見つからなかった時
 	drive.motor_count_reset();
 	goto_side = false;
@@ -102,10 +102,10 @@ extern "C"
 	clock.wait(10);
       }
       rooping_serch_count++;
-    }    
+    }
     return find_out_side;
   }
-  
+
   int PIDrun::fix_position(){
       int distance = 114514;
       int line_side;

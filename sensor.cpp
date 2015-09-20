@@ -21,6 +21,7 @@ class SensorGet{
   int black;
   int gray;
   int Threshold;
+  int g_Threshold;
 
 public:
   int nowlight(){
@@ -28,12 +29,12 @@ public:
     now = light.getBrightness();
     return(now);
   }
-  
+
   int lightavarage(){
     Clock clock;
     Lcd lcd;
     lcd.clear();
-    
+
     while(touch.isPressed()==0)
       {
       }
@@ -60,9 +61,11 @@ public:
       {
       }
     if(avarage < gray){
-      Threshold = gray + 20;
+      Threshold = gray + 15;
+	  g_Threshold = avarage;
     }else{
-      Threshold = avarage;
+      Threshold = gray + 20;
+	  g_Threshold = avarage;
     }
     return(0);
   }
@@ -78,6 +81,9 @@ public:
   }
   int ret_Threshold(){
     return(Threshold);
+  }
+  int ret_grayThreshold(){
+	  return(g_Threshold);
   }
   int ret_avarage(){
     return(avarage);
