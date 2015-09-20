@@ -37,23 +37,22 @@ extern "C"
         Train train;
         Drive drive;
         Figurel fig;
-	Unknown unknown;
-	PIDrun pidrun;
-    Nihonbashi nihonbashi;
-	Parking par;
-	CatchGray catchg;
-    fig.figurel();
-	//nihonbashi.stop_ex();
-	//int trace_side = pidrun.fix_position(); //左で見つかると1を返す
-	while(1){
-	  //bar.search_bord();
-
-	  pidrun.pid_running(2,10); //引数は1(leftEdge)か1以外(rightEdge)
-
-	}
-
-	//ce.change_edge(ret_pid,line);
-	//clock.wait(9);
-	//}
+        fig.figurel();
+	    Unknown unknown;
+	    PIDrun pidrun;
+        Nihonbashi nihonbashi;
+	    Parking par;
+	    CatchGray catchg;
+	  //nihonbashi.stop_ex();
+      //int trace_side = pidrun.fix_position(); //左で見つかると1を返す
+	    while(1){
+	        //bar.search_bord();
+	        pidrun.pid_running(2,10); //引数は1(leftEdge)か1以外(rightEdge)
+	    }
+	    //ce.change_edge(ret_pid,line);
+	    //clock.wait(9);
+	    //}
+		//bar.barcode(pidrun.retw(),pidrun.retb());
+        //unknown.Capture_unknown(bar.array);
     }
 }
