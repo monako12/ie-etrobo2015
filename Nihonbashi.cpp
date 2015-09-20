@@ -15,19 +15,39 @@ extern "C"
   {
    motorB.setPWM(100);
    motorC.setPWM(100);
-   clock.wait(300);
+   clock.wait(200);
    motorC.setPWM(-100);
    motorB.setPWM(-100);
-   clock.wait(700);
+   clock.wait(400);
    motorB.setPWM(-70);
    motorC.setPWM(-70);
+   clock.wait(800);
+   motorA.setPWM(-100);
+   motorB.setPWM(0);
+   motorC.setPWM(0);
+   clock.wait(70);
+   motorA.setPWM(100);
+   motorB.setPWM(0);
+   motorC.setPWM(0);
+   clock.wait(50);
+   motorA.setPWM(0);
+   motorB.setPWM(-100);
+   motorC.setPWM(-100);
+   clock.wait(500);
+   while(sensor.nowlight() > sen.ret_black()){
+   motorB.setPWM(50);
+   motorC.setPWM(50);
+ }
+   
+
+
 
 
  }
 
  void Nihonbashi::stop_ex()
  {
-  bar.search_bord();
+  bar.search_bord(34);
   nihon();
 }
 
