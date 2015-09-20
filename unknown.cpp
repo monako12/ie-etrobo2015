@@ -320,14 +320,14 @@ extern "C"
             //Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
-            lcd.disp();
+            Show_map(1145);
             while(true){
                 clock.wait(10);
             }
         }
 
         int Capture_unknown(vector<int> &temp){
-/*            int call_retire = 0;
+            int call_retire = 0;
 
             call_retire = Check_barcode(temp);
             Make_map();
@@ -348,11 +348,11 @@ extern "C"
             lcd.disp();
             while(true){
                 clock.wait(100);
-            }*/
-            //Set_position();
-            while(true){
-                pidrun.pid_running(false);
             }
+            //Set_position();
+           /* while(true){
+                pidrun.pid_running(false);
+            }*/
         }
 
         void Right_turn(){

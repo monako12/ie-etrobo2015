@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -28
+#define RIGHT -26
 #define BORDER 16
 
 extern "C"
@@ -21,7 +21,7 @@ extern "C"
     class Barcode{
         public:
             vector<int> array;
-        void fix_Direction(int hope){ //siteisita kazu no tyotto migi made zenrin wo mawasu
+        void fix_Direction(int hope){ //sei no suu de migi muku
             int now;
             int diff;
             while(true){
@@ -29,7 +29,6 @@ extern "C"
                 diff = hope - now;
     
                 if(abs(diff) < 3){
-                   // motorAA.setPWM(-100);//ittan migi muku
                     clocktime.wait(50);
                     motorAA.setPWM(0);
                     break;
@@ -51,8 +50,10 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(false);
-                if(white + 10 < now_color){ //tyousei hituyou
+                pidrun.pid_running(0);
+                //motorBB.setPWM(-25);
+                //motorCC.setPWM(-25);
+                if(white + 5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -60,6 +61,15 @@ extern "C"
                     motorAA.setPWM(0);
                             //motorBB.setPWM(0);    //barcode no saisyo wo tyotto dake susumu tyousei ni tukau yatu
                             //motorCC.setPWM(0);    //kokode stop sasete 109gyoume no atai wo tyousei suru
+                    /*while(1){
+                        motorBB.setPWM(0);
+                        motorCC.setPWM(0);
+                        motorAA.setPWM(0);
+                        lcd.clear();
+                        lcd.putf("sn","hoge");
+                        lcd.disp();
+                        clock.wait(10);
+                    }*/
                     break;
                 }
                 lcd.clear();
@@ -71,8 +81,8 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            clocktime.wait(800);
-            fix_Direction(-30);
+            fix_Direction(0);
+            clock.wait(800);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
 
@@ -87,7 +97,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(white - 5 < now_color){ //tyousei hituyou
+                    if(sensor.ret_avarage() < now_color){ //tyousei hituyou
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
@@ -108,9 +118,14 @@ extern "C"
         }
 
         void barcode(int white,int black){
-            fix_Direction(0);
+            /*fix_Direction(0);
             ride_bord(850); //tyousei hituyou 1000ga iikana?
-            fix_Direction(0);
+            fix_Direction(0);*/
+            search_bord(30);
+            motorAA.setPWM(0);
+            fix_Direction(60);
+            clock.wait(400);
+            ride_bord2(850);
             acquire(white,black);
             lcd.clear();
             for(int i=0; i<8; i++){
@@ -124,6 +139,16 @@ extern "C"
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
+        }
+
+        void ride_bord2(int time){
+            motorCC.setPWM(-65);
+            motorBB.setPWM(-60);
+            clock.wait(time);
+            motorBB.setPWM(0);
+            motorCC.setPWM(0);
+            clock.wait(1200);
+            fix_Direction(0);
         }
 
         void ride_bord(int time){
@@ -180,7 +205,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(false);
+                pidrun.pid_running(0);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
