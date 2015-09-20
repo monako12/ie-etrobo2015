@@ -36,14 +36,16 @@ extern "C"
         Barcode bar;
         Train train;
         Drive drive;
-        Unknown unknown;
-	    PIDrun pidrun;
-        Nihonbashi nihonbashi;
-        Parking par;
-		CatchGray catchg;
+	Unknown unknown;
+	PIDrun pidrun;
+    Nihonbashi nihonbashi;
+	Parking par;
+	CatchGray catchg;
+	nihonbashi.stop_ex();
+	//int trace_side = pidrun.fix_position(); //左で見つかると1を返す
 	while(1){
 	  //bar.search_bord();
-	  pidrun.pid_running(false);
+	  //pidrun.pid_running(0); //引数は1(leftEdge)か1以外(rightEdge)
 	}
 
 	//ce.change_edge(ret_pid,line);

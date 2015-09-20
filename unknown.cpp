@@ -79,9 +79,18 @@ extern "C"
             }
         }
 
-        void Modify_map(){
+        void Modify_map(){ //9_18
+        /*
+            int map_dummy[5][6]={ //test_date
+                {  0,  1,  1,  1,  1,  0, },
+                {  0,  0,  1,  1,  1,  0, },
+                {  0,  1,  1,  0,  0,  0, },
+                {  0,  1,  0,  1,  1,  0, },
+                {  5,  5,  5,  5,  5,  5, },
+            };
+         */
             bool flag=true;//初期状態動作のためflag=1
-            
+
             while(flag){
                 flag = false;
                 for(int i=0; i<4; i++){
@@ -89,14 +98,14 @@ extern "C"
                         switch( map[i][j] ){
                             case 1:
                                 if(map[i+1][j]==0 && map[i][j+1]==0 && map[i][j-1]==0){
-                                    map[i][j]=0;//上左右0の場合は0 9/11
+                                    map[i][j]=0;
                                     flag=true;
+                                    break;//注意!!
                                 }
                                 if(map[i+1][j] == 0){
                                     if( j < 3 ){
                                         map[i][j]=2;
-                                    }
-                                    else{
+                                    }else{
                                         map[i][j]=4;
                                     }
                                     flag=true;
@@ -104,41 +113,68 @@ extern "C"
                                 break;
                             case 2:
                                 if(map[i][j+1] == 0){
-                                    map[i][j]=4;//修正箇所9/11
-                                    flag=true;
-                                }
-                                else if(map[i][j+1] == 4){
-                                    if(map[i][j-1] == 0){//修正箇所9/13
+                                    if(map[i][j-1] == 0){
                                         map[i][j]=0;
-                                    }
-                                    else{
+                                    }else{
                                         map[i][j]=4;
                                     }
-                                flag=true;
+                                    flag=true;
+                                }else if(map[i][j+1] == 4){
+                                    if(map[i][j-1] == 0){
+                                        map[i][j]=0;
+                                    }else{
+                                        map[i][j]=4;
+                                    }
+                                    flag=true;
                                 }
                                 break;
                             case 4:
                                 if(map[i][j-1] == 0 ){
-                                    map[i][j]=2;//修正箇所9/11
-                                    flag=true;
-                                }
-                                else if(map[i][j-1] == 2){
-                                    if(map[i][j+1] == 0){//修正箇所9/13
+                                    if(map[i][j+1] == 0){
                                         map[i][j]=0;
-                                    }
-                                    else{
+                                    }else{
                                         map[i][j]=2;
                                     }
-                                flag=true;
+                                    flag=true;
+                                }else if(map[i][j-1] == 2){
+                                    if(map[i][j+1] == 0){
+                                        map[i][j]=0;
+                                    }else{
+                                        map[i][j]=2;
+                                    }
+                                    flag=true;
                                 }
                                 break;
-
                             default:
                                 break;
                         }//switch__end
                     }//for_end
                 }//for_end
+                            /*----------------------無限ループ確認用
+                            lcd.clear();
+                            for(int i=4; i>=0; i--){
+                                for(int j=0; j<6; j++){
+                                    lcd.putf("d",map_dummy[i][j],0);
+                                }
+                                lcd.putf("n");
+                            }
+                            lcd.disp();
+                            ----------------------*/
             }//while_end
+            /* ----------------------出力結果確認用
+            lcd.clear();
+            for(int i=4; i>=0; i--){
+                for(int j=0; j<6; j++){
+                    lcd.putf("d",map_dummy[i][j],0);
+                }
+                lcd.putf("n");
+            }
+            lcd.disp();
+
+            while(true){
+                clock.wait(10);
+            }
+            ----------------------*/
         }
 
         int Search_route(){ //sol_route ni route wo push siteikuyatu
@@ -209,37 +245,72 @@ extern "C"
 
         }
 
-        void Path_trace(){
+        void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
-            int test_date [] = {1, 2, 1, 4, 5};
+            int test_date [] = {4, 1, 1, 1, 5};
             //for(int i = 0; i != sol_route.size(); i++){
               for(int i = 0; i < 5 ; i++){
                 switch(test_date[i]){
                     case 1:
-
-                        Go_straight(distance);
+                        switch(test_date[i-1]){
+                            case 1:
+                                Go_straight(distance);
+                                break;
+                             case 2:
+                                Right_turn();
+                                Go_straight(distance);
+                                break;
+                             case 4:
+                                Left_turn();
+                                Go_straight(distance);
+                                break;
+                             default:
+                                Go_straight(distance);
+                                break;
+                        }
                         break;
                     case 2:
-                        Right_turn();
-                        Go_straight(distance);
+                        switch(test_date[i-1]){
+                            case 1:
+                                Right_turn();
+                                Go_straight(distance);
+                                break;
+                             case 2:
+                                Go_straight(distance);
+                                break;
+                             case 4://本来ならありえない
+                                //Go_straight(distance);
+                                break;
+                             default:
+                                //Go_straight(distance);
+                                break;
+                        }
                         break;
                     case 4:
-                        Left_turn();
-                        Go_straight(distance);
+                        switch(test_date[i-1]){
+                            case 1:
+                                Left_turn();
+                                Go_straight(distance);
+                                break;
+                             case 2://本来ならありえない
+                                //Go_straight(distance);
+                                break;
+                             case 4:
+                                Go_straight(distance);
+                                break;
+                             default:
+                                //Go_straight(distance);
+                                break;
+                        }
                         break;
                     case 5: //end
-                    
                          break;
                     default:
                         break;
                 }
             }
-            while(true){
-                clock.wait(10);
-            }
-            
         }
-
+        
         void Return_line(){}
 
         void Retire(int hoge){

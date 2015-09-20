@@ -13,10 +13,10 @@ extern "C"
     int line;
   public:
 
-    void pid_running(bool);
+    void pid_running(int);
     void pid_dash();
     int line_side_check();
-    void fix_position();
+    int fix_position();
     void parameter();
     void display();
     int retb();
@@ -34,7 +34,7 @@ extern "C"
   }
 
   void PIDrun::parameter(){
-    ava = sen.ret_avarage(); //変更の可能性あり
+    ava = sen.ret_Threshold(); //変更の可能性あり
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
@@ -50,15 +50,16 @@ extern "C"
     lcd.disp();
   }
 
-  void PIDrun::pid_running(bool hoge){
+  void PIDrun::pid_running(int hoge){
     parameter();
     display();
-    if(hoge == true){
+    if(hoge == 1){
       drive.Left_Edge_Trace(ret_pid,line);/*左側のエッジ(黒の左側)を走る*/
     }
     else{
       drive.Right_Edge_Trace(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
     }
+    clock.wait(1);
   }
 
   void PIDrun::pid_dash(){
@@ -68,21 +69,14 @@ extern "C"
 
   int PIDrun::line_side_check(){
     int find_out_side = 2;
-    bool goto_side = false;
+    int roop_range = -300;
+    int rooping_serch_count = 0;
+    bool goto_side;
     drive.motor_count_reset();
-    while(drive.position() >= -100){
-      parameter();
-      display();
-      find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
-      if(find_out_side == 1)break;
-    }
-    drive.motor_stop();
-    drive.Return_to_position(goto_side);
-    
-    if(find_out_side != 1){
-      drive.motor_count_reset();
+    while(find_out_side == 2){
       goto_side = true;
-      while(drive.position() >= -100){
+      roop_range = (roop_range * (10 + rooping_serch_count))/10;
+      while(drive.position() >= roop_range){ //左探査
 	parameter();
 	display();
 	find_out_side = drive.LeftSide_line_check(nowl, retb()) == 1? 0:2;
@@ -90,22 +84,46 @@ extern "C"
       }
       drive.motor_stop();
       drive.Return_to_position(goto_side);
-    }
+      clock.wait(100);
+      
+      if(find_out_side != 0){ //左にラインが見つからなかった時
+	drive.motor_count_reset();
+	goto_side = false;
+	while(drive.position() >= roop_range){ //右探査
+	  parameter();
+	  display();
+	  find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
+	  if(find_out_side == 1)break;
+	}
+	drive.motor_stop();
+	clock.wait(10);
+	drive.Return_to_position(goto_side);
+	drive.motor_stop();
+	clock.wait(10);
+      }
+      rooping_serch_count++;
+    }    
     return find_out_side;
   }
   
-  void PIDrun::fix_position(){
-    //if(line_side_check() == 0){
-      int distance = 100;
+  int PIDrun::fix_position(){
+      int distance = 114514;
+      int line_side;
       drive.motor_count_reset();
-      while(1){
-	parameter();
-	display();
-	distance = drive.fix_position(ret_pid, line, distance);
+      line_side = line_side_check();
+      if(line_side == 0){ //左側にラインがある時の修正処理
+	while(distance > 35){
+	  parameter();
+	  display();
+	  distance = drive.fix_position(ret_pid, nowl, line_side, distance, retb());
+	}
+      }else if(line_side == 1){ //右側にラインがある時の修正処理
+	while(distance > 35){
+	  parameter();
+	  display();
+	  distance = drive.fix_position(ret_pid, nowl, line_side, distance, retb());
+	}
       }
-      //}
+      return line_side;
   }
-  
 }
-
-
