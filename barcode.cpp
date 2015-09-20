@@ -50,10 +50,10 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(0);
+                pidrun.pid_running(2,10);
                 //motorBB.setPWM(-25);
                 //motorCC.setPWM(-25);
-                if(white + 5 < now_color){ //tyousei hituyou
+                if(white + 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -61,15 +61,6 @@ extern "C"
                     motorAA.setPWM(0);
                             //motorBB.setPWM(0);    //barcode no saisyo wo tyotto dake susumu tyousei ni tukau yatu
                             //motorCC.setPWM(0);    //kokode stop sasete 109gyoume no atai wo tyousei suru
-                    /*while(1){
-                        motorBB.setPWM(0);
-                        motorCC.setPWM(0);
-                        motorAA.setPWM(0);
-                        lcd.clear();
-                        lcd.putf("sn","hoge");
-                        lcd.disp();
-                        clock.wait(10);
-                    }*/
                     break;
                 }
                 lcd.clear();
@@ -205,7 +196,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(0);
+                pidrun.pid_running(false,0);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 

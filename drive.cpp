@@ -17,7 +17,7 @@ extern "C"
   Lcd lcd;
   SensorGet sensor;
   Cal cal;
-  
+
   class Drive{
   public:
     int nrotate; //現在の回転数
@@ -38,12 +38,13 @@ extern "C"
     void angle(int, int);
     void forward(int, int, int, int);
     void bforward(int, int);
+	void Barcode_pid_run(int, int, int);
   };
-  
+
   int Drive::position(){
     return((motorB.getCount()+motorC.getCount())/2);
   }
-      
+
   void Drive::motor_count_reset(){
     motorB.reset();
     motorC.reset();
@@ -80,7 +81,7 @@ extern "C"
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
-    
+
   void Drive::Left_Edge_Trace(int pid,int line){
     int b,c;
     if(line < 0){
@@ -103,11 +104,11 @@ extern "C"
       b = -40 - pid/3;
       c = -45 + pid/3;
     }
-      
+
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
-    
+
   void Drive::dash(int pid,int line){
     if(line < 0){
       if(motorA.getCount() >= -40){
@@ -238,7 +239,7 @@ extern "C"
 	motorC.setPWM(10);
       }
     }
-    
+
   }
 
   int Drive::power_Adjustment(int pid, int power){
@@ -257,7 +258,7 @@ extern "C"
     }
     return return_Power;
   }
-    
+
   void Drive::motorA_position_set(int range){
     if(range < 0) range *= -1;
     while(motorA.getCount() >= range || -1*range >= motorA.getCount()){
@@ -268,7 +269,7 @@ extern "C"
       }
     }
   }
-      
+
   void Drive::angle(int number,int speed){
     srotate = nxt_motor_get_count(PORT_A);
     while(1){
@@ -314,7 +315,7 @@ extern "C"
       }
     }
     }
-      
+
   void Drive::bforward(int lspeed,int rspeed){
     while(1){
       int now = sensor.nowlight();
@@ -330,5 +331,31 @@ extern "C"
 	motorC.setPWM((-1) * rspeed);
       }
     }
+  }
+
+  void Drive::Barcode_pid_run(int pid,int line,int fix){
+    int b,c;
+    if(line < 0){
+      if(motorA.getCount() <= 350){
+	motorA.setPWM(70);
+      }else{
+	motorA.setPWM(0);
+      }
+    }else{
+      if(motorA.getCount() >= -350){
+	motorA.setPWM(-70);
+      }else{
+	motorA.setPWM(0);
+      }
+    }
+    if(pid < 0){
+      b = - 50 + pid/3 - fix;
+      c = - 35 - pid/3 - fix;
+    }else{
+      b = - 45 + pid/3 - fix;
+      c = - 40 - pid/3 - fix;
+    }
+    motorC.setPWM(c);
+    motorB.setPWM(b);
   }
 }

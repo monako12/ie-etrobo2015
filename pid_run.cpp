@@ -13,7 +13,7 @@ extern "C"
     int line;
   public:
 
-    void pid_running(int);
+    void pid_running(int,int);
     void pid_dash();
     int line_side_check();
     int fix_position();
@@ -50,12 +50,15 @@ extern "C"
     lcd.disp();
   }
 
-  void PIDrun::pid_running(int hoge){
+  void PIDrun::pid_running(int hoge,int f){
     parameter();
     display();
     if(hoge == 1){
       drive.Left_Edge_Trace(ret_pid,line);/*左側のエッジ(黒の左側)を走る*/
     }
+	else if(hoge == 2){
+	  drive.Barcode_pid_run(ret_pid,line,f);
+	}
     else{
       drive.Right_Edge_Trace(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
     }
@@ -85,7 +88,7 @@ extern "C"
       drive.motor_stop();
       drive.Return_to_position(goto_side);
       clock.wait(100);
-      
+
       if(find_out_side != 0){ //左にラインが見つからなかった時
 	drive.motor_count_reset();
 	goto_side = false;
@@ -102,10 +105,10 @@ extern "C"
 	clock.wait(10);
       }
       rooping_serch_count++;
-    }    
+    }
     return find_out_side;
   }
-  
+
   int PIDrun::fix_position(){
       int distance = 114514;
       int line_side;

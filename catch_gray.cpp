@@ -4,9 +4,14 @@ extern "C"
         SensorGet sens;
 	int bw_ava = sens.ret_avarage();
 	int l_gray = sens.ret_gray();
+	int g_threshold = sens.ret_grayThreshold();
+
 class CatchGray{
 
 	public:
+	int catch_g(){
+	}
+
 	int search_inc(int gray_search){
 		gray_search++;
 		return(gray_search);
@@ -22,7 +27,7 @@ class CatchGray{
 		return(gray_search);
 	}
 
-	int catch_g(int now_light){
+/*	int catch_g(int now_light){
 		int check_g;
 		if(l_gray > bw_ava){
 			check_g = now_light - bw_ava;
@@ -31,5 +36,6 @@ class CatchGray{
 		}
 		return(check_g);
 	}
+	*/
 };
 }

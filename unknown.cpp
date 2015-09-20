@@ -320,7 +320,7 @@ extern "C"
             //Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
-            Show_map(1145);
+            lcd.disp();
             while(true){
                 clock.wait(10);
             }
@@ -350,9 +350,9 @@ extern "C"
                 clock.wait(100);
             }
             //Set_position();
-           /* while(true){
-                pidrun.pid_running(false);
-            }*/
+            while(true){
+                pidrun.pid_running(false,0);
+            }
         }
 
         void Right_turn(){
