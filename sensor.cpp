@@ -22,7 +22,7 @@ class SensorGet{
   int gray;
 
 public:
-  int nowlight(int ava){
+  int nowlight(){
     int now;
     now = light.getBrightness();
     return(now);
@@ -58,11 +58,11 @@ public:
     while(touch.isPressed()==0)
       {
       }
-    if(avarage < gray){
+    /*if(avarage < gray){
       return(gray + 20);
-    }else{
-      return(avarage);
-    }
+      }else{*/
+    return(avarage);
+      //}
   }
 
   int ret_white(){

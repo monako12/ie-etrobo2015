@@ -38,13 +38,14 @@ extern "C"
         Drive drive;
         Unknown unknown;
 	    PIDrun pidrun;
-        Nihonbashi Nihonbashi;
+        Nihonbashi nihonbashi;
         Parking par;
 		CatchGray catchg;
-		/*
 	while(1){
-	    pidrun.pid_running(false);
-	}*/
+	  //bar.search_bord();
+	  pidrun.pid_running(false);
+	}
+
 	//ce.change_edge(ret_pid,line);
 	//clock.wait(9);
 	//}

@@ -1,7 +1,7 @@
 /* test_move*/
 /*
  メモ
- 9/1
+ 9/15　完成 たぶん....
  motorAは+で右回り-で左回り
  motorB,Cは-で直進
  motorB = 左
@@ -25,15 +25,15 @@ using namespace ecrobot;
 
 extern "C"
 {
-    
+
     class Train{
-        
+
     public:
-        
+
         Clock clock;
         Lcd lcd;
         Drive drive;
-        
+
         int move(int distance){
             while(motorB.getCount() > -distance && motorC.getCount() > -distance){
                 motorB.setPWM(-50);
@@ -43,40 +43,41 @@ extern "C"
             motorC.setPWM(0);
             motorB.reset();
             motorC.reset();
-            
+
             return 0;
         }
-    
-    
+
+
     int moving_distance(int distance){
         int deg;
         int pi = 3; //円周率
         int r = 4; //後輪の半径
-        
+
         motorB.reset();
         motorC.reset();
-        
+
         deg = (distance*360) / (2*pi*r);//要値調整
-        
+
         return deg;
     }
-    
+
     void train()
     {
         int distance;
         int measure0=0, measure1=0, measure2=0;
         int count=1;
         int deg;
-        
+        bool flag=true;
+
         motorA.reset();
         motorB.reset();
         motorC.reset();
-        
-        while(touch.isPressed()==0)
+
+        while(flag == true)
         {
-            
+
             distance = sonar.getDistance();
-            
+
             switch(count){
                 case 1:
                     if(distance < 255){
@@ -91,47 +92,65 @@ extern "C"
                         }
                     }
                     if(measure1 != 0){
-                        if(measure1+20 < measure2){
+                        if(measure1+30 < measure2){
                             clock.sleep(1200);
-                            move(moving_distance(measure1));//ライントレース
+                            deg = moving_distance(measure1-20);
+                            while(true) {
+                                if(drive.position()<-deg){
+                                drive.motor_stop();
+                                break;
+                                }
+                                pidrun.pid_running(false);
+                            }
+                            //move(moving_distance(measure1-10));//ライントレース
                             count++;
                         }
                     }
                     break;
                 case 2:
-                    if(distance < 20){
+                    if(distance < 100){
+                        clock.sleep(1200);
+                        deg = moving_distance(measure2-measure1-10);
+                        while(true) {
+                            if(drive.position()<-deg){
+                                drive.motor_stop();
+                                break;
+                            }
+                            //clock.sleep(1200);
+                            pidrun.pid_running(false);
+                        }
                         count++;
+
                     }
                     break;
                 case 3:
-                    if(distance >250){
+                    if(distance < 100){
                         clock.sleep(1200);
-                        move(moving_distance(measure2-measure1));
-                        //ライントレース
+                        deg = moving_distance(measure2-measure1-10);
+                        while(true) {
+                            if(drive.position()<-deg){
+                                drive.motor_stop();
+                                break;
+                            }
+                            //clock.sleep(1200);
+                            pidrun.pid_running(false);
+                        }
                         count++;
                     }
                     break;
                 case 4:
-                    if(distance < 20){
-                        count++;
-                    }
-                    break;
-                case 5:
-                    if(distance > 250){
-                        clock.sleep(1200);
-                        move(500);
-                        count++;
-                    }
+                    flag=false;
                     break;
                 default:
+                    flag=false;
                     motorB.setPWM(0);
                     motorC.setPWM(0);
                     break;
-                    
+
             }
-            
+
             //各センサ・モータ類の値を常に画面に出力
-            
+
             lcd.clear();
             lcd.putf("sdn", "count", count,0);
             lcd.putf("sdn", "Rotation_A:", motorA.getCount(),0);
@@ -141,11 +160,11 @@ extern "C"
             lcd.putf("sdn", "gyro: ", gyro.getAnglerVelocity(),0);
             lcd.putf("sddn",  "1/2: ", measure1,0,  measure2,5);
             lcd.disp();
-            
+
             clock.wait(150); //計測できる範囲を伸ばすため値を大きくしている。
         }
     }
-    
+
 };
 
 }
