@@ -17,6 +17,7 @@ extern "C"
         {
 
             bar.search_bord(34);
+            bar.ride_bord_final();
 
 
 
