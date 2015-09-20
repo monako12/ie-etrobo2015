@@ -53,7 +53,7 @@ extern "C"
                 pidrun.pid_running(2,10);
                 //motorBB.setPWM(-25);
                 //motorCC.setPWM(-25);
-                if(white + 10 < now_color){ //tyousei hituyou
+                if(white + 20 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -73,7 +73,7 @@ extern "C"
             motorBB.setPWM(0);
             motorCC.setPWM(0);
             fix_Direction(0);
-            clock.wait(800);
+            clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
 
@@ -88,7 +88,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(sensor.ret_avarage() < now_color){ //tyousei hituyou
+                    if(white - 5 < now_color){ //tyousei hituyou
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
@@ -112,11 +112,16 @@ extern "C"
             /*fix_Direction(0);
             ride_bord(850); //tyousei hituyou 1000ga iikana?
             fix_Direction(0);*/
-            search_bord(30);
+            /*search_bord(30);
             motorAA.setPWM(0);
-            fix_Direction(60);
+            fix_Direction(-60);
             clock.wait(400);
-            ride_bord2(850);
+            ride_bord2(400);
+            fix_Direction(0);
+            search_bord(30);
+            ride_bord2(300);*/
+            ride_bord_final();
+            clock.wait(100000000);
             acquire(white,black);
             lcd.clear();
             for(int i=0; i<8; i++){
@@ -132,6 +137,17 @@ extern "C"
             motorCC.setPWM(0);
         }
 
+        void ride_bord_final(){
+            search_bord(30);
+            motorAA.setPWM(0);
+            fix_Direction(-60);
+            clock.wait(400);
+            ride_bord2(400);
+            fix_Direction(0);
+            search_bord(30);
+            ride_bord2(300);
+        }
+
         void ride_bord2(int time){
             motorCC.setPWM(-65);
             motorBB.setPWM(-60);
@@ -139,7 +155,6 @@ extern "C"
             motorBB.setPWM(0);
             motorCC.setPWM(0);
             clock.wait(1200);
-            fix_Direction(0);
         }
 
         void ride_bord(int time){
