@@ -64,8 +64,8 @@ public:
       Threshold = gray + 15;
 	  g_Threshold = avarage;
     }else{
-      Threshold = avarage;
-	  g_Threshold = gray;
+      Threshold = avarage + 20;
+	  g_Threshold = avarage;
     }
     return(0);
   }
