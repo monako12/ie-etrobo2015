@@ -168,7 +168,7 @@ extern "C"
             }
         }
 
-        void search_bord(){
+        void search_bord(int border){
             int velocity;
             int borderline;
             int diff_gyro;
@@ -184,7 +184,7 @@ extern "C"
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
-                if(diff_gyro > BORDER){ //tyousei hituyou
+                if(diff_gyro > border){ //tyousei hituyou
                     motorAA.setPWM(0);
                     motorCC.setPWM(0);
                     motorBB.setPWM(0);

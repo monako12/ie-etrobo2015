@@ -194,7 +194,7 @@ extern "C"
             map[0][3] = 0;
             map[0][4] = 1;
 
-            bar.search_bord();
+            bar.search_bord(16);
             bar.fix_Direction(0);
             motorB.setPWM(30);
             motorC.setPWM(30);
