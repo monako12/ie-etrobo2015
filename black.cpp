@@ -36,11 +36,13 @@ extern "C"
         Barcode bar;
         Train train;
         Drive drive;
+        Figurel fig;
 	Unknown unknown;
 	PIDrun pidrun;
     Nihonbashi nihonbashi;
 	Parking par;
 	CatchGray catchg;
+    fig.figurel();
 	//nihonbashi.stop_ex();
 	//int trace_side = pidrun.fix_position(); //左で見つかると1を返す
 	while(1){
