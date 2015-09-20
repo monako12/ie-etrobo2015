@@ -46,7 +46,7 @@ extern "C"
 	while(1){
 	  //bar.search_bord();
 
-	  pidrun.pid_running(2,10); //引数は1(leftEdge)か1以外(rightEdge)
+	  pidrun.pid_running(0,0); //引数は1(leftEdge)か0(rightEdge)、二つ目の引数はバーコード用なので気にしなくてok
 
 	}
 
