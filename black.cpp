@@ -36,6 +36,8 @@ extern "C"
         Barcode bar;
         Train train;
         Drive drive;
+        Figurel fig;
+        fig.figurel();
 	    Unknown unknown;
 	    PIDrun pidrun;
         Nihonbashi nihonbashi;

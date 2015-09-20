@@ -12,10 +12,16 @@ extern "C"
         
         Cal cal;
         Drive dri;
-        Barcode barcode;
         
         void figurel()
         {
+
+            bar.search_bord(34);
+            bar.ride_bord_final();
+
+
+
+            /*
             while(1)
             {
                 //板とタイヤを付けた状態から
@@ -53,7 +59,11 @@ extern "C"
                 
                 //倒れてちょい進んだあとPID復帰or新幹線へ？
                 
+
+                
             }
+            */
+
         }
     };
 }
