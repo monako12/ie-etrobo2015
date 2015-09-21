@@ -249,7 +249,7 @@ extern "C"
 
         void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
-            int test_date [] = {0, 1, 2, 1, 4, 1, 5};
+            int test_date [] = {0, 1, 1, 2, 1, 0, 5};
             //for(int i = 0; i != sol_route.size(); i++){
               for(int i = 1; i < 7 ; i++){
               clock.sleep(1200);
@@ -266,7 +266,7 @@ extern "C"
                                 lcd.clear();
                                 lcd.putf("sn","case1_2");
                                 lcd.disp();
-                                Left_turn();
+                                Left_turn3();
                                 Go_straight(distance);
                                 break;
                              case 4:
@@ -274,7 +274,7 @@ extern "C"
                                 lcd.putf("sn","case1_4");
                                 lcd.disp();
 
-                                Left_turn();
+                                Right_turn3();
                                 Go_straight(distance);
                                 break;
                              default:
@@ -282,6 +282,8 @@ extern "C"
                                 lcd.putf("sn","case1_de");
                                 lcd.disp();
 
+                                motorA.setPWM(10);
+                                motorA.setPWM(-10);
                                 Go_straight(distance);
                                 break;
                         }
@@ -293,8 +295,8 @@ extern "C"
                                 lcd.putf("sn","case2_1");
                                 lcd.disp();
 
-                                Right_turn();
-                                Go_straight(distance);
+                                Right_turn3();
+                                Go_straight(10);
                                 break;
                              case 2:
                                 lcd.clear();
@@ -314,7 +316,8 @@ extern "C"
                                 lcd.clear();
                                 lcd.putf("sn","case2_de");
                                 lcd.disp();
-
+                                Right_turn3();
+                                Go_straight(10);
                                 //Go_straight(distance);
                                 break;
                         }
@@ -326,8 +329,9 @@ extern "C"
                                 lcd.putf("sn","case4_1");
                                 lcd.disp();
 
-                                Left_turn();
+                                Left_turn3();
                                 Go_straight(distance);
+                                Go_straight(10);
                                 break;
                              case 2://本来ならありえない
                                 lcd.clear();
@@ -347,12 +351,13 @@ extern "C"
                                 lcd.clear();
                                 lcd.putf("sn","case4_DE");
                                 lcd.disp();
-
+                                Left_turn3();
                                 //Go_straight(distance);
                                 break;
                         }
                         break;
                     case 5: //end
+                        Go_straight(30);
                         while(true){
                         clock.wait(10);
                             lcd.clear();
@@ -425,6 +430,12 @@ extern "C"
             dri.forward(260,80,0,0);
             par.reset(100);
         }
+        void Right_turn3(){//33333333333333333333333
+            dri.angle(670,80);//680,80 第一引数モータA角度
+            dri.forward(270,80,0,0);//290,80,0,0 第一引数左モーター回転角
+            par.reset(100);
+            motorA.setPWM(-10);
+        }
 
         void Left_turn(){
             dri.angle(-680,100);
@@ -437,9 +448,17 @@ extern "C"
             dri.forward(260,0,100,1);
             par.reset(100);
         }
+        void Left_turn3(){//33333333333333333333333
+            dri.angle(-670,75);
+            dri.forward(290,0,80,1);
+            par.reset(100);
+            motorA.setPWM(10);
+        }
+
 
         void Go_straight(int distance){
-            motorA.setPWM(0);
+            motorA.setPWM(5);
+            motorA.setPWM(-5);
             tra.move(tra.moving_distance(distance));
         }
 
