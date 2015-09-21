@@ -43,17 +43,12 @@ extern "C"
         Nihonbashi nihonbashi;
 	    Parking par;
 	    CatchGray catchg;
-      //int trace_side = pidrun.fix_position(); //左で見つかると1を返す
+
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-	    //ce.change_edge(ret_pid,line);
-	    //clock.wait(9);
-	    //}
-	    while(1){
+
+	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
-		//bar.barcode(pidrun.retw(),pidrun.retb());
-        //unknown.Capture_unknown(bar.array);
-	    }
     }
 }

@@ -51,7 +51,7 @@ extern "C"
             while(1){
                 now_color = light_bar.getBrightness();
                 pidrun.pid_running(2,-23);
-                if(white -5 < now_color){ //tyousei hituyou
+                if(white - 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -119,7 +119,7 @@ extern "C"
             search_bord(30);
             ride_bord2(300);*/
             ride_bord_final();
-            clock.wait(1000);
+            clock.wait(100000000000);
             acquire(white,black);
             lcd.clear();
             for(int i=0; i<8; i++){
