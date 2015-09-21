@@ -197,6 +197,48 @@ extern "C"
             }
         }
 
+        void ride_bord_kai(int time){
+            int velocity;
+            int borderline;
+            int diff_gyro;
+            bool flag = false;
+
+            gyro_bar.setOffset(0);
+            motorAA.setPWM(0);
+            motorBB.setPWM(-20);
+            motorCC.setPWM(-23);
+            borderline = gyro_bar.getAnglerVelocity();
+
+            while(true){
+                velocity = gyro_bar.getAnglerVelocity();
+                diff_gyro = velocity - borderline;
+                lcd.clear();
+                if(flag){
+                    motorBB.setPWM(0);
+                    motorCC.setPWM(0);
+                    lcd.putf("sn","hoge");
+                    lcd.putf("sdn","diff:",diff_gyro,0);
+                    lcd.putf("sdn","border:",borderline,0);
+                    lcd.putf("sdn","now:",velocity,0);
+                    lcd.disp();
+                    clocktime.wait(800);
+                    break;
+                }
+                if(diff_gyro > BORDER){
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(800);
+                    motorCC.setPWM(-70);
+                    motorBB.setPWM(-60);
+                    clocktime.wait(time);
+                    flag = true;
+                }
+                lcd.putf("sdn","diff:",diff_gyro,0);
+                lcd.disp();
+                clocktime.wait(5);
+            }
+        }
+
         void search_bord(int border,bool select){
             int velocity;
             int borderline;
