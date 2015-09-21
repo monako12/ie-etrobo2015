@@ -136,13 +136,13 @@ extern "C"
         }
 
         void ride_bord_final(){
-            search_bord(30);
+            search_bord(30,false);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
             ride_bord2(400);
             fix_Direction(0);
-            search_bord(26);
+            search_bord(26,false);
             ride_bord2(300);
         }
 
@@ -197,7 +197,7 @@ extern "C"
             }
         }
 
-        void search_bord(int border){
+        void search_bord(int border,bool select){
             int velocity;
             int borderline;
             int diff_gyro;
@@ -209,7 +209,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(false,0);
+                pidrun.pid_running(select,0);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
