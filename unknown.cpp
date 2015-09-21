@@ -226,25 +226,29 @@ extern "C"
             return(0);
         }
 
-        void Set_position(){
-            map[0][1] = 0;
-            map[0][2] = 1;
-            map[0][3] = 0;
-            map[0][4] = 1;
-
-            bar.search_bord(16,false);
-            bar.fix_Direction(0);
-            motorB.setPWM(30);
-            motorC.setPWM(30);
-            clock.wait(800);
-            bar.fix_Direction(0);
-            motorB.setPWM(0);
-            motorC.setPWM(0);
-            dri.angle(680,100);
-            dri.forward(90,80,0,0);
-            par.reset(100);
-            Go_straight(DISTANCE/2);
-
+        void Set_position(int pos){
+            int dis = 23;
+            int ang = 310;
+            if(2 == pos){
+                dis += 23;
+            }else if(3 == pos){
+                dis += 48;
+                ang = 290;
+            }else if(4 == pos){
+                dis += 72;
+                ang = 250;
+            }
+	        Right_turn_2();
+	        Left_turn_2(250);
+	        pidrun.fix_position();
+	        clock.wait(1500);
+	        tra.move_pid(dis,true); //1...+0    2...+23    3...+48    4...+72
+	        bar.fix_Direction(0);
+	        Left_turn_2(ang);  //1...310   2...310    3...290    4...250
+	        bar.fix_Direction(-10);
+	        clock.wait(1000);
+	        bar.ride_bord_kai(980);
+	        clock.wait(10000000000);
         }
 
         void Path_trace(){ //9_18
@@ -425,9 +429,9 @@ extern "C"
             par.reset(100);
         }
 
-        void Right_turn2(){
-            dri.angle(600,80);
-            dri.forward(260,80,0,0);
+        void Right_turn_2(){
+            dri.angle(580,80);
+            dri.forward(250,80,0,0);
             par.reset(100);
         }
         void Right_turn3(){//33333333333333333333333
@@ -438,14 +442,14 @@ extern "C"
         }
 
         void Left_turn(){
-            dri.angle(-680,100);
-            dri.forward(290,0,100,1);
+            dri.angle(-680,80);
+            dri.forward(290,0,80,1);
             par.reset(100);
         }
 
-        void Left_turn2(){
-            dri.angle(-600,100);
-            dri.forward(260,0,100,1);
+        void Left_turn_2(int var){
+            dri.angle(-680,80);
+            dri.forward(var,0,80,1);
             par.reset(100);
         }
         void Left_turn3(){//33333333333333333333333
