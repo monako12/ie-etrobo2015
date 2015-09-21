@@ -13,14 +13,14 @@ extern "C"
 
   void Nihonbashi::nihon()
   {
-   motorB.setPWM(100);
-   motorC.setPWM(100);
+   motorB.setPWM(80);
+   motorC.setPWM(80);
    clock.wait(200);
-   motorC.setPWM(-100);
-   motorB.setPWM(-100);
+   motorC.setPWM(-80);
+   motorB.setPWM(-80);
    clock.wait(700);
-   motorB.setPWM(-70);
-   motorC.setPWM(-70);
+   motorB.setPWM(-60);
+   motorC.setPWM(-60);
    clock.wait(1000);
    /*
    motorA.setPWM(-100);
@@ -34,10 +34,10 @@ extern "C"
    motorA.setPWM(0);
    motorB.setPWM(-100);
    motorC.setPWM(-100);*/
-   motorB.setPWM(50);
-   motorC.setPWM(50);
+   motorB.setPWM(40);
+   motorC.setPWM(40);
    clock.wait(400);
-   motorA.setPWM(-100);
+   motorA.setPWM(-900);
    motorB.setPWM(0);
    motorC.setPWM(0);
    clock.wait(500);

@@ -6,18 +6,27 @@ extern "C"
 #include "ecrobot_interface.h"
 #define MOTOR_B 0
 #define MOTOR_C 1
-    
+
     class Figurel{
     public:
-        
+
         Cal cal;
         Drive dri;
         
         void figurel()
         {
 
-            bar.search_bord(34);
-            bar.ride_bord_final();
+            bar.search_bord(30);
+            motorB.setPWM(100);
+            motorC.setPWM(100);
+            clock.wait(200);
+            motorC.setPWM(-100);
+            motorB.setPWM(-100);
+            clock.wait(300);
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+
+
 
 
 
