@@ -2,7 +2,7 @@ using namespace ecrobot;
 extern "C"
 {
   double p_coe = 0.34;
-  double i_coe = 0.34;
+  double i_coe = 0.10;
   double d_coe = 0.34;
   class Cal{
   public:
