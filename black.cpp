@@ -47,10 +47,8 @@ extern "C"
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
 
-	    //while(1){ //test loop
+	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
-	        //unknown.Path_trace();
-	        train.move_pid(75,true);
-		//}
+		}
     }
 }
