@@ -273,20 +273,19 @@ extern "C"
 
   void Drive::angle(int number,int speed){
     srotate = nxt_motor_get_count(PORT_A);
-    while(1){
-      nrotate = nxt_motor_get_count(PORT_A);
-      if (nrotate < (srotate + number)){
-	motorA.setPWM(speed);
-      }
-      else if (nrotate > (srotate + number)){
-	motorA.setPWM((-1) * speed);
-      }
-      else {
-	motorA.setPWM(0);
-	motorC.setPWM(50);
-	motorB.setPWM(0);
-      }
-    }
+                while(1){
+                    nrotate = nxt_motor_get_count(PORT_A);
+                    if (nrotate < (srotate + number)){
+                        motorA.setPWM(speed);
+                    }
+                    else if (nrotate > (srotate + number)){
+                        motorA.setPWM((-1) * speed);
+                    }
+                    else {
+                        motorA.setPWM(0);
+                        break;
+                    }
+                }
   }
 
   void Drive::forward(int number,int lspeed,int rspeed,int tire){
