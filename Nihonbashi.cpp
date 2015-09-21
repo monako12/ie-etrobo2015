@@ -13,9 +13,9 @@ extern "C"
 
   void Nihonbashi::nihon()
   {
-   motorB.setPWM(80);
-   motorC.setPWM(80);
-   clock.wait(200);
+   motorB.setPWM(100);
+   motorC.setPWM(100);
+   clock.wait(250);
    motorC.setPWM(-80);
    motorB.setPWM(-80);
    clock.wait(700);
@@ -51,12 +51,12 @@ extern "C"
    clock.wait(500);
 
 
-   /*
+   
    while(sensor.nowlight() > sen.ret_black()){
    motorB.setPWM(-50);
    motorC.setPWM(-80);
  }
- */
+ 
 
 
 
