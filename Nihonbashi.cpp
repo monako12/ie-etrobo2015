@@ -54,7 +54,7 @@ extern "C"
    motorA.setPWM(-90);
    motorB.setPWM(0);
    motorC.setPWM(0);
-   clock.wait(500);
+   clock.wait(200);
 
 
    
