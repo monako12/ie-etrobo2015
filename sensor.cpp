@@ -62,10 +62,8 @@ public:
       }
     if(avarage < gray){
       Threshold = gray + 15;
-	  g_Threshold = avarage;
     }else{
       Threshold = avarage + 20;
-	  g_Threshold = avarage;
     }
     return(0);
   }

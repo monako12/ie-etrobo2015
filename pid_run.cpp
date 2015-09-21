@@ -14,7 +14,7 @@ extern "C"
     int nowl;
     int ret_pid;
     int line;
-	int threshold;
+	int white;
   public:
 
     void pid_running(int,int);
@@ -42,11 +42,11 @@ extern "C"
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
-	threshold = sen.ret_Threshold();
+	white = sen.ret_white();
   }
 
   void PIDrun::display(){
-	search = graycount.catch_g(nowl,search,threshold);
+	search = graycount.catch_g(nowl,search,ava,white);
 	if(search > gcount){
 		gcount = search;
 	}else{
@@ -55,12 +55,16 @@ extern "C"
     lcd.clear();
 	lcd.putf("dn",search,5);
 	lcd.putf("dn",gcount,5);
-//    lcd.putf("sdn","position: ", drive.position(),5);
+    lcd.putf("sdn","position: ", drive.position(),5);
 //    lcd.putf("sdn","ava", sen.ret_avarage(),5);
 //    lcd.putf("sdn","nowlight: ", nowl, 5);
 //    lcd.putf("sdn","pid_value: ", ret_pid,5);
 //    lcd.putf("sd","line: ", line, 5);
     lcd.disp();
+	if(gcount > 580){
+		drive.motor_stop();
+		clock.wait(100000);
+	}
   }
 
   void PIDrun::pid_running(int hoge,int f){
@@ -71,6 +75,9 @@ extern "C"
     }
 	else if(hoge == 2){
 	  drive.Barcode_pid_run(ret_pid,line,f);
+	}
+	else if(hoge == 3){
+	  drive.slow_Trace(ret_pid,line);
 	}
     else{
       drive.Right_Edge_Trace(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
