@@ -33,6 +33,19 @@ extern "C"
       ret = cur - ava;
       return(ret);
     }
+
+    int send_i_value(int ava,double cur){
+      int i;
+      double delta_t = 5;
+      double diff[3] = {};
+      double integral = 0;
+      diff[0] = diff[1];
+      diff[1] = cur - ava;
+      integral += (diff[1] + diff[0])/2*delta_t;
+      i = i_coe*integral;
+      return(i);
+    }
+
   };
 
 }

@@ -12,19 +12,36 @@ extern "C"
 
         Cal cal;
         Drive dri;
+        SensorGet sen;
         
         void figurel()
         {
 
             bar.search_bord(30);
-            motorB.setPWM(100);
+
+            int ava = sen.ret_Threshold();//値が取れているか要確認
+            int nowl = sen.nowlight();//値が取れているか要確認
+
+            int i = cal.send_i_value(ava,nowl);
+
+
+            //値が変わっているかの確認用
+            //pid_runningと合わせる場合はdisplay()をコメントアウトする必要があるかも
+            lcd.clear();
+            lcd.putf("sdn", "i", i,10);
+            lcd.disp();
+
+
+
+            //以下は後ほど変更
+            /*motorB.setPWM(100);
             motorC.setPWM(100);
             clock.wait(200);
             motorC.setPWM(-100);
             motorB.setPWM(-100);
             clock.wait(300);
             motorB.setPWM(0);
-            motorC.setPWM(0);
+            motorC.setPWM(0);*/
 
 
 
