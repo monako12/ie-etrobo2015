@@ -5,6 +5,7 @@
 #include "calculation.cpp"
 #include "sensor.cpp"
 #include "drive.cpp"
+#include "catch_gray.cpp"
 #include "pid_run.cpp"
 #include "barcode.cpp"
 #include "train.cpp"
@@ -13,7 +14,6 @@
 #include "figurel.cpp"
 #include "checkmotor.cpp"
 #include "Nihonbashi.cpp"
-#include "catch_gray.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -44,9 +44,6 @@ extern "C"
 	    Parking par;
 	    CatchGray catchg;
       //int trace_side = pidrun.fix_position(); //左で見つかると1を返す
-	    /*while(1){ //main loop
-	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
-	    }*/
 	    //ce.change_edge(ret_pid,line);
 	    //clock.wait(9);
 	    //}
