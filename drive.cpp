@@ -146,7 +146,8 @@ extern "C"
     }
     motorB.setPWM(-90);
     motorC.setPWM(-10);
-    if(light_value <= black_line+20){
+    //if(light_value <= black_line+20){
+    if(light_value <= black_line+50){
       find_out = 1;
     }
     return find_out;

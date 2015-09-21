@@ -363,9 +363,21 @@ extern "C"
             par.reset(100);
         }
 
+        void Right_turn2(){
+            dri.angle(600,80);
+            dri.forward(260,80,0,0);
+            par.reset(100);
+        }
+
         void Left_turn(){
-            dri.angle(-680,80);
-            dri.forward(290,0,80,1);
+            dri.angle(-680,100);
+            dri.forward(290,0,100,1);
+            par.reset(100);
+        }
+
+        void Left_turn2(){
+            dri.angle(-600,100);
+            dri.forward(260,0,100,1);
             par.reset(100);
         }
 
@@ -389,5 +401,6 @@ extern "C"
             }
             lcd.disp();
         }
+
     };
 }
