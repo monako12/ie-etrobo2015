@@ -4,13 +4,17 @@ extern "C"
   SensorGet sen;
   Cal calcu;
   Drive drive;
+  CatchGray graycount;
 
   int Execute_Touch_Pressed = sen.lightavarage(); //どのタイミングで実行されるかわからん
+  int search = 0;
+  int gcount = 0;
   class PIDrun{
     int ava;
     int nowl;
     int ret_pid;
     int line;
+	int threshold;
   public:
 
     void pid_running(int,int);
@@ -38,15 +42,24 @@ extern "C"
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
+	threshold = sen.ret_Threshold();
   }
 
   void PIDrun::display(){
+	search = graycount.catch_g(nowl,search,threshold);
+	if(search > gcount){
+		gcount = search;
+	}else{
+		gcount = gcount;
+	}
     lcd.clear();
-    lcd.putf("sdn","position: ", drive.position(),5);
-    lcd.putf("sdn","ava", sen.ret_avarage(),5);
-    lcd.putf("sdn","nowlight: ", nowl, 5);
-    lcd.putf("sdn","pid_value: ", ret_pid,5);
-    lcd.putf("sd","line: ", line, 5);
+	lcd.putf("dn",search,5);
+	lcd.putf("dn",gcount,5);
+//    lcd.putf("sdn","position: ", drive.position(),5);
+//    lcd.putf("sdn","ava", sen.ret_avarage(),5);
+//    lcd.putf("sdn","nowlight: ", nowl, 5);
+//    lcd.putf("sdn","pid_value: ", ret_pid,5);
+//    lcd.putf("sd","line: ", line, 5);
     lcd.disp();
   }
 

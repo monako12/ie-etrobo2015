@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -26
+#define RIGHT -24
 #define BORDER 16
 
 extern "C"
@@ -50,10 +50,8 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(2,10);
-                //motorBB.setPWM(-25);
-                //motorCC.setPWM(-25);
-                if(white + 20 < now_color){ //tyousei hituyou
+                pidrun.pid_running(2,-23);
+                if(white -5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -72,7 +70,7 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            fix_Direction(0);
+            fix_Direction(-20);
             clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
@@ -121,7 +119,7 @@ extern "C"
             search_bord(30);
             ride_bord2(300);*/
             ride_bord_final();
-            clock.wait(100000000);
+            clock.wait(1000);
             acquire(white,black);
             lcd.clear();
             for(int i=0; i<8; i++){
@@ -144,7 +142,7 @@ extern "C"
             clock.wait(400);
             ride_bord2(400);
             fix_Direction(0);
-            search_bord(30);
+            search_bord(26);
             ride_bord2(300);
         }
 
