@@ -12,6 +12,7 @@ extern "C"
         public:
             int map[5][6];
             int start_pos;
+            int end_pos;
             int array[8];
             vector<int> sol_route;
         int Check_barcode(vector<int> &temp){
@@ -215,6 +216,7 @@ extern "C"
                         break;
                 }
             }
+            end_pos = j;
 
             if(danger){
                 Retire(start_pos);
@@ -356,13 +358,13 @@ extern "C"
         }
 
         void Right_turn(){
-            dri.angle(680,100);
+            dri.angle(680,80);
             dri.forward(290,80,0,0);
             par.reset(100);
         }
 
         void Left_turn(){
-            dri.angle(-680,100);
+            dri.angle(-680,80);
             dri.forward(290,0,80,1);
             par.reset(100);
         }
