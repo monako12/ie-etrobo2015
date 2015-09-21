@@ -26,6 +26,8 @@ using namespace ecrobot;
 extern "C"
 {
 
+    //Drive drive;
+
     class Train{
 
     public:
@@ -80,6 +82,7 @@ extern "C"
         motorA.reset();
         motorB.reset();
         motorC.reset();
+
 
         while(flag == true)
         {

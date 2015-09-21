@@ -39,6 +39,7 @@ extern "C"
     void forward(int, int, int, int);
     void bforward(int, int);
 	void Barcode_pid_run(int, int, int);
+	void slow_Trace(int, int);
   };
 
   int Drive::position(){
@@ -112,13 +113,13 @@ extern "C"
   void Drive::dash(int pid,int line){
     if(line < 0){
       if(motorA.getCount() >= -40){
-	motorA.setPWM(-25);
+	motorA.setPWM(-40);
       }else{
 	motorA.setPWM(0);
       }
     }else{
       if(motorA.getCount() <= 40){
-	motorA.setPWM(25);
+	motorA.setPWM(40);
       }else{
 	motorA.setPWM(0);
       }
@@ -126,11 +127,11 @@ extern "C"
     int b;
     int c;
     if(pid < 0){
-      b = -85 + (pid/4);
-      c = -85 - (pid/4);
+      b = -90 + (pid/3);
+      c = -80 - (pid/3);
     }else{
-      b = -79 + (pid/3);
-      c = -92 - (pid/4);
+      b = -90 + (pid/3);
+      c = -85 - (pid/3);
     }
     motorC.setPWM(c);
     motorB.setPWM(b);
@@ -355,6 +356,32 @@ extern "C"
       b = - 45 + pid/3 - fix;
       c = - 40 - pid/3 - fix;
     }
+    motorC.setPWM(c);
+    motorB.setPWM(b);
+  }
+  void Drive::slow_Trace(int pid,int line){
+    int b,c;
+    if(line < 0){
+      if(motorA.getCount() >= -200){
+	motorA.setPWM(-50);
+      }else{
+	motorA.setPWM(0);
+      }
+    }else{
+      if(motorA.getCount() <= 200){
+	motorA.setPWM(50);
+      }else{
+	motorA.setPWM(0);
+      }
+    }
+    if(pid < 0){
+      b = -22 - pid/3;
+      c = -37 + pid/3;
+    }else{
+      b = -27 - pid/3;
+      c = -32 + pid/3;
+    }
+
     motorC.setPWM(c);
     motorB.setPWM(b);
   }

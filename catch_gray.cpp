@@ -1,15 +1,17 @@
 using namespace ecrobot;
 extern "C"
 {
-        SensorGet sens;
-	int bw_ava = sens.ret_avarage();
-	int l_gray = sens.ret_gray();
-	int g_threshold = sens.ret_grayThreshold();
-
 class CatchGray{
 
 	public:
-	int catch_g(){
+	int catch_g(int now_light,int gray_search,int threshold,int white){
+		if(now_light >= threshold && now_light < white){
+			gray_search++;
+		}else{
+			gray_search = 0;
+		}
+		return(gray_search);
+
 	}
 
 	int search_inc(int gray_search){
@@ -27,15 +29,5 @@ class CatchGray{
 		return(gray_search);
 	}
 
-/*	int catch_g(int now_light){
-		int check_g;
-		if(l_gray > bw_ava){
-			check_g = now_light - bw_ava;
-		}else{
-			check_g = now_light - l_gray;
-		}
-		return(check_g);
-	}
-	*/
 };
 }

@@ -5,6 +5,7 @@
 #include "calculation.cpp"
 #include "sensor.cpp"
 #include "drive.cpp"
+#include "catch_gray.cpp"
 #include "pid_run.cpp"
 #include "barcode.cpp"
 #include "train.cpp"
@@ -13,7 +14,6 @@
 #include "figurel.cpp"
 #include "checkmotor.cpp"
 #include "Nihonbashi.cpp"
-#include "catch_gray.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -37,7 +37,7 @@ extern "C"
         Train train;
         Drive drive;
         Figurel fig;
-        fig.figurel();
+        //fig.figurel();
 	    Unknown unknown;
 	    PIDrun pidrun;
         Nihonbashi nihonbashi;
