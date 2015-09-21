@@ -17,7 +17,7 @@ extern "C"
         void figurel()
         {
 
-            bar.search_bord(30);
+            bar.search_bord(30,true);
 
             int ava = sen.ret_Threshold();//値が取れているか要確認
             int nowl = sen.nowlight();//値が取れているか要確認
