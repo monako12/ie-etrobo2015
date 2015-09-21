@@ -14,7 +14,6 @@ extern "C"
     int nowl;
     int ret_pid;
     int line;
-	int white;
   public:
 
     void pid_running(int,int);
@@ -42,16 +41,11 @@ extern "C"
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
-	white = sen.ret_white();
+		search = graycount.catch_g(nowl,search,ava);
+		gcount = graycount.gray_count(gcount,search);
   }
 
   void PIDrun::display(){
-	search = graycount.catch_g(nowl,search,ava,white);
-	if(search > gcount){
-		gcount = search;
-	}else{
-		gcount = gcount;
-	}
     lcd.clear();
 	lcd.putf("dn",search,5);
 	lcd.putf("dn",gcount,5);
@@ -61,10 +55,6 @@ extern "C"
 //    lcd.putf("sdn","pid_value: ", ret_pid,5);
 //    lcd.putf("sd","line: ", line, 5);
     lcd.disp();
-/*	if(gcount > 580){
-		drive.motor_stop();
-		clock.wait(100000);
-	}*/
   }
 
   void PIDrun::pid_running(int hoge,int f){
