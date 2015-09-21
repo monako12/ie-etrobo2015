@@ -197,6 +197,7 @@ extern "C"
 
             j = start_pos;
             while(5 != sol_route.back()){
+                sol_route.push_back(0);
                 sol_route.push_back(map[i][j]);
                 switch( map[i][j] ){
                     case 1:
