@@ -4,8 +4,8 @@ extern "C"
 class CatchGray{
 
 	public:
-	int catch_g(int now_light,int gray_search,int g_threshold){
-		if(now_light > g_threshold){
+	int catch_g(int now_light,int gray_search,int threshold){
+		if(now_light > threshold){
 			gray_search++;
 		}else{
 			gray_search = 0;

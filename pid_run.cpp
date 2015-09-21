@@ -8,12 +8,13 @@ extern "C"
 
   int Execute_Touch_Pressed = sen.lightavarage(); //どのタイミングで実行されるかわからん
   int search = 0;
+  int gcount = 0;
   class PIDrun{
     int ava;
     int nowl;
     int ret_pid;
     int line;
-	int gthreshold;
+	int threshold;
   public:
 
     void pid_running(int,int);
@@ -41,13 +42,19 @@ extern "C"
     nowl = sen.nowlight();
     ret_pid = calcu.p_i_d(ava,nowl);
     line = calcu.cur_ava(nowl,ava);
-	gthreshold = sen.ret_grayThreshold();
+	threshold = sen.ret_Threshold();
   }
 
   void PIDrun::display(){
-	search = graycount.catch_g(nowl,search,gthreshold);
+	search = graycount.catch_g(nowl,search,threshold);
+	if(search > gcount){
+		gcount = search;
+	}else{
+		gcount = gcount;
+	}
     lcd.clear();
 	lcd.putf("dn",search,5);
+	lcd.putf("dn",gcount,5);
 //    lcd.putf("sdn","position: ", drive.position(),5);
 //    lcd.putf("sdn","ava", sen.ret_avarage(),5);
 //    lcd.putf("sdn","nowlight: ", nowl, 5);
