@@ -75,7 +75,7 @@ extern "C"
 
  void Nihonbashi::stop_ex()
  {
-  bar.search_bord(25);
+  bar.search_bord(25,false);
 
   nihon();
 }
