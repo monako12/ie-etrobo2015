@@ -49,7 +49,6 @@ extern "C"
 	    //}
 	    while(1){
 	        //If you do test program,you have to write in this while loop.
-			pidrun.pid_running(0,0);
 		//bar.barcode(pidrun.retw(),pidrun.retb());
         //unknown.Capture_unknown(bar.array);
 	    }
