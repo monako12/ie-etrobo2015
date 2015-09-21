@@ -61,10 +61,10 @@ extern "C"
 //    lcd.putf("sdn","pid_value: ", ret_pid,5);
 //    lcd.putf("sd","line: ", line, 5);
     lcd.disp();
-	if(gcount > 580){
+/*	if(gcount > 580){
 		drive.motor_stop();
 		clock.wait(100000);
-	}
+	}*/
   }
 
   void PIDrun::pid_running(int hoge,int f){

@@ -50,5 +50,6 @@ extern "C"
 
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
+		}
     }
 }
