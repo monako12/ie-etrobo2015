@@ -145,13 +145,13 @@ extern "C"
             }else{
                 hoge = 2;
             }
-            search_bord(18,hoge);
+            search_bord(13,hoge);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
             ride_bord2(450);
             fix_Direction(0);
-            search_bord(14,hoge);
+            search_bord(13,hoge);
             ride_bord2(300);
         }
 

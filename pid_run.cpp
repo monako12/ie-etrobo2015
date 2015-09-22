@@ -24,7 +24,7 @@ extern "C"
     int fix_position();
     void parameter();
     void display();
-		void gray_discover();
+		bool gray_discover();
     int retb();
     int retw();
   };
@@ -49,13 +49,16 @@ extern "C"
 //		gcount = graycount.gray_count(gcount,search);
   }
 
-	void PIDrun::gray_discover(){
+	bool PIDrun::gray_discover(){
+		bool huga = false;
 		search = graycount.catch_g(nowl,search,retb(),gray);
 		gcount = graycount.gray_count(gcount,search);
 		if(gcount > 1000 && search == 0){
 			drive.motor_stop();
-			clock.wait(10000000);
+			clock.wait(10000);
+			huga = true;
 		}
+		return(huga);
 	}
 
   void PIDrun::display(){
