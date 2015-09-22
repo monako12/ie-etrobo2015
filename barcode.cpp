@@ -51,7 +51,7 @@ extern "C"
             while(1){
                 now_color = light_bar.getBrightness();
                 pidrun.pid_running(2,-23);
-                if(white - 10 < now_color){ //tyousei hituyou
+                if(white + 5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -70,7 +70,7 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            fix_Direction(-20);
+            fix_Direction(-10);
             clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
@@ -119,7 +119,7 @@ extern "C"
             search_bord(30);
             ride_bord2(300);*/
             ride_bord_final();
-            clock.wait(100000000000);
+            clock.wait(1000);
             acquire(white,black);
             lcd.clear();
             for(int i=0; i<8; i++){
@@ -128,27 +128,30 @@ extern "C"
 
             lcd.disp();
             clocktime.wait(500);
+            fix_Direction(30);
             motorCC.setPWM(-35);//yomitottara sonomama
             motorBB.setPWM(-35);//hashiritudukeru
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
+            search_bord(18,1);
+            search_bord(18,1);
         }
 
         void ride_bord_final(){
-            search_bord(30,false);
+            search_bord(18,2);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
-            ride_bord2(400);
+            ride_bord2(450);
             fix_Direction(0);
-            search_bord(26,false);
+            search_bord(15,2);
             ride_bord2(300);
         }
 
         void ride_bord2(int time){
-            motorCC.setPWM(-65);
-            motorBB.setPWM(-60);
+            motorCC.setPWM(-73);
+            motorBB.setPWM(-73);
             clock.wait(time);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
@@ -239,7 +242,7 @@ extern "C"
             }
         }
 
-        void search_bord(int border,bool select){
+        void search_bord(int border,int select){
             int velocity;
             int borderline;
             int diff_gyro;
@@ -251,7 +254,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,0);
+                pidrun.pid_running(select,-17);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 

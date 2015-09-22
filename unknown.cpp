@@ -233,8 +233,8 @@ extern "C"
             if(2 == pos){
                 dis += 23;
             }else if(3 == pos){
-                dis += 48;
-                ang = 290;
+                dis += 49;
+                ang = 270;
             }else if(4 == pos){
                 dis += 72;
                 ang = 250;
@@ -406,7 +406,9 @@ extern "C"
                 Retire(1919);
                 return(1);
             }
-            //Set_position();
+            Show_map(114514);
+            clock.wait(1000);
+            Set_position(start_pos);
             Path_trace();
             lcd.clear();
             Show_map(start_pos);
