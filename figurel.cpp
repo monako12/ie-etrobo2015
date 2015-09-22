@@ -9,26 +9,57 @@ extern "C"
 
     class Figurel{
     public:
+        int srotate;
+        int nrotate;
 
         Cal cal;
-        Drive dri;
+        Drive drive;
         SensorGet sen;
+        Parking par;
         
         void figurel()
         {
 
-            bar.search_bord(30,true);
-            bar.ride_bord(600);
-
-            /*motorB.reset();
-            motorC.reset();
-            
-            while(motorB.getCount() > -500 && motorC.getCount() > -500){
-              pidrun.pid_running(0,0);
-            }*/
+            bar.ride_bord_final();
+            /*motorA.setPWM(0);
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            clock.wait(1000);*/
 
             while(true){
-              pidrun.pid_running(0,0);
+                srotate = nxt_motor_get_count(PORT_C);
+                while(1){
+                    nrotate = nxt_motor_get_count(PORT_C);
+                    if (nrotate > (srotate + ((-1) * 450))){
+                        pidrun.pid_running(false,0);
+                    }
+                    else {
+                        break;
+                    }
+                }
+                motorB.setPWM(0);
+                motorC.setPWM(0);
+                par.reset(100);
+                clock.wait(2000);
+                
+                drive.angle(680,100);
+                drive.forward(90,80,0,MOTOR_B);
+                par.reset(100);
+                drive.bforward(60,60);
+		drive.forward(145,60,60,MOTOR_C);
+                
+                drive.angle(680,100);
+                drive.forward(30,80,0,MOTOR_B);
+                par.reset(100);
+                
+                clock.wait(1000);
+                
+                pidrun.pid_running(true,0);
+                
+                clock.wait(10000000);
+
+
+              /*pidrun.pid_running(0,0);
 
 
               int ava = sen.ret_avarage();//値が取れているか要確認
@@ -50,16 +81,8 @@ extern "C"
                 motorB.setPWM(0);
                 motorC.setPWM(0);
                 clock.wait(100000);
-              }
+              }*/
             }
-
-
-            //値が変わっているかの確認用
-            //pid_runningと合わせる場合はdisplay()をコメントアウトする必要があるかも
-            /*lcd.clear();
-            lcd.putf("sdn", "i", i,10);
-            lcd.disp();*/
-
 
 
             //以下は後ほど変更
