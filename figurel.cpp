@@ -18,18 +18,47 @@ extern "C"
         {
 
             bar.search_bord(30,true);
+            bar.ride_bord(600);
 
-            int ava = sen.ret_Threshold();//値が取れているか要確認
-            int nowl = sen.nowlight();//値が取れているか要確認
+            /*motorB.reset();
+            motorC.reset();
+            
+            while(motorB.getCount() > -500 && motorC.getCount() > -500){
+              pidrun.pid_running(0,0);
+            }*/
 
-            int i = cal.send_i_value(ava,nowl);
+            while(true){
+              pidrun.pid_running(0,0);
+
+
+              int ava = sen.ret_avarage();//値が取れているか要確認
+              int nowl = sen.nowlight();//値が取れているか要確認
+
+              int i = cal.send_i_value(ava,nowl);
+
+
+              //値が変わっているかの確認用
+              //pid_runningと合わせる場合はdisplay()をコメントアウトする必要があるかも
+              lcd.clear();
+              lcd.putf("sdn", "i", i,10);
+              lcd.putf("sdn","ava",ava,10);
+              lcd.putf("sdn","nowl",nowl,10);
+              lcd.disp();
+
+              if(i < 0 && i > -100000){
+                motorA.setPWM(0);
+                motorB.setPWM(0);
+                motorC.setPWM(0);
+                clock.wait(100000);
+              }
+            }
 
 
             //値が変わっているかの確認用
             //pid_runningと合わせる場合はdisplay()をコメントアウトする必要があるかも
-            lcd.clear();
+            /*lcd.clear();
             lcd.putf("sdn", "i", i,10);
-            lcd.disp();
+            lcd.disp();*/
 
 
 
