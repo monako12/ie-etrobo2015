@@ -28,6 +28,7 @@ extern "C"
     void Right_Edge_Trace(int, int);
     void Left_Edge_Trace(int, int);
     void dash(int, int);
+		void dash_left(int,int);
     int RightSide_line_check(int, int);
     int LeftSide_line_check(int, int);
     void Return_to_position(bool);
@@ -39,7 +40,7 @@ extern "C"
     void forward(int, int, int, int);
     void bforward(int, int);
 	void Barcode_pid_run(int, int, int);
-	void slow_Trace(int, int);
+	void slow_Trace(int, int, int);
   };
 
   int Drive::position(){
@@ -87,13 +88,13 @@ extern "C"
     int b,c;
     if(line < 0){
       if(motorA.getCount() >= -350){
-	motorA.setPWM(-70);
+	motorA.setPWM(-80);
       }else{
 	motorA.setPWM(0);
       }
     }else{
       if(motorA.getCount() <= 350){
-	motorA.setPWM(70);
+	motorA.setPWM(80);
       }else{
 	motorA.setPWM(0);
       }
@@ -133,6 +134,33 @@ extern "C"
       b = -90 + (pid/3);
       c = -85 - (pid/3);
     }
+    motorC.setPWM(c);
+    motorB.setPWM(b);
+  }
+
+	void Drive::dash_left(int pid,int line){
+    int b,c;
+    if(line < 0){
+      if(motorA.getCount() >= -40){
+	motorA.setPWM(-40);
+      }else{
+	motorA.setPWM(0);
+      }
+    }else{
+      if(motorA.getCount() <= 40){
+	motorA.setPWM(40);
+      }else{
+	motorA.setPWM(0);
+      }
+    }
+    if(pid < 0){
+      b = -80 - pid/3;
+      c = -90 + pid/3;
+    }else{
+      b = -85 - pid/3;
+      c = -90 + pid/3;
+    }
+
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
@@ -359,30 +387,32 @@ extern "C"
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
-  void Drive::slow_Trace(int pid,int line){
+
+  void Drive::slow_Trace(int pid,int line,int fix){
     int b,c;
     if(line < 0){
-      if(motorA.getCount() >= -200){
-	motorA.setPWM(-50);
+      if(motorA.getCount() >= -350){
+	motorA.setPWM(-80);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 200){
-	motorA.setPWM(50);
+      if(motorA.getCount() <= 350){
+	motorA.setPWM(80);
       }else{
 	motorA.setPWM(0);
       }
     }
     if(pid < 0){
-      b = -22 - pid/3;
-      c = -37 + pid/3;
+      b = -35 - pid/3 - fix;
+      c = -50 + pid/3 - fix;
     }else{
-      b = -27 - pid/3;
-      c = -32 + pid/3;
+      b = -40 - pid/3 - fix;
+      c = -45 + pid/3 - fix;
     }
 
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
+
 }
