@@ -1,33 +1,27 @@
 using namespace ecrobot;
 extern "C"
 {
+
 class CatchGray{
 
 	public:
-	int catch_g(int now_light,int gray_search,int threshold,int white){
-		if(now_light >= threshold && now_light < white){
-			gray_search++;
+	int catch_g(int now_light,int search,int black,int gray){
+		if(now_light < black+10){
+			search = 0;
 		}else{
-			gray_search = 0;
+			search++;
 		}
-		return(gray_search);
-
+		return(search);
 	}
 
-	int search_inc(int gray_search){
-		gray_search++;
-		return(gray_search);
+	int gray_count(int gcount,int search){
+		if(search > gcount){
+			gcount = search;
+		}
+		else{
+			gcount = gcount;
+		}
+		return(gcount);
 	}
-
-	int count_inc(int gray_count){
-		gray_count++;
-		return(gray_count);
-	}
-
-	int search_reset(int gray_search){
-		gray_search = 0;
-		return(gray_search);
-	}
-
 };
 }

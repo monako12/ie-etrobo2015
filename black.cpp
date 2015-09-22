@@ -46,9 +46,16 @@ extern "C"
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-
+			while(drive.position() > -5500){
+				pidrun.pid_dash_left();
+			}
+			while(drive.position() > -12000){
+				pidrun.pid_running(1,0);
+			}
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
+					pidrun.pid_running(3,-10);
+					pidrun.gray_discover();
 		}
     }
 }
