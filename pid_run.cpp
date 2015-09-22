@@ -102,21 +102,26 @@ extern "C"
       while(drive.position() >= roop_range){ //左探査
 	parameter();
 	display();
-	find_out_side = drive.LeftSide_line_check(nowl, retb()) == 1? 0:2;
-	if(find_out_side == 0)break;
+	//find_out_side = drive.LeftSide_line_check(nowl, retb()) == 1? 0:2;
+	find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
+	//if(find_out_side == 0)break;
+	if(find_out_side == 1)break;
       }
       drive.motor_stop();
       drive.Return_to_position(goto_side);
       clock.wait(100);
 
-      if(find_out_side != 0){ //左にラインが見つからなかった時
+      //if(find_out_side != 0){ //左にラインが見つからなかった時
+      if(find_out_side != 1){
 	drive.motor_count_reset();
 	goto_side = false;
 	while(drive.position() >= roop_range){ //右探査
 	  parameter();
 	  display();
-	  find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
-	  if(find_out_side == 1)break;
+	  //find_out_side = drive.RightSide_line_check(nowl, retb()) == 1? 1:2;
+	  find_out_side = drive.LeftSide_line_check(nowl, retb()) == 1? 0:2;
+	  //if(find_out_side == 1)break;
+	  if(find_out_side == 0)break;
 	}
 	drive.motor_stop();
 	clock.wait(10);

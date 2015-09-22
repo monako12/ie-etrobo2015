@@ -249,24 +249,39 @@ extern "C"
 
         void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
-            int test_date [] = {4, 1, 1, 1, 5};
+            int test_date [] = {0, 1, 2, 1, 4, 1, 5};
             //for(int i = 0; i != sol_route.size(); i++){
-              for(int i = 0; i < 5 ; i++){
+              for(int i = 1; i < 7 ; i++){
+              clock.sleep(1200);
                 switch(test_date[i]){
                     case 1:
                         switch(test_date[i-1]){
                             case 1:
+                                lcd.clear();
+                                lcd.putf("sn","case1_1");
+                                lcd.disp();
                                 Go_straight(distance);
                                 break;
                              case 2:
-                                Right_turn();
+                                lcd.clear();
+                                lcd.putf("sn","case1_2");
+                                lcd.disp();
+                                Left_turn();
                                 Go_straight(distance);
                                 break;
                              case 4:
+                                lcd.clear();
+                                lcd.putf("sn","case1_4");
+                                lcd.disp();
+
                                 Left_turn();
                                 Go_straight(distance);
                                 break;
                              default:
+                                lcd.clear();
+                                lcd.putf("sn","case1_de");
+                                lcd.disp();
+
                                 Go_straight(distance);
                                 break;
                         }
@@ -274,16 +289,32 @@ extern "C"
                     case 2:
                         switch(test_date[i-1]){
                             case 1:
+                                lcd.clear();
+                                lcd.putf("sn","case2_1");
+                                lcd.disp();
+
                                 Right_turn();
                                 Go_straight(distance);
                                 break;
                              case 2:
+                                lcd.clear();
+                                lcd.putf("sn","case2_2");
+                                lcd.disp();
+
                                 Go_straight(distance);
                                 break;
                              case 4://本来ならありえない
+                                lcd.clear();
+                                lcd.putf("sn","case2_4");
+                                lcd.disp();
+
                                 //Go_straight(distance);
                                 break;
                              default:
+                                lcd.clear();
+                                lcd.putf("sn","case2_de");
+                                lcd.disp();
+
                                 //Go_straight(distance);
                                 break;
                         }
@@ -291,28 +322,54 @@ extern "C"
                     case 4:
                         switch(test_date[i-1]){
                             case 1:
+                                lcd.clear();
+                                lcd.putf("sn","case4_1");
+                                lcd.disp();
+
                                 Left_turn();
                                 Go_straight(distance);
                                 break;
                              case 2://本来ならありえない
+                                lcd.clear();
+                                lcd.putf("sn","case4_2");
+                                lcd.disp();
+
                                 //Go_straight(distance);
                                 break;
                              case 4:
+                                lcd.clear();
+                                lcd.putf("sn","case4_4");
+                                lcd.disp();
+
                                 Go_straight(distance);
                                 break;
                              default:
+                                lcd.clear();
+                                lcd.putf("sn","case4_DE");
+                                lcd.disp();
+
                                 //Go_straight(distance);
                                 break;
                         }
                         break;
                     case 5: //end
+                        while(true){
+                        clock.wait(10);
+                            lcd.clear();
+                            lcd.putf("sn","case5_END");
+                            lcd.disp();
+                        }
                          break;
                     default:
+                            lcd.clear();
+                            lcd.putf("sn","case0_");
+                            lcd.disp();
+
                         break;
                 }
             }
         }
-        
+
         void Return_line(){}
 
         void Retire(int hoge){
@@ -363,9 +420,21 @@ extern "C"
             par.reset(100);
         }
 
+        void Right_turn2(){
+            dri.angle(600,80);
+            dri.forward(260,80,0,0);
+            par.reset(100);
+        }
+
         void Left_turn(){
-            dri.angle(-680,80);
-            dri.forward(290,0,80,1);
+            dri.angle(-680,100);
+            dri.forward(290,0,100,1);
+            par.reset(100);
+        }
+
+        void Left_turn2(){
+            dri.angle(-600,100);
+            dri.forward(260,0,100,1);
             par.reset(100);
         }
 
@@ -389,5 +458,6 @@ extern "C"
             }
             lcd.disp();
         }
+
     };
 }
