@@ -134,8 +134,8 @@ extern "C"
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            search_bord(18,1);
-            search_bord(18,1);
+            search_bord(15,1);
+            search_bord(15,1);
         }
 
         void ride_bord_final(){
@@ -145,7 +145,7 @@ extern "C"
             clock.wait(400);
             ride_bord2(450);
             fix_Direction(0);
-            search_bord(15,2);
+            search_bord(14,2);
             ride_bord2(300);
         }
 
