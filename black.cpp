@@ -46,20 +46,24 @@ extern "C"
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-			/*while(drive.position() > -5500){ //増えてるコメント消さないでください。byジャック
+/*			while(drive.position() > -700){
+				pidrun.pid_running(1,0);
+			}
+			while(drive.position() > -5700){ //増えてるコメント消さないでください。byジャック
 				pidrun.pid_dash_left();
 			}
-			while(drive.position() > -12000){
+			while(drive.position() > -12200){
 				pidrun.pid_running(1,0);
 			}
 			bool huga = false;
 			while(huga == false){
-				pidrun.pid_running(3,-10);
+				pidrun.pid_running(3,-13);
 				huga = pidrun.gray_discover();
 			}*/
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
-					//pidrun.pid_running(3,-10);
+					//fig.figurel();
+					//pidrun.pid_running(0,0);
 					//pidrun.gray_discover();
 		}
     }
