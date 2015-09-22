@@ -6,12 +6,12 @@ extern "C"
 #include "ecrobot_interface.h"
 #define MOTOR_B 0
 #define MOTOR_C 1
-    
+
     class Figurel{
     public:
         int srotate;
         int nrotate;
-        
+
         Cal cal;
         Drive drive;
         SensorGet sen;
@@ -20,12 +20,12 @@ extern "C"
         void figurel()
         {
             clock.wait(2000);
-            bar.ride_bord_final();
+            bar.ride_bord_final(true);
             /*motorA.setPWM(0);
-             motorB.setPWM(0);
-             motorC.setPWM(0);
-             clock.wait(1000);*/
-            
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            clock.wait(1000);*/
+
             while(true){
                 srotate = nxt_motor_get_count(PORT_C);
                 while(1){
@@ -49,6 +49,8 @@ extern "C"
                 drive.angle(300,80);
                 drive.bforward(50,0);
                 
+                drive.angle(680,100);
+                drive.forward(30,80,0,MOTOR_B);
                 par.reset(100);
 
                 clock.wait(1000);
