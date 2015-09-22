@@ -51,6 +51,11 @@ extern "C"
 			}
 			while(drive.position() > -12000){
 				pidrun.pid_running(1,0);
+			}
+			bool huga = false;
+			while(huga == false){
+				pidrun.pid_running(3,-10);
+				huga = pidrun.gray_discover();
 			}*/
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
