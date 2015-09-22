@@ -61,9 +61,9 @@ public:
       {
       }
     if(avarage < gray){
-      Threshold = gray + 15;
+      Threshold = gray + 6;
     }else{
-      Threshold = avarage + 20;
+      Threshold = gray + 6;
     }
     return(0);
   }

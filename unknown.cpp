@@ -197,6 +197,7 @@ extern "C"
 
             j = start_pos;
             while(5 != sol_route.back()){
+                sol_route.push_back(0);
                 sol_route.push_back(map[i][j]);
                 switch( map[i][j] ){
                     case 1:
@@ -226,75 +227,82 @@ extern "C"
             return(0);
         }
 
-        void Set_position(){
-            map[0][1] = 0;
-            map[0][2] = 1;
-            map[0][3] = 0;
-            map[0][4] = 1;
-
-            bar.search_bord(16,false);
-            bar.fix_Direction(0);
-            motorB.setPWM(30);
-            motorC.setPWM(30);
-            clock.wait(800);
-            bar.fix_Direction(0);
-            motorB.setPWM(0);
-            motorC.setPWM(0);
-            dri.angle(680,100);
-            dri.forward(90,80,0,0);
-            par.reset(100);
-            Go_straight(DISTANCE/2);
-
+        void Set_position(int pos){
+            int dis = 23;
+            int ang = 310;
+            if(2 == pos){
+                dis += 23;
+            }else if(3 == pos){
+                dis += 49;
+                ang = 270;
+            }else if(4 == pos){
+                dis += 72;
+                ang = 250;
+            }
+	        Right_turn_2();
+	        Left_turn_2(250);
+	        pidrun.fix_position();
+	        clock.wait(1500);
+	        tra.move_pid(dis,true); //1...+0    2...+23    3...+48    4...+72
+	        bar.fix_Direction(0);
+	        Left_turn_2(ang);  //1...310   2...310    3...290    4...250
+	        bar.fix_Direction(-10);
+	        clock.wait(1000);
+	        bar.ride_bord_kai(980);
+	        clock.wait(10000000000);
         }
 
         void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
-            int test_date [] = {0, 1, 2, 1, 4, 1, 5};
-            //for(int i = 0; i != sol_route.size(); i++){
-              for(int i = 1; i < 7 ; i++){
-              clock.sleep(1200);
-                switch(test_date[i]){
+            //int test_date [] = {0, 1, 1, 2, 1, 0, 5};
+            for(int i = 0; i != sol_route.size(); i++){
+               //for(int i = 1; i < 7 ; i++){
+                clock.sleep(1200);
+                switch(sol_route[i]){
                     case 1:
-                        switch(test_date[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case1_1");
                                 lcd.disp();
                                 Go_straight(distance);
-                                break;
-                             case 2:
+                            break;
+                            case 2:
                                 lcd.clear();
                                 lcd.putf("sn","case1_2");
                                 lcd.disp();
-                                Left_turn();
+                                Left_turn3();
                                 Go_straight(distance);
-                                break;
-                             case 4:
+                            break;
+                            case 4:
                                 lcd.clear();
                                 lcd.putf("sn","case1_4");
                                 lcd.disp();
 
-                                Left_turn();
+                                Right_turn3();
                                 Go_straight(distance);
-                                break;
-                             default:
+                            break;
+                            default:
                                 lcd.clear();
                                 lcd.putf("sn","case1_de");
                                 lcd.disp();
 
+                                motorA.setPWM(10);
+                                motorA.setPWM(-10);
                                 Go_straight(distance);
-                                break;
+                            break;
+
                         }
                         break;
                     case 2:
-                        switch(test_date[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case2_1");
                                 lcd.disp();
 
-                                Right_turn();
-                                Go_straight(distance);
+                                Right_turn3();
+                                Go_straight(10);
                                 break;
                              case 2:
                                 lcd.clear();
@@ -314,20 +322,22 @@ extern "C"
                                 lcd.clear();
                                 lcd.putf("sn","case2_de");
                                 lcd.disp();
-
+                                Right_turn3();
+                                Go_straight(10);
                                 //Go_straight(distance);
                                 break;
                         }
                         break;
                     case 4:
-                        switch(test_date[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case4_1");
                                 lcd.disp();
 
-                                Left_turn();
+                                Left_turn3();
                                 Go_straight(distance);
+                                Go_straight(10);
                                 break;
                              case 2://本来ならありえない
                                 lcd.clear();
@@ -347,12 +357,13 @@ extern "C"
                                 lcd.clear();
                                 lcd.putf("sn","case4_DE");
                                 lcd.disp();
-
+                                Left_turn3();
                                 //Go_straight(distance);
                                 break;
                         }
                         break;
                     case 5: //end
+                        Go_straight(30);
                         while(true){
                         clock.wait(10);
                             lcd.clear();
@@ -367,6 +378,7 @@ extern "C"
 
                         break;
                 }
+
             }
         }
 
@@ -396,7 +408,10 @@ extern "C"
                 Retire(1919);
                 return(1);
             }
-            //Set_position();
+            Show_map(114514);
+            clock.wait(1000);
+            Search_route();
+            Set_position(start_pos);
             Path_trace();
             lcd.clear();
             Show_map(start_pos);
@@ -408,9 +423,8 @@ extern "C"
             while(true){
                 clock.wait(100);
             }
-            //Set_position();
             while(true){
-                pidrun.pid_running(false,0);
+                pidrun.pid_running(true,0);
             }
         }
 
@@ -420,26 +434,40 @@ extern "C"
             par.reset(100);
         }
 
-        void Right_turn2(){
-            dri.angle(600,80);
-            dri.forward(260,80,0,0);
+        void Right_turn_2(){
+            dri.angle(580,80);
+            dri.forward(250,80,0,0);
             par.reset(100);
+        }
+        void Right_turn3(){//33333333333333333333333
+            dri.angle(670,80);//680,80 第一引数モータA角度
+            dri.forward(270,80,0,0);//290,80,0,0 第一引数左モーター回転角
+            par.reset(100);
+            motorA.setPWM(-10);
         }
 
         void Left_turn(){
-            dri.angle(-680,100);
-            dri.forward(290,0,100,1);
+            dri.angle(-680,80);
+            dri.forward(290,0,80,1);
             par.reset(100);
         }
 
-        void Left_turn2(){
-            dri.angle(-600,100);
-            dri.forward(260,0,100,1);
+        void Left_turn_2(int var){
+            dri.angle(-680,80);
+            dri.forward(var,0,80,1);
             par.reset(100);
         }
+        void Left_turn3(){//33333333333333333333333
+            dri.angle(-670,75);
+            dri.forward(290,0,80,1);
+            par.reset(100);
+            motorA.setPWM(10);
+        }
+
 
         void Go_straight(int distance){
-            motorA.setPWM(0);
+            motorA.setPWM(5);
+            motorA.setPWM(-5);
             tra.move(tra.moving_distance(distance));
         }
 
