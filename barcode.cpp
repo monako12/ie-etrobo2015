@@ -118,7 +118,7 @@ extern "C"
             fix_Direction(0);
             search_bord(30);
             ride_bord2(300);*/
-            ride_bord_final();
+            ride_bord_final(false);
             clock.wait(1000);
             acquire(white,black);
             lcd.clear();
@@ -138,14 +138,20 @@ extern "C"
             search_bord(15,1);
         }
 
-        void ride_bord_final(){
-            search_bord(18,2);
+        void ride_bord_final(bool check){
+            int hoge;
+            if(true == check){
+                hoge = 3;
+            }else{
+                hoge = 2;
+            }
+            search_bord(18,hoge);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
             ride_bord2(450);
             fix_Direction(0);
-            search_bord(14,2);
+            search_bord(14,hoge);
             ride_bord2(300);
         }
 

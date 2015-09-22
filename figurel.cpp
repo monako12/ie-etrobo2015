@@ -20,7 +20,7 @@ extern "C"
         void figurel()
         {
 
-            bar.ride_bord_final();
+            bar.ride_bord_final(true);
             /*motorA.setPWM(0);
             motorB.setPWM(0);
             motorC.setPWM(0);
