@@ -139,13 +139,13 @@ extern "C"
         }
 
         void ride_bord_final(){
-            search_bord(18,2);
+            search_bord(13,2);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
             ride_bord2(450);
             fix_Direction(0);
-            search_bord(14,2);
+            search_bord(13,2);
             ride_bord2(300);
         }
 
