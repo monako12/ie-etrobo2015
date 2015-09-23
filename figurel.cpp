@@ -20,7 +20,7 @@ class Figurel{
         void figurel()
         {
             clock.wait(2000);
-            bar.ride_bord_final(true);
+            bar.L_ride_bord(true);
             while(true){
             	set_rotate_pid(350);
                 L_carve();
