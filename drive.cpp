@@ -42,6 +42,7 @@ extern "C"
 	void Barcode_pid_run(int, int, int);
 	void slow_Trace(int, int, int);
       void lforward(int, int, int, int);
+      void lbforward(int,int);
   };
 
   int Drive::position(){
@@ -63,13 +64,13 @@ extern "C"
     int b,c;
     if(line < 0){
       if(motorA.getCount() <= 350){
-	motorA.setPWM(80);
+	motorA.setPWM(70);
       }else{
 	motorA.setPWM(0);
       }
     }else{
       if(motorA.getCount() >= -350){
-	motorA.setPWM(-80);
+	motorA.setPWM(-70);
       }else{
 	motorA.setPWM(0);
       }
@@ -114,14 +115,14 @@ extern "C"
 
   void Drive::dash(int pid,int line){
     if(line < 0){
-      if(motorA.getCount() >= -20){
-	motorA.setPWM(-10);
+      if(motorA.getCount() >= -40){
+	motorA.setPWM(-30);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 20){
-	motorA.setPWM(10);
+      if(motorA.getCount() <= 40){
+	motorA.setPWM(30);
       }else{
 	motorA.setPWM(0);
       }
@@ -129,11 +130,11 @@ extern "C"
     int b;
     int c;
     if(pid < 0){
-      b = -90 + (pid/4);
-      c = -80 - (pid/4);
+      b = -90 + (pid/3);
+      c = -80 - (pid/3);
     }else{
-      b = -90 + (pid/4);
-      c = -85 - (pid/4);
+      b = -90 + (pid/3);
+      c = -85 - (pid/3);
     }
     motorC.setPWM(c);
     motorB.setPWM(b);
@@ -437,8 +438,22 @@ extern "C"
                 motorC.setPWM(rspeed);
             }
             else {
-                bforward(70,70);
                 break;
+            }
+        }
+    }
+    
+    void Drive::lbforward(int lspeed,int rspeed){
+        while(1){
+            int now = sensor.nowlight();
+            int ava = sensor.ret_avarage();
+            int color = cal.cur_ava(now,(double)ava);
+            if (color < 0){
+                break;
+            }
+            else if (color > 0){
+                motorB.setPWM((-1) * lspeed);
+                motorC.setPWM((-1) * rspeed);
             }
         }
     }
