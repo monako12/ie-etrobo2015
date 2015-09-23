@@ -41,6 +41,7 @@ extern "C"
     void bforward(int, int);
 	void Barcode_pid_run(int, int, int);
 	void slow_Trace(int, int, int);
+      void lforward(int, int, int, int);
   };
 
   int Drive::position(){
@@ -414,5 +415,32 @@ extern "C"
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
+    
+    void Drive::lforward(int number,int lspeed,int rspeed,int tire){
+        if (tire == MOTOR_B){
+            srotate = nxt_motor_get_count(PORT_B);
+        } else if (tire == MOTOR_C) {
+            srotate = nxt_motor_get_count(PORT_C);
+        }
+        while(1){
+            if (tire == MOTOR_B){
+                nrotate = nxt_motor_get_count(PORT_B);
+            } else if (tire == MOTOR_C) {
+                nrotate = nxt_motor_get_count(PORT_C);
+            }
+            if (nrotate > (srotate + ((-1) * number))){
+                motorB.setPWM((-1) * lspeed);
+                motorC.setPWM((-1) * rspeed);
+            }
+            else if (nrotate < (srotate + ((-1) * number))){
+                motorB.setPWM(lspeed);
+                motorC.setPWM(rspeed);
+            }
+            else {
+                bforward(70,70);
+                break;
+            }
+        }
+    }
 
 }
