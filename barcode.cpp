@@ -154,6 +154,26 @@ extern "C"
             search_bord(13,hoge);
             ride_bord2(300);
         }
+        
+        void L_ride_bord(bool check){
+            int hoge;
+            if(true == check){
+                hoge = 3;
+            }else{
+                hoge = 2;
+            }
+            search_bord(13,hoge);
+            motorAA.setPWM(0);
+            fix_Direction(-60);
+            clock.wait(400);
+            ride_bord2(450);
+            fix_Direction(0);
+            search_bord(13,hoge);
+            if(280 > light_bar.getBrightness()){
+            	fix_Direction(-10);
+            }
+            ride_bord2(300);
+        }
 
         void ride_bord2(int time){
             motorCC.setPWM(-73);
