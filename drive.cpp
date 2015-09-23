@@ -62,13 +62,13 @@ extern "C"
     int b,c;
     if(line < 0){
       if(motorA.getCount() <= 350){
-	motorA.setPWM(70);
+	motorA.setPWM(80);
       }else{
 	motorA.setPWM(0);
       }
     }else{
       if(motorA.getCount() >= -350){
-	motorA.setPWM(-70);
+	motorA.setPWM(-80);
       }else{
 	motorA.setPWM(0);
       }
@@ -113,14 +113,14 @@ extern "C"
 
   void Drive::dash(int pid,int line){
     if(line < 0){
-      if(motorA.getCount() >= -40){
-	motorA.setPWM(-30);
+      if(motorA.getCount() >= -20){
+	motorA.setPWM(-10);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 40){
-	motorA.setPWM(30);
+      if(motorA.getCount() <= 20){
+	motorA.setPWM(10);
       }else{
 	motorA.setPWM(0);
       }
@@ -128,11 +128,11 @@ extern "C"
     int b;
     int c;
     if(pid < 0){
-      b = -90 + (pid/3);
-      c = -80 - (pid/3);
+      b = -90 + (pid/4);
+      c = -80 - (pid/4);
     }else{
-      b = -90 + (pid/3);
-      c = -85 - (pid/3);
+      b = -90 + (pid/4);
+      c = -85 - (pid/4);
     }
     motorC.setPWM(c);
     motorB.setPWM(b);
