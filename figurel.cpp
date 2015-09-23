@@ -30,8 +30,8 @@ extern "C"
                 srotate = nxt_motor_get_count(PORT_C);
                 while(1){
                     nrotate = nxt_motor_get_count(PORT_C);
-                    if (nrotate > (srotate + ((-1) * 350))){
-                        pidrun.pid_running(false,0);
+                    if (nrotate > (srotate + ((-1) * 380))){
+                        pidrun.pid_running(true,0);
                     }
                     else {
                         break;
@@ -43,14 +43,14 @@ extern "C"
                 clock.wait(2000);
                 
                 drive.angle(380,100);
-                drive.bforward(70,70);
-                drive.angle(-80,100);
-                drive.forward(30,40,40,MOTOR_C);
+                drive.lforward(100,70,70,MOTOR_C);
+                
+                drive.forward(50,40,40,MOTOR_C);
                 drive.angle(300,80);
+                
                 drive.bforward(50,0);
                 
-                drive.angle(680,100);
-                drive.forward(30,80,0,MOTOR_B);
+                drive.forward(40,60,0,MOTOR_B);
                 par.reset(100);
 
                 clock.wait(1000);
@@ -58,6 +58,10 @@ extern "C"
                 while(1){
                     pidrun.pid_running(false,0);
                 }
+                motorB.setPWM(0);
+                motorC.setPWM(0);
+                
+                clock.wait(100000);
                 /*
                  drive.angle(680,100);
                  drive.forward(30,80,0,MOTOR_B);
