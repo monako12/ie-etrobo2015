@@ -46,10 +46,10 @@ extern "C"
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-/*			while(drive.position() > -700){
+/*			while(drive.position() > -900){ //course R
 				pidrun.pid_running(1,0);
 			}
-			while(drive.position() > -5700){ //増えてるコメント消さないでください。byジャック
+			while(drive.position() > -5600){ //増えてるコメント消さないでください。byジャック
 				pidrun.pid_dash_left();
 			}
 			while(drive.position() > -12200){
@@ -57,13 +57,28 @@ extern "C"
 			}
 			bool huga = false;
 			while(huga == false){
-				pidrun.pid_running(3,-13);
+				pidrun.pid_running(3,-17);
 				huga = pidrun.gray_discover();
 			}*/
+/*			while(drive.position() > -700){ //course L
+				pidrun.pid_running(0,0);
+			}
+			while(drive.position() > -6500){
+				pidrun.pid_dash();
+			}
+			while(drive.position() > -8500){
+				pidrun.pid_running(0,0);
+			}
+			while(drive.position() > -9500){
+				pidrun.pid_dash();
+			}
+			nihonbashi.stop_ex();
+			bar.barcode(sen.ret_white(),sen.ret_black());
+			unknown.Capture_unknown(bar.array);*/
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
 					//fig.figurel();
-					//pidrun.pid_running(0,0);
+					//pidrun.pid_running(1,0);
 					//pidrun.gray_discover();
 		}
     }

@@ -61,9 +61,9 @@ public:
       {
       }
     if(avarage < gray){
-      Threshold = gray + 6;
+      Threshold = gray + 7;
     }else{
-      Threshold = gray + 6;
+      Threshold = gray + 7;
     }
     return(0);
   }
