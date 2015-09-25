@@ -169,9 +169,7 @@ extern "C"
             ride_bord2(450);
             fix_Direction(0);
             search_bord(13,hoge);
-            if(280 > light_bar.getBrightness()){
-            	fix_Direction(-10);
-            }
+            fix_Direction(-10);
             ride_bord2(300);
         }
 
