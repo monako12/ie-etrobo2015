@@ -89,7 +89,7 @@ extern "C"
                 {  0,  1,  0,  1,  1,  0, },
                 {  5,  5,  5,  5,  5,  5, },
             };
-         */
+        */
             bool flag=true;//初期状態動作のためflag=1
 
             while(flag){
@@ -304,21 +304,21 @@ extern "C"
                                 Right_turn3();
                                 Go_straight(10);
                                 break;
-                             case 2:
+                            case 2:
                                 lcd.clear();
                                 lcd.putf("sn","case2_2");
                                 lcd.disp();
 
                                 Go_straight(distance);
                                 break;
-                             case 4://本来ならありえない
+                            case 4://本来ならありえない
                                 lcd.clear();
                                 lcd.putf("sn","case2_4");
                                 lcd.disp();
 
                                 //Go_straight(distance);
                                 break;
-                             default:
+                            default:
                                 lcd.clear();
                                 lcd.putf("sn","case2_de");
                                 lcd.disp();
@@ -339,21 +339,20 @@ extern "C"
                                 Go_straight(distance);
                                 Go_straight(10);
                                 break;
-                             case 2://本来ならありえない
+                            case 2://本来ならありえない
                                 lcd.clear();
                                 lcd.putf("sn","case4_2");
                                 lcd.disp();
-
                                 //Go_straight(distance);
                                 break;
-                             case 4:
+                            case 4:
                                 lcd.clear();
                                 lcd.putf("sn","case4_4");
                                 lcd.disp();
 
                                 Go_straight(distance);
                                 break;
-                             default:
+                            default:
                                 lcd.clear();
                                 lcd.putf("sn","case4_DE");
                                 lcd.disp();
@@ -382,7 +381,37 @@ extern "C"
             }
         }
 
-        void Return_line(){}
+        void Return_line(){
+            //int test_data=1;
+            switch(end_pos){ //end_pos
+                case 1:
+                    Right_turn();
+                    Go_straight(75);
+                    Left_turn();
+                    pidrun.fix_position();
+                    break;
+                case 2:
+                    Right_turn();
+                    Go_straight(45);
+                    Left_turn();
+                    pidrun.fix_position();
+                    break;
+                case 3:
+                    Right_turn();
+                    Go_straight(20);
+                    Left_turn();
+                    pidrun.fix_position();
+                    break;
+                case 4:
+                    Left_turn();
+                    Go_straight(75);
+                    Right_turn();
+                    pidrun.fix_position();
+                    break;
+                default:
+                    break;
+            }
+        }
 
         void Retire(int hoge){
             motorA.setPWM(100);
@@ -440,8 +469,8 @@ extern "C"
             par.reset(100);
         }
         void Right_turn3(){//33333333333333333333333
-            dri.angle(670,80);//680,80 第一引数モータA角度
-            dri.forward(270,80,0,0);//290,80,0,0 第一引数左モーター回転角
+            dri.angle(660,80);//680,80 第一引数モータA角度
+            dri.forward(260,80,0,0);//290,80,0,0 第一引数左モーター回転角
             par.reset(100);
             motorA.setPWM(-10);
         }
@@ -458,8 +487,8 @@ extern "C"
             par.reset(100);
         }
         void Left_turn3(){//33333333333333333333333
-            dri.angle(-670,75);
-            dri.forward(290,0,80,1);
+            dri.angle(-650,75);
+            dri.forward(270,0,80,1);
             par.reset(100);
             motorA.setPWM(10);
         }
