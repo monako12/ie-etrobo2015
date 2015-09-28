@@ -166,7 +166,7 @@ extern "C"
             lcd.clear();
             for(int i=4; i>=0; i--){
                 for(int j=0; j<6; j++){
-                    lcd.putf("d",map_dummy[i][j],0);
+                    lcd.putf("d",map[i][j],0);
                 }
                 lcd.putf("n");
             }
@@ -196,8 +196,9 @@ extern "C"
             }
 
             j = start_pos;
+
+            sol_route.push_back(0);//変更 by_suzuki_9/23
             while(5 != sol_route.back()){
-                sol_route.push_back(0);
                 sol_route.push_back(map[i][j]);
                 switch( map[i][j] ){
                     case 1:
@@ -249,15 +250,21 @@ extern "C"
 	        bar.fix_Direction(-10);
 	        clock.wait(1000);
 	        bar.ride_bord_kai(980);
-	        clock.wait(10000000000);
+	        clock.wait(1000);
         }
 
         void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
+
+            lcd.clear();
+            lcd.putf("dn",sol_route.size(),5);
+            lcd.disp();
+            clock.wait(1000);
+
             //int test_date [] = {0, 1, 1, 2, 1, 0, 5};
-            for(int i = 0; i != sol_route.size(); i++){
-               //for(int i = 1; i < 7 ; i++){
-                clock.sleep(1200);
+            for(int i = 1; i < sol_route.size(); i++){
+            //for(int i = 1; i < 7 ; i++){
+                clock.wait(1200);
                 switch(sol_route[i]){
                     case 1:
                         switch(sol_route[i-1]){
@@ -266,14 +273,14 @@ extern "C"
                                 lcd.putf("sn","case1_1");
                                 lcd.disp();
                                 Go_straight(distance);
-                            break;
+                                break;
                             case 2:
                                 lcd.clear();
                                 lcd.putf("sn","case1_2");
                                 lcd.disp();
                                 Left_turn3();
                                 Go_straight(distance);
-                            break;
+                                break;
                             case 4:
                                 lcd.clear();
                                 lcd.putf("sn","case1_4");
@@ -281,7 +288,13 @@ extern "C"
 
                                 Right_turn3();
                                 Go_straight(distance);
-                            break;
+                                break;
+                            case 0:
+                                lcd.clear();
+                                lcd.putf("sn","case1_0");
+                                lcd.disp();
+                                Go_straight(distance);
+                                break;
                             default:
                                 lcd.clear();
                                 lcd.putf("sn","case1_de");
@@ -290,7 +303,7 @@ extern "C"
                                 motorA.setPWM(10);
                                 motorA.setPWM(-10);
                                 Go_straight(distance);
-                            break;
+                                break;
 
                         }
                         break;
@@ -363,21 +376,16 @@ extern "C"
                         break;
                     case 5: //end
                         Go_straight(30);
-                        while(true){
-                        clock.wait(10);
-                            lcd.clear();
-                            lcd.putf("sn","case5_END");
-                            lcd.disp();
-                        }
-                         break;
+                        lcd.clear();
+                        lcd.putf("sn","case5_END");
+                        lcd.disp();
+                        break;
                     default:
-                            lcd.clear();
-                            lcd.putf("sn","case0_");
-                            lcd.disp();
-
+                        lcd.clear();
+                        lcd.putf("sn","case0_");
+                        lcd.disp();
                         break;
                 }
-
             }
         }
 
@@ -385,39 +393,59 @@ extern "C"
             //int test_data=1;
             switch(end_pos){ //end_pos
                 case 1:
+                    lcd.clear();
+                    lcd.putf("sn","Return_route_1");
+                    lcd.disp();
+
                     Right_turn();
                     Go_straight(75);
                     Left_turn();
                     pidrun.fix_position();
                     break;
                 case 2:
+                    lcd.clear();
+                    lcd.putf("sn","Return_route_2");
+                    lcd.disp();
+
                     Right_turn();
                     Go_straight(45);
                     Left_turn();
                     pidrun.fix_position();
                     break;
                 case 3:
+                    lcd.clear();
+                    lcd.putf("sn","Return_route_3");
+                    lcd.disp();
+
                     Right_turn();
                     Go_straight(20);
                     Left_turn();
                     pidrun.fix_position();
                     break;
                 case 4:
+                    lcd.clear();
+                    lcd.putf("sn","Return_route_4");
+                    lcd.disp();
+
                     Left_turn();
                     Go_straight(75);
                     Right_turn();
                     pidrun.fix_position();
                     break;
                 default:
+                    lcd.clear();
+                    lcd.putf("sn","Return_route_miss");
+                    lcd.disp();
+
                     break;
             }
         }
 
         void Retire(int hoge){
-            motorA.setPWM(100);
+            motorA.setPWM(5);//100
             motorB.setPWM(0);
             motorC.setPWM(0);
-            //Show_map(hoge);
+            Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
             lcd.disp();
@@ -432,6 +460,7 @@ extern "C"
             call_retire = Check_barcode(temp);
             Make_map();
             Modify_map();
+            //Show_map(9999);
             call_retire += Search_route();
             if(0 != call_retire){
                 Retire(1919);
@@ -439,9 +468,9 @@ extern "C"
             }
             Show_map(114514);
             clock.wait(1000);
-            Search_route();
             Set_position(start_pos);
             Path_trace();
+            Return_line();
             lcd.clear();
             Show_map(start_pos);
             lcd.putf("s","route:");
