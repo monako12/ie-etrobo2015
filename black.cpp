@@ -90,6 +90,8 @@ extern "C"
 
 					//pidrun.pid_running(1,0);
 					//pidrun.gray_discover();
+					//bar.barcode(520,330);//520,230
+					//unknown.Capture_unknown(bar.array);
 		}
     }
 }
