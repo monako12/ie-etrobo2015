@@ -45,7 +45,7 @@ extern "C"
                 while(1){
                     nrotate = nxt_motor_get_count(PORT_C);
                     if (nrotate > (srotate + ((-1) * 1300))){
-                        pidrun.pid_running(false,0);
+                        pidrun.pid_running(false,0,350,80);
                     }
                     else {
                         break;
@@ -102,7 +102,7 @@ extern "C"
                 while(1){
                     nrotate = nxt_motor_get_count(PORT_C);
                     if (nrotate > (srotate + ((-1) * 1400))){
-                        pidrun.pid_running(false,0);
+                        pidrun.pid_running(false,0,350,80);
                     }
                     else {
                         break;
