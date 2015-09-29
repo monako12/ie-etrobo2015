@@ -17,7 +17,7 @@ extern "C"
 		int gray;
   public:
 
-    void pid_running(int,int);
+    void pid_running(int,int,int,int);
     void pid_dash();
 		void pid_dash_left();
     int line_side_check();
@@ -73,11 +73,11 @@ extern "C"
     lcd.disp();
   }
 
-  void PIDrun::pid_running(int hoge,int f){
+  void PIDrun::pid_running(int hoge,int f,int width,int Apower){
     parameter();
     display();
     if(hoge == 1){
-      drive.Left_Edge_Trace(ret_pid,line);/*左側のエッジ(黒の左側)を走る*/
+      drive.Left_Edge_Trace(ret_pid,line,width,Apower);/*左側のエッジ(黒の左側)を走る*/
     }
 	else if(hoge == 2){
 	  drive.Barcode_pid_run(ret_pid,line,f);
@@ -86,7 +86,7 @@ extern "C"
 	  drive.slow_Trace(ret_pid,line,f);
 	}
     else{
-      drive.Right_Edge_Trace(ret_pid,line);/*右側のエッジ(黒の右側)を走る*/
+      drive.Right_Edge_Trace(ret_pid,line,width,Apower);/*右側のエッジ(黒の右側)を走る*/
     }
     clock.wait(1);
   }

@@ -25,8 +25,8 @@ extern "C"
     int position();
     void motor_count_reset();
     void motor_stop();
-    void Right_Edge_Trace(int, int);
-    void Left_Edge_Trace(int, int);
+    void Right_Edge_Trace(int, int, int, int);
+    void Left_Edge_Trace(int, int, int ,int);
     void dash(int, int);
 		void dash_left(int,int);
     int RightSide_line_check(int, int);
@@ -60,17 +60,17 @@ extern "C"
     motorC.setPWM(0);
   }
 
-  void Drive::Right_Edge_Trace(int pid,int line){
+  void Drive::Right_Edge_Trace(int pid,int line,int width,int Apower){
     int b,c;
     if(line < 0){
-      if(motorA.getCount() <= 350){
-	motorA.setPWM(70);
+      if(motorA.getCount() <= width){
+	motorA.setPWM(Apower);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() >= -350){
-	motorA.setPWM(-70);
+      if(motorA.getCount() >= -width){
+	motorA.setPWM(-Apower);
       }else{
 	motorA.setPWM(0);
       }
@@ -86,17 +86,17 @@ extern "C"
     motorB.setPWM(b);
   }
 
-  void Drive::Left_Edge_Trace(int pid,int line){
+  void Drive::Left_Edge_Trace(int pid,int line,int width,int Apower){
     int b,c;
     if(line < 0){
-      if(motorA.getCount() >= -350){
-	motorA.setPWM(-80);
+      if(motorA.getCount() >= -width){
+	motorA.setPWM(-Apower);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 350){
-	motorA.setPWM(80);
+      if(motorA.getCount() <= width){
+	motorA.setPWM(Apower);
       }else{
 	motorA.setPWM(0);
       }

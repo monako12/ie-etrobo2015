@@ -37,7 +37,7 @@ class Figurel{
         	while(1){
         		nrotate = nxt_motor_get_count(PORT_C);
         		if (nrotate > (srotate + ((-1) * rotate))){
-        			pidrun.pid_running(true,0);
+        			pidrun.pid_running(true,0,350,80);
         		} else {
         			break;
         		}

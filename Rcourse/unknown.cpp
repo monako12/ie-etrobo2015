@@ -424,7 +424,7 @@ extern "C"
                 clock.wait(100);
             }
             while(true){
-                pidrun.pid_running(true,0);
+                pidrun.pid_running(true,0,350,80);
             }
         }
 
