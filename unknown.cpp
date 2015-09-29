@@ -249,7 +249,7 @@ extern "C"
 	        bar.fix_Direction(-10);
 	        clock.wait(1000);
 	        bar.ride_bord_kai(980);
-	        clock.wait(10000000000);
+	        clock.wait(1000);
         }
 
         void Path_trace(){ //9_18
@@ -409,8 +409,9 @@ extern "C"
                 return(1);
             }
             Show_map(114514);
-            clock.wait(1000);
-            Search_route();
+            clock.wait(1200);
+            Show_map(987654321);
+            clock.wait(200000000000);
             Set_position(start_pos);
             Path_trace();
             lcd.clear();
