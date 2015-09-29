@@ -72,11 +72,7 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-<<<<<<< Updated upstream
-        pidrun.pid_running(flag,0,350,80);
-=======
         pidrun.pid_running(0,-10,100,40);
->>>>>>> Stashed changes
         }
     }
 
