@@ -72,7 +72,7 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        pidrun.pid_running(0,-10,100,40);
+        pidrun.pid_running(0,0,20,30);
         }
     }
 
@@ -182,7 +182,9 @@ extern "C"
                             pidrun.pid_running(false,0,350,80);
                         }
                         */
-                        move_pid(measure2-measure1-10,false);
+                        move_pid_slow(measure2-measure1-10);
+                        //move_pid(measure2-measure1-10,false);
+
                         count++;
                     }
                     break;
