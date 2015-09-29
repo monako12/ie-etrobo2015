@@ -16,8 +16,8 @@ extern "C"
    motorB.setPWM(100);
    motorC.setPWM(100);
    clock.wait(250);
-   motorC.setPWM(-100);
-   motorB.setPWM(-100);
+   motorC.setPWM(-80);
+   motorB.setPWM(-80);
    clock.wait(500);
    motorC.setPWM(-50);
    motorB.setPWM(-50);
@@ -73,6 +73,7 @@ extern "C"
  }
    motorB.setPWM(0);
    motorC.setPWM(0);
+   clock.wait(200);
    par.reset(100);
 
 
@@ -86,7 +87,7 @@ extern "C"
 
  void Nihonbashi::stop_ex()
  {
-  bar.search_bord(22,false);
+  bar.search_bord(25,false);
 
   nihon();
 }

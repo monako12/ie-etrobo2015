@@ -60,21 +60,23 @@ extern "C"
 				pidrun.pid_running(3,-17);
 				huga = pidrun.gray_discover();
 			}*/
-/*			while(drive.position() > -700){ //course L
+			while(drive.position() > -2000){ //course L
 				pidrun.pid_running(0,0);
 			}
 			while(drive.position() > -6500){
+				par.reset(100);
 				pidrun.pid_dash();
 			}
 			while(drive.position() > -8500){
 				pidrun.pid_running(0,0);
 			}
-			while(drive.position() > -9500){
+			while(drive.position() > -9700){
 				pidrun.pid_dash();
 			}
 			nihonbashi.stop_ex();
 			bar.barcode(sen.ret_white(),sen.ret_black());
-			unknown.Capture_unknown(bar.array);*/
+			unknown.Capture_unknown(bar.array);
+
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
 
