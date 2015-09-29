@@ -42,14 +42,11 @@ extern "C"
         Nihonbashi nihonbashi;
 	    Parking par;
 	    CatchGray catchg;
+	    int i = 0;
 
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 			while(drive.position() > -900){ //course R
 				pidrun.pid_running(3,-10,0,0);
 			}
@@ -68,35 +65,46 @@ extern "C"
 			while(drive.position() > -12500){
 				pidrun.pid_running(1,0,50,70);
 			}
-<<<<<<< Updated upstream
-			while(drive.position() > -14000){
-				pidrun.pid_running(3,-10,0,0);
-			}
-			drive.motor_stop();
-			clock.wait(4000);
-=======
 			while(drive.position() > -14100){
 				pidrun.pid_running(3,-10,0,0);
 			}
 			drive.motor_stop();
 			clock.wait(2000);
+	  	  	fig.figurel();
+	        train.train();
+	        while(5000 > i){
+	        	i++;
+	        	pidrun.pid_running(2,-15,0,0);
+	        }
+	        drive.motor_count_reset();
+	        while(drive.position() > -300){ //course R
+				pidrun.pid_running(2,-10,0,0);
+			}
+			while(drive.position() > -1600){ //増えてるコメント消さないでください。byジャック
+				pidrun.pid_dash();
+			}
+			while(drive.position() > -3500){
+				pidrun.pid_running(2,-10,0,0);
+			}
+			while(drive.position() > -8100){
+				pidrun.pid_dash();
+			}
+			
+	        motorA.setPWM(0);
+	        motorB.setPWM(0);
+	        motorC.setPWM(0);
+	        par.shin_parallel_parking();
+	        
 
->>>>>>> Stashed changes
-	    while(1){ //test loop
-	        //If you do test program,you have to write in this while loop.
-
-	    		   //figurelから新幹線
-
-	  	  	  	   fig.figurel();
-	               train.train();
-	               while(1){
-	            	   pidrun.pid_running(2,-10,0,0);
-	               }
+	        
+	        
+	        
+	         
 	               //clock.wait(100000);
 
 
 					//pidrun.pid_running(1,0);
 					//pidrun.gray_discover();
-		}
+		
     }
 }
