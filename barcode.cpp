@@ -51,7 +51,7 @@ extern "C"
             while(1){
                 now_color = light_bar.getBrightness();
                 pidrun.pid_running(2,-23);
-                if(white - 5 < now_color){ //tyousei hituyou
+                if(white + 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -116,15 +116,16 @@ extern "C"
             }
 
             lcd.disp();
-            clocktime.wait(500);
-            fix_Direction(30);
-            motorCC.setPWM(-35);//yomitottara sonomama
+            clocktime.wait(1200);
+            fix_Direction(-30);
+            motorCC.setPWM(-50);//yomitottara sonomama
             motorBB.setPWM(-35);//hashiritudukeru
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            search_bord(15,1);
-            search_bord(15,1);
+            clock.wait(1200);
+            search_bord(20,3);
+            clock.wait(2000);
         }
 
         void ride_bord_final(bool check){

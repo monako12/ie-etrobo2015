@@ -229,19 +229,20 @@ extern "C"
         }
 
         void Set_position(int pos){
-            int dis = 23;
+            int dis = 13;
             int ang = 310;
             if(2 == pos){
                 dis += 23;
             }else if(3 == pos){
                 dis += 49;
-                ang = 270;
+                ang = 290;
             }else if(4 == pos){
                 dis += 72;
                 ang = 250;
             }
+            bar.fix_Direction(0);
 	        Right_turn_2();
-	        Left_turn_2(250);
+	        Left_turn_2(230);
 	        pidrun.fix_position();
 	        clock.wait(1500);
 	        tra.move_pid(dis,true); //1...+0    2...+23    3...+48    4...+72
@@ -478,12 +479,6 @@ extern "C"
                 lcd.putf("d",sol_route[i],0);
             }
             lcd.disp();
-            while(true){
-                clock.wait(100);
-            }
-            while(true){
-                pidrun.pid_running(true,0);
-            }
         }
 
         void Right_turn(){
@@ -493,8 +488,8 @@ extern "C"
         }
 
         void Right_turn_2(){
-            dri.angle(580,80);
-            dri.forward(250,80,0,0);
+            dri.angle(580,70);
+            dri.forward(250,70,0,0);
             par.reset(100);
         }
         void Right_turn3(){//33333333333333333333333
