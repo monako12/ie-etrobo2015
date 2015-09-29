@@ -1,9 +1,9 @@
 # Target specific macros                                                                                                                                      
-TARGET = black
+TARGET = helloworld
 
-TARGET_CPP_SOURCES = black.cpp
+TARGET_CPP_SOURCES = sample.cpp
         
-TOPPERS_OSEK_OIL_SOURCE = ./black.oil
+TOPPERS_OSEK_OIL_SOURCE = ./sample.oil
 
 # Don't modify below part                                                                                                                                     
 O_PATH ?= build

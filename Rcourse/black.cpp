@@ -77,6 +77,19 @@ extern "C"
 			unknown.Capture_unknown(bar.array);*/
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
+
+	    		   //figurelから新幹線
+	    		   /*
+	  	  	  	   fig.figurel();
+	               train.train();
+	               while(1){
+	            	   pidrun.pid_running(2,-10);
+	               }
+	               clock.wait(100000);
+	               */
+
+					//pidrun.pid_running(1,0);
+					//pidrun.gray_discover();
 		}
     }
 }

@@ -51,7 +51,7 @@ extern "C"
             while(1){
                 now_color = light_bar.getBrightness();
                 pidrun.pid_running(2,-23);
-                if(white - 5 < now_color){ //tyousei hituyou
+                if(white + 5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -107,6 +107,17 @@ extern "C"
         }
 
         void barcode(int white,int black){
+            /*fix_Direction(0);
+            ride_bord(850); //tyousei hituyou 1000ga iikana?
+            fix_Direction(0);*/
+            /*search_bord(30);
+            motorAA.setPWM(0);
+            fix_Direction(-60);
+            clock.wait(400);
+            ride_bord2(400);
+            fix_Direction(0);
+            search_bord(30);
+            ride_bord2(300);*/
             ride_bord_final(false);
             clock.wait(1000);
             acquire(white,black);
@@ -134,7 +145,7 @@ extern "C"
             }else{
                 hoge = 2;
             }
-            search_bord(16,hoge);
+            search_bord(13,hoge);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
