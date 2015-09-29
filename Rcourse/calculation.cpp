@@ -1,9 +1,9 @@
 using namespace ecrobot;
 extern "C"
 {
-  double p_coe = 0.39;
+  double p_coe = 0.38;
   double i_coe = 0.06;
-  double d_coe = 0.49;
+  double d_coe = 0.57;
   class Cal{
   public:
     int p_i_d(int ava,double cur){

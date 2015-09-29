@@ -46,47 +46,41 @@ extern "C"
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-/*			while(drive.position() > -900){ //course R
-				pidrun.pid_running(1,0);
+			while(drive.position() > -900){ //course R
+				pidrun.pid_running(3,-10,0,0);
 			}
 			while(drive.position() > -5600){ //増えてるコメント消さないでください。byジャック
 				pidrun.pid_dash_left();
 			}
-			while(drive.position() > -12200){
-				pidrun.pid_running(1,0);
-			}
-			bool huga = false;
-			while(huga == false){
-				pidrun.pid_running(3,-17);
-				huga = pidrun.gray_discover();
-			}*/
-/*			while(drive.position() > -700){ //course L
-				pidrun.pid_running(0,0);
-			}
-			while(drive.position() > -6500){
-				pidrun.pid_dash();
+			while(drive.position() > -7000){
+				pidrun.pid_running(3,-10,0,0);
 			}
 			while(drive.position() > -8500){
-				pidrun.pid_running(0,0);
+				pidrun.pid_running(1,0,50,70);
 			}
-			while(drive.position() > -9500){
-				pidrun.pid_dash();
+			while(drive.position() > -11000){
+				pidrun.pid_running(3,-10,0,0);
 			}
-			nihonbashi.stop_ex();
-			bar.barcode(sen.ret_white(),sen.ret_black());
-			unknown.Capture_unknown(bar.array);*/
+			while(drive.position() > -12500){
+				pidrun.pid_running(1,0,50,70);
+			}
+			while(drive.position() > -14000){
+				pidrun.pid_running(3,-10,0,0);
+			}
+			drive.motor_stop();
+			clock.wait(4000);
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
 
 	    		   //figurelから新幹線
-	    		   /*
+
 	  	  	  	   fig.figurel();
 	               train.train();
 	               while(1){
-	            	   pidrun.pid_running(2,-10);
+	            	   pidrun.pid_running(2,-10,0,0);
 	               }
-	               clock.wait(100000);
-	               */
+	               //clock.wait(100000);
+
 
 					//pidrun.pid_running(1,0);
 					//pidrun.gray_discover();
