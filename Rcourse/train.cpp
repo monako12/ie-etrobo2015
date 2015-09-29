@@ -10,6 +10,13 @@
  円周率 = 3 を使用
  タイヤ一回転(360°)での移動距離は約24cm
  */
+ /*
+ PID
+ 第1引数 右(0,2)or左(1,3) *今まで(電池80%時ぐらい)のpidなら、2or3で、第2引数を-10 (2,)
+ 第2引数 3固定(左トレース) *2or3のみ設定。スピード調整用の引数。0or1の場合、0でok
+ 第3引数 前輪の角度 *0or1のみ設定。2or3の場合、0でok
+ 第4引数 前輪のスピード *上記
+ */
 
 // ECRobot++ API
 #include "LightSensor.h"
@@ -65,9 +72,21 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        pidrun.pid_running(flag,0,350,80);
+        pidrun.pid_running(0,-10,100,40);
         }
+    }
 
+    void move_pid_slow(int distance){
+        int deg;
+
+        deg = moving_distance(distance);
+        while(true) {
+            if(drive.position()<-deg){
+                drive.motor_stop();
+            break;
+            }
+        pidrun.pid_running(2,0,0,0);
+        }
     }
 
     int moving_distance(int distance){
@@ -117,6 +136,7 @@ extern "C"
                     if(measure1 != 0){
                         if(measure1+30 < measure2){
                             clock.sleep(1200);
+                            /*
                             deg = moving_distance(measure1-20);
                             while(true) {
                                 if(drive.position()<-deg){
@@ -125,6 +145,8 @@ extern "C"
                                 }
                                 pidrun.pid_running(false,0,350,80);
                             }
+                            */
+                            move_pid(measure1-20,false);
                             count++;
                         }
                     }
@@ -132,6 +154,7 @@ extern "C"
                 case 2:
                     if(distance < 100){
                         clock.sleep(1200);
+                        /*
                         deg = moving_distance(measure2-measure1-10);
                         while(true) {
                             if(drive.position()<-deg){
@@ -140,13 +163,16 @@ extern "C"
                             }
                             pidrun.pid_running(false,0,350,80);
                         }
+                        */
+                        move_pid(measure2-measure1-20,false);//-10
+                        move_pid_slow(10);
                         count++;
-
                     }
                     break;
                 case 3:
                     if(distance < 100){
                         clock.sleep(1200);
+                        /*
                         deg = moving_distance(measure2-measure1-10);
                         while(true) {
                             if(drive.position()<-deg){
@@ -155,6 +181,8 @@ extern "C"
                             }
                             pidrun.pid_running(false,0,350,80);
                         }
+                        */
+                        move_pid(measure2-measure1-10,false);
                         count++;
                     }
                     break;
