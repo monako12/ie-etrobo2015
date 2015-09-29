@@ -61,9 +61,15 @@ public:
       {
       }
     if(avarage < gray){
+<<<<<<< Updated upstream
       Threshold = gray + 20;
     }else{
       Threshold = gray + 20;
+=======
+      Threshold = gray + 30;
+    }else{
+      Threshold = gray + 30;
+>>>>>>> Stashed changes
     }
     return(0);
   }
