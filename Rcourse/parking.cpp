@@ -112,6 +112,36 @@ extern "C"
                 motorC.setPWM(0);
                 reset(100);
 
+                drive.angle(-350,100);
+                drive.forward(310,40,40,MOTOR_C);
+                reset(100);
+
+                drive.forward(-820,40,40,MOTOR_C);
+
+                drive.angle(650,100);
+                drive.forward(100,0,70,MOTOR_C);
+                reset(100);
+
+                clock.wait(5000);
+
+
+                //sensor
+                drive.angle(-680,100);
+                drive.forward(290,0,80,MOTOR_C);
+                reset(100);
+                drive.bforward(40,40);
+
+                drive.forward(90,40,40,MOTOR_C);
+
+                drive.angle(-680,100);
+                drive.bforward(0,80);
+                reset(100);
+
+                clock.wait(1000);
+                break;
+
+
+                /*
                 drive.angle(350,100);
                 drive.forward(310,40,40,MOTOR_C);
                 reset(100);
@@ -139,18 +169,8 @@ extern "C"
 
                 clock.wait(1000);
                 break;
+                */
 
-                /*
-                 //手動
-                 angle(680,100);
-                 forward(290,80,0,0);
-                 reset(100);
-                 forward(150,40,40,1);
-                 angle(-700,100);
-                 forward(290,0,80,1);
-                 reset(100);
-                 clock.wait(10000);
-                 */
             }
         }
 
