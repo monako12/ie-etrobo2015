@@ -118,7 +118,7 @@ extern "C"
             fix_Direction(0);
             search_bord(30);
             ride_bord2(300);*/
-            ride_bord_final(false);
+            ride_bord_final(true);
             clock.wait(1000);
             acquire(white,black);
             lcd.clear();

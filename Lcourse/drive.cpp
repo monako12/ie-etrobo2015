@@ -115,14 +115,14 @@ extern "C"
 
   void Drive::dash(int pid,int line){
     if(line < 0){
-      if(motorA.getCount() >= -40){
-	motorA.setPWM(-30);
+      if(motorA.getCount() >= -20){
+	motorA.setPWM(-50);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 40){
-	motorA.setPWM(30);
+      if(motorA.getCount() <= 20){
+	motorA.setPWM(50);
       }else{
 	motorA.setPWM(0);
       }
