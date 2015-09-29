@@ -16,28 +16,28 @@ class Figurel{
         Drive drive;
         SensorGet sen;
         Parking par;
-        
+
         void figurel()
         {
             clock.wait(2000);
             bar.L_ride_bord(true);
             while(true){
-            	set_rotate_pid(350);
+            	set_rotate_pid(350,3,-10);
                 L_carve();
                 clock.wait(1000);
-                set_rotate_pid(500);
+                set_rotate_pid(500,2,-10);
                 drive.motor_stop();
                 par.reset(100);
                 break;
             }
         }
 
-        void set_rotate_pid(int rotate){
+        void set_rotate_pid(int rotate,int side,int speed){
         	srotate = nxt_motor_get_count(PORT_C);
         	while(1){
         		nrotate = nxt_motor_get_count(PORT_C);
         		if (nrotate > (srotate + ((-1) * rotate))){
-        			pidrun.pid_running(true,0);
+        			pidrun.pid_running(side,speed,0,0);
         		} else {
         			break;
         		}

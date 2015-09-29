@@ -50,7 +50,7 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(2,-23);
+                pidrun.pid_running(2,-23,350,80);
                 if(white + 5 < now_color){ //tyousei hituyou
                     white_num++;
                 }
@@ -118,7 +118,7 @@ extern "C"
             fix_Direction(0);
             search_bord(30);
             ride_bord2(300);*/
-            ride_bord_final(false);
+            ride_bord_final(true);
             clock.wait(1000);
             acquire(white,black);
             lcd.clear();
@@ -278,7 +278,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-17);
+                pidrun.pid_running(select,-17,350,80);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 

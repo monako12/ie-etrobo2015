@@ -25,8 +25,8 @@ extern "C"
     int position();
     void motor_count_reset();
     void motor_stop();
-    void Right_Edge_Trace(int, int);
-    void Left_Edge_Trace(int, int);
+    void Right_Edge_Trace(int, int, int, int);
+    void Left_Edge_Trace(int, int, int ,int);
     void dash(int, int);
 		void dash_left(int,int);
     int RightSide_line_check(int, int);
@@ -60,17 +60,17 @@ extern "C"
     motorC.setPWM(0);
   }
 
-  void Drive::Right_Edge_Trace(int pid,int line){
+  void Drive::Right_Edge_Trace(int pid,int line,int width,int Apower){
     int b,c;
     if(line < 0){
-      if(motorA.getCount() <= 350){
-	motorA.setPWM(70);
+      if(motorA.getCount() <= width){
+	motorA.setPWM(Apower);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() >= -350){
-	motorA.setPWM(-70);
+      if(motorA.getCount() >= -width){
+	motorA.setPWM(-Apower);
       }else{
 	motorA.setPWM(0);
       }
@@ -86,17 +86,17 @@ extern "C"
     motorB.setPWM(b);
   }
 
-  void Drive::Left_Edge_Trace(int pid,int line){
+  void Drive::Left_Edge_Trace(int pid,int line,int width,int Apower){
     int b,c;
     if(line < 0){
-      if(motorA.getCount() >= -350){
-	motorA.setPWM(-80);
+      if(motorA.getCount() >= -width){
+	motorA.setPWM(-Apower);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 350){
-	motorA.setPWM(80);
+      if(motorA.getCount() <= width){
+	motorA.setPWM(Apower);
       }else{
 	motorA.setPWM(0);
       }
@@ -144,23 +144,23 @@ extern "C"
     int b,c;
     if(line < 0){
       if(motorA.getCount() >= -20){
-	motorA.setPWM(-10);
+	motorA.setPWM(-30);
       }else{
 	motorA.setPWM(0);
       }
     }else{
       if(motorA.getCount() <= 20){
-	motorA.setPWM(10);
+	motorA.setPWM(30);
       }else{
 	motorA.setPWM(0);
       }
     }
     if(pid < 0){
-      b = -80 - pid/4;
-      c = -90 + pid/4;
+      b = -70 - pid/4;
+      c = -80 + pid/4;
     }else{
-      b = -85 - pid/4;
-      c = -90 + pid/4;
+      b = -75 - pid/4;
+      c = -80 + pid/4;
     }
 
     motorC.setPWM(c);
@@ -416,7 +416,7 @@ extern "C"
     motorC.setPWM(c);
     motorB.setPWM(b);
   }
-    
+
     void Drive::lforward(int number,int lspeed,int rspeed,int tire){
         if (tire == MOTOR_B){
             srotate = nxt_motor_get_count(PORT_B);
@@ -442,7 +442,7 @@ extern "C"
             }
         }
     }
-    
+
     void Drive::lbforward(int lspeed,int rspeed){
         while(1){
             int now = sensor.nowlight();
