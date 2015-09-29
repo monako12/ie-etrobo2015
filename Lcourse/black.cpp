@@ -61,14 +61,15 @@ extern "C"
 				huga = pidrun.gray_discover();
 			}*/
 			while(drive.position() > -2000){ //course L
-				pidrun.pid_running(0,0);
+				pidrun.pid_running(0,0,350,80);
 			}
 			while(drive.position() > -6500){
+				clock.wait(150);
 				par.reset(100);
 				pidrun.pid_dash();
 			}
 			while(drive.position() > -8500){
-				pidrun.pid_running(0,0);
+				pidrun.pid_running(0,0,350,80);
 			}
 			while(drive.position() > -9700){
 				pidrun.pid_dash();

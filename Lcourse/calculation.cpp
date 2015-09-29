@@ -3,7 +3,7 @@ extern "C"
 {
   double p_coe = 0.37;
   double i_coe = 0.04;
-  double d_coe = 0.585;
+  double d_coe = 0.582;
   class Cal{
   public:
     int p_i_d(int ava,double cur){
