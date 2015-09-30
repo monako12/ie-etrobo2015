@@ -76,7 +76,7 @@ extern "C"
 			train.move_pid2(40);
 			bar.barcode(sen.ret_white(),sen.ret_black());
 			unknown.Capture_unknown(bar.array);
-
+			
 	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
 
@@ -90,7 +90,7 @@ extern "C"
 	               clock.wait(100000);
 	               */
 
-					//pidrun.pid_running(1,0);
+					//pidrun.pid_running(1,0,350,80);
 					//pidrun.gray_discover();
 		}
     }
