@@ -47,23 +47,23 @@ extern "C"
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
-			while(drive.position() > -900){ //course R
-				pidrun.pid_running(3,-10,0,0);
+			while(drive.position() > -1000){ //course R
+				pidrun.pid_running(1,-10,20,30);
 			}
 			while(drive.position() > -5600){ //増えてるコメント消さないでください。byジャック
 				pidrun.pid_dash_left();
 			}
-			while(drive.position() > -7000){
+			while(drive.position() > -7600){
 				pidrun.pid_running(3,-10,0,0);
 			}
 			while(drive.position() > -8500){
-				pidrun.pid_running(1,0,50,70);
+				pidrun.pid_running(1,-5,20,30);
 			}
 			while(drive.position() > -11000){
-				pidrun.pid_running(3,-10,0,0);
+				pidrun.pid_running(3,-15,0,0);
 			}
 			while(drive.position() > -12500){
-				pidrun.pid_running(1,0,50,70);
+				pidrun.pid_dash_left();
 			}
 			while(drive.position() > -14100){
 				pidrun.pid_running(3,-10,0,0);
@@ -80,13 +80,13 @@ extern "C"
 	        while(drive.position() > -300){ //course R
 				pidrun.pid_running(2,-10,0,0);
 			}
-			while(drive.position() > -1600){ //増えてるコメント消さないでください。byジャック
+			while(drive.position() > -1450){ //増えてるコメント消さないでください。byジャック
 				pidrun.pid_dash();
 			}
-			while(drive.position() > -3500){
+			while(drive.position() > -3700){
 				pidrun.pid_running(2,-10,0,0);
 			}
-			while(drive.position() > -8100){
+			while(drive.position() > -7950){
 				pidrun.pid_dash();
 			}
 			

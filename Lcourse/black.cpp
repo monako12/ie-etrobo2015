@@ -60,18 +60,16 @@ extern "C"
 				pidrun.pid_running(3,-17);
 				huga = pidrun.gray_discover();
 			}*/
-			while(drive.position() > -2000){ //course L
-				pidrun.pid_running(0,0,350,80);
+			while(drive.position() > -900){ //course L
+				pidrun.pid_running(2,-10,0,0);
 			}
 			while(drive.position() > -6500){
-				clock.wait(150);
-				par.reset(100);
 				pidrun.pid_dash();
 			}
 			while(drive.position() > -8500){
-				pidrun.pid_running(0,0,350,80);
+				pidrun.pid_running(2,-10,0,0);
 			}
-			while(drive.position() > -9700){
+			while(drive.position() > -9600){
 				pidrun.pid_dash();
 			}
 			nihonbashi.stop_ex();
