@@ -442,16 +442,29 @@ extern "C"
         }
 
         void Retire(int hoge){
-            motorA.setPWM(5);//100
+            motorA.setPWM(0);//100
             motorB.setPWM(0);
             motorC.setPWM(0);
             Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
             lcd.disp();
-            while(true){
-                clock.wait(10);
+            int deg;
+
+            Left_turn();
+
+            deg = tra.moving_distance(140);
+            while(true) {
+                if(tra.drive.position()<-deg){
+                    tra.drive.motor_stop();
+                break;
+                }
+            motorB.setPWM(-50);
+            motorC.setPWM(-45);
             }
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            pidrun.fix_position();
         }
 
         int Capture_unknown(vector<int> &temp){

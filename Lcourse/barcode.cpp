@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -27
+#define RIGHT -26
 #define BORDER 16
 
 extern "C"
@@ -70,7 +70,7 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            fix_Direction(-10);
+            fix_Direction(-15);
             clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
