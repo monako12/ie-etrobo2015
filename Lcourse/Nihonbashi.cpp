@@ -16,10 +16,10 @@ extern "C"
    motorB.setPWM(100);
    motorC.setPWM(100);
    clock.wait(250);
-   motorC.setPWM(-85);
-   motorB.setPWM(-85);
+   motorC.setPWM(-90);
+   motorB.setPWM(-90);
    clock.wait(550);
-   motorC.setPWM(-50);
+   motorC.setPWM(-60);
    motorB.setPWM(-40);
    clock.wait(1050);
    motorB.setPWM(-70);
@@ -69,7 +69,7 @@ extern "C"
 
    while(sensor.nowlight() > sen.ret_black()){
    motorB.setPWM(-20);
-   motorC.setPWM(-100);
+   motorC.setPWM(-60);
  }
    motorB.setPWM(0);
    motorC.setPWM(0);
@@ -87,7 +87,7 @@ extern "C"
 
  void Nihonbashi::stop_ex()
  {
-  bar.search_bord(16,false);
+  bar.search_bord2(23,false);
   
   drive.motor_stop();
   par.reset(100);
