@@ -50,7 +50,7 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(2,-23);
+                pidrun.pid_running(2,-23,0,0);
                 if(white + 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
@@ -268,7 +268,32 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-17);
+                pidrun.pid_running(select,-17,350,80);
+                velocity = gyro_bar.getAnglerVelocity();
+                diff_gyro = velocity - borderline;
+
+                if(diff_gyro > border){ //tyousei hituyou
+                    motorAA.setPWM(0);
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(1000);
+                    break;
+                }
+            }
+        }
+        void search_bord2(int border,int select){
+            int velocity;
+            int borderline;
+            int diff_gyro;
+
+            gyro_bar.setOffset(0);
+            motorAA.setPWM(0);
+            motorBB.setPWM(-20);
+            motorCC.setPWM(-20);
+            borderline = gyro_bar.getAnglerVelocity();
+
+            while(true){
+                pidrun.pid_running(select,-5,350,80);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
