@@ -41,6 +41,7 @@ public:
     white = light.getBrightness();
     lcd.putf("sdn", "white:", white,0);
     lcd.disp();
+    clock.wait(300);
     while(touchblack.isPressed()==1)
       {
       }
@@ -48,12 +49,14 @@ public:
     lcd.putf("sdn", "black:", black,4);
     lcd.disp();
     avarage = (white + black)/2;
+    clock.wait(300);
     while(touch.isPressed()==0)
       {
       }
     gray = light.getBrightness();
     lcd.putf("sdn", "gray:", gray,0);
     lcd.disp();
+    clock.wait(300);
     while(touch.isPressed()==1)
       {
       }
@@ -61,9 +64,9 @@ public:
       {
       }
     if(avarage < gray){
-      Threshold = gray + 20;
+      Threshold = gray + 30;
     }else{
-      Threshold = gray + 20;
+      Threshold = gray + 30;
     }
     return(0);
   }

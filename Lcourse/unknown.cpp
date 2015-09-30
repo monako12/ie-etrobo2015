@@ -245,7 +245,7 @@ extern "C"
 	        Left_turn_2(230);
 	        pidrun.fix_position();
 	        clock.wait(1500);
-	        tra.move_pid(dis,true); //1...+0    2...+23    3...+48    4...+72
+	        tra.move_pid3(dis,true); //1...+0    2...+23    3...+48    4...+72
 	        bar.fix_Direction(0);
 	        Left_turn_2(ang);  //1...310   2...310    3...290    4...250
 	        bar.fix_Direction(-10);
@@ -398,40 +398,51 @@ extern "C"
                     lcd.putf("sn","Return_route_1");
                     lcd.disp();
 
-                    Right_turn();
+                    Return_move_right();
+                     /*
                     Go_straight(55);
                     Left_turn();
                     pidrun.fix_position();
+                    */
                     break;
                 case 2:
                     lcd.clear();
                     lcd.putf("sn","Return_route_2");
                     lcd.disp();
 
+                    Return_move_right();
+                    /*
                     Right_turn();
                     Go_straight(25);
                     Left_turn();
                     pidrun.fix_position();
+                    */
                     break;
                 case 3:
                     lcd.clear();
                     lcd.putf("sn","Return_route_3");
                     lcd.disp();
 
+                    Return_move_right();
+                    /*
                     Right_turn();
                     Go_straight(20);
                     Left_turn();
                     pidrun.fix_position();
+                    */
                     break;
                 case 4:
                     lcd.clear();
                     lcd.putf("sn","Return_route_4");
                     lcd.disp();
 
+                    Return_move_left();
+                    /*
                     Left_turn();
                     Go_straight(75);
                     Right_turn();
                     pidrun.fix_position();
+                    */
                     break;
                 default:
                     lcd.clear();
@@ -535,6 +546,25 @@ extern "C"
             motorA.setPWM(-5);
             tra.move(tra.moving_distance(distance));
         }
+
+        void Return_move_right(){
+            Right_turn();
+            drive.bforward(40,40);
+            drive.forward(90,40,40,1);
+            drive.angle(-680,100);
+            drive.bforward(0,80);
+            par.reset(100);
+        }
+
+        void Return_move_left(){
+            Left_turn();
+            drive.bforward(40,40);
+            drive.forward(90,40,40,1);
+            drive.angle(650,100);
+            drive.bforward(80,0);
+            par.reset(100);
+        }
+
 
         void Show_map(int num){
             lcd.clear();
