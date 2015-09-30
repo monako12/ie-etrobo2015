@@ -224,10 +224,10 @@ extern "C"
                 drive.forward(310,40,40,MOTOR_C);
                 reset(100);
                 
-                drive.forward(-820,40,40,MOTOR_C);
+                drive.forward(-870,50,40,MOTOR_C);
                 
                 drive.angle(645,100);
-                drive.forward(100,70,0,MOTOR_B);
+                drive.forward(80,70,0,MOTOR_B);
                 reset(100);
                 
                 clock.wait(5000);
