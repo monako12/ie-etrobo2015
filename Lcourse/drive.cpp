@@ -130,11 +130,11 @@ extern "C"
     int b;
     int c;
     if(pid < 0){
-      b = -80 + (pid/4);
-      c = -70 - (pid/4);
+      b = -72 + (pid/4);
+      c = -66 - (pid/4);
     }else{
-      b = -80 + (pid/4);
-      c = -75 - (pid/4);
+      b = -72 + (pid/4);
+      c = -70 - (pid/4);
     }
     motorC.setPWM(c);
     motorB.setPWM(b);

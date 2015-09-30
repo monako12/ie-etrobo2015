@@ -61,18 +61,19 @@ extern "C"
 				huga = pidrun.gray_discover();
 			}*/
 			while(drive.position() > -900){ //course L
-				pidrun.pid_running(2,-10,0,0);
+				pidrun.pid_running(2,-10,5,50);
 			}
 			while(drive.position() > -6500){
 				pidrun.pid_dash();
 			}
-			while(drive.position() > -8500){
+			while(drive.position() > -8800){
 				pidrun.pid_running(2,-10,0,0);
 			}
-			while(drive.position() > -9600){
-				pidrun.pid_dash();
+			while(drive.position() > -9900){
+				pidrun.pid_running(2,-4,10,50);
 			}
 			nihonbashi.stop_ex();
+			train.move_pid2(40);
 			bar.barcode(sen.ret_white(),sen.ret_black());
 			unknown.Capture_unknown(bar.array);
 

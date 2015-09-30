@@ -68,6 +68,19 @@ extern "C"
             }
         pidrun.pid_running(0,0,20,30);
         }
+
+    }
+    void move_pid2(int distance){
+        int deg;
+
+        deg = moving_distance(distance);
+        while(true) {
+            if(drive.position()<-deg){
+                drive.motor_stop();
+            break;
+            }
+        pidrun.pid_running(0,-10,300,50);
+        }
     }
 
     void move_pid_slow(int distance){
