@@ -75,11 +75,10 @@ extern "C"
 				pidrun.pid_running(2,-4,10,50);
 			}
 			*/
-			nihonbashi.stop_ex();
-			train.move_pid2(40);
+			//nihonbashi.stop_ex();
+			//train.move_pid2(40);
 			bar.barcode(sen.ret_white(),sen.ret_black());
 			unknown.Capture_unknown(bar.array);
-
 
 
 	    while(1){ //test loop
@@ -93,8 +92,7 @@ extern "C"
 	               }
 	               clock.wait(100000);
 	               */
-
-					pidrun.pid_running(1,0,350,80);
+					pidrun.pid_running(0,0,350,80);
 					//pidrun.gray_discover();
 		}
     }
