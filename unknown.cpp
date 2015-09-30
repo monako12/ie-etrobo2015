@@ -82,7 +82,7 @@ extern "C"
 
         void Modify_map(){ //9_18
         /*
-            int map_dummy[5][6]={ //test_date
+            int map_dummy[5][6]={ //test_data
                 {  0,  1,  1,  1,  1,  0, },
                 {  0,  0,  1,  1,  1,  0, },
                 {  0,  1,  1,  0,  0,  0, },
@@ -262,13 +262,13 @@ extern "C"
             lcd.disp();
             clock.wait(1000);
             */
-            int test_date[] = {0, 1, 2, 1, 1, 1, 5};
-            //for(int i = 1; i < sol_route.size(); i++){
-            for(int i = 1; i < 7 ; i++){
+            //int test_data[] = {0, 1, 2, 1, 1, 1, 5};
+            for(int i = 1; i < sol_route.size(); i++){
+            //for(int i = 1; i < 7 ; i++){
                 clock.wait(1200);
-                switch(test_date[i]){
+                switch(sol_route[i]){
                     case 1:
-                        switch(test_date[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case1_1");
@@ -309,7 +309,7 @@ extern "C"
                         }
                         break;
                     case 2:
-                        switch(test_date[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case2_1");
@@ -343,7 +343,7 @@ extern "C"
                         }
                         break;
                     case 4:
-                        switch(test_date[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case4_1");
@@ -391,8 +391,8 @@ extern "C"
         }
 
         void Return_line(){
-            int test_data=2;
-            switch(test_data){ //end_pos
+            //int test_data=2;
+            switch(end_pos){ //end_pos
                 case 1:
                     lcd.clear();
                     lcd.putf("sn","Return_route_1");
