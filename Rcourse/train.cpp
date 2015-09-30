@@ -42,6 +42,8 @@ extern "C"
         Clock clock;
         Lcd lcd;
         Drive drive;
+        Barcode bar;
+
 
         int move(int distance){
             if(distance>0){//前進
@@ -147,7 +149,8 @@ extern "C"
                                 pidrun.pid_running(false,0,350,80);
                             }
                             */
-                            move_pid(measure1-20,false);
+                            //move_pid(measure1-20,false);
+                            move_pid_slow(measure1-21);
                             count++;
                         }
                     }
@@ -165,8 +168,9 @@ extern "C"
                             pidrun.pid_running(false,0,350,80);
                         }
                         */
-                        move_pid(measure2-measure1-20,false);//-10
-                        move_pid_slow(10);
+                        bar.ride_bord(400);
+                        move_pid(measure2-measure1-23,false);//-10
+                        //move_pid_slow(measure2-measure1-10);
                         count++;
                     }
                     break;
@@ -212,7 +216,7 @@ extern "C"
             lcd.putf("sddn",  "1/2: ", measure1,0,  measure2,5);
             lcd.disp();
 
-            clock.wait(150); //計測できる範囲を伸ばすため値を大きくしている。
+            clock.wait(160); //計測できる範囲を伸ばすため値を大きくしている。
         }
     }
 

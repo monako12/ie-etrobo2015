@@ -25,7 +25,7 @@ class Figurel{
             	set_rotate_pid(350,3,-10);
                 L_carve();
                 clock.wait(1000);
-                set_rotate_pid(500,2,-10);
+                set_rotate_pid(400,2,-15);
                 drive.motor_stop();
                 par.reset(100);
                 break;

@@ -77,7 +77,7 @@ extern "C"
     parameter();
     display();
     if(hoge == 1){
-      drive.Left_Edge_Trace(ret_pid,line,width,Apower);/*左側のエッジ(黒の左側)を走る*/
+      drive.Left_Edge_Trace(ret_pid,line,width,Apower,f);/*左側のエッジ(黒の左側)を走る*/
     }
 	else if(hoge == 2){
 	  drive.Barcode_pid_run(ret_pid,line,f);
@@ -86,7 +86,7 @@ extern "C"
 	  drive.slow_Trace(ret_pid,line,f);
 	}
     else{
-      drive.Right_Edge_Trace(ret_pid,line,width,Apower);/*右側のエッジ(黒の右側)を走る*/
+      drive.Right_Edge_Trace(ret_pid,line,width,Apower,f);/*右側のエッジ(黒の右側)を走る*/
     }
     clock.wait(1);
   }
