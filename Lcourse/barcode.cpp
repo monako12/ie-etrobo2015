@@ -294,7 +294,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-5,30,30);
+                pidrun.pid_running(select,-5,40,70);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
