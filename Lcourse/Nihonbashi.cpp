@@ -19,8 +19,10 @@ extern "C"
    motorC.setPWM(-80);
    motorB.setPWM(-80);
    clock.wait(550);
-   motorC.setPWM(-50);
-   motorB.setPWM(-35);
+   drive.motor_stop();
+  par.reset(100);
+   motorC.setPWM(-46);
+   motorB.setPWM(-40);
    clock.wait(1050);
    motorB.setPWM(-70);
    motorC.setPWM(-70);
