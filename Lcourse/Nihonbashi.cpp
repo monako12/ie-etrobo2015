@@ -16,11 +16,11 @@ extern "C"
    motorB.setPWM(100);
    motorC.setPWM(100);
    clock.wait(250);
-   motorC.setPWM(-90);
-   motorB.setPWM(-90);
+   motorC.setPWM(-80);
+   motorB.setPWM(-80);
    clock.wait(550);
-   motorC.setPWM(-60);
-   motorB.setPWM(-40);
+   motorC.setPWM(-50);
+   motorB.setPWM(-35);
    clock.wait(1050);
    motorB.setPWM(-70);
    motorC.setPWM(-70);
