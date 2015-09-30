@@ -78,7 +78,7 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        pidrun.pid_running(0,-10,300,50);
+        pidrun.pid_running(0,-20,300,50);
         }
     }
 

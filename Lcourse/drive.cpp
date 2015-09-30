@@ -39,6 +39,7 @@ extern "C"
     void angle(int, int);
     void forward(int, int, int, int);
     void bforward(int, int);
+    void bforward2(int, int);
 	void Barcode_pid_run(int, int, int);
 	void slow_Trace(int, int, int);
       void lforward(int, int, int, int);
@@ -457,5 +458,30 @@ extern "C"
             }
         }
     }
+    void Drive::bforward2(int lspeed,int rspeed){
+      int i = 0;
+    while(1){
+      int now = sensor.nowlight();
+      int ava = sensor.ret_avarage();
+      int color = cal.cur_ava(now,(double)ava);
+       
+      if (color < 0){
+  motorB.setPWM(0);
+  motorC.setPWM(0);
+  break;
+      }
+      else if (color > 0){
+  motorB.setPWM(lspeed);
+  motorC.setPWM(rspeed);
+   if(i > 50000){
+        motorB.setPWM(0);
+        motorC.setPWM(0);
+        break;
+      }
+      i++;
+      }
+      
+    }
+  }
 
 }

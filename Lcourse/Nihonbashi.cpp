@@ -17,16 +17,17 @@ extern "C"
    motorB.setPWM(100);
    motorC.setPWM(100);
    clock.wait(200);
-   motorC.setPWM(-75);
-   motorB.setPWM(-75);
+   motorC.setPWM(-74);
+   motorB.setPWM(-74);
    clock.wait(200);
    drive.motor_stop();
-   motorC.setPWM(-73);
+   motorC.setPWM(-70);
    motorB.setPWM(-63);
    clock.wait(250);
    drive.motor_stop();
    par.reset(100);
-   motorC.setPWM(-45);
+   clock.wait(1000);
+   motorC.setPWM(-48);
    motorB.setPWM(-40);
    clock.wait(1050);
    motorB.setPWM(-70);
@@ -61,16 +62,15 @@ extern "C"
    motorC.setPWM(0);
    clock.wait(500);
    */
-   /*
-   motorB.setPWM(50);
-   motorC.setPWM(50);
-   clock.wait(1000);
-   */
+   drive.motor_stop();
+   clock.wait(200);
+   drive.bforward2(70,70);
+   
    
    motorA.setPWM(-100);
    motorB.setPWM(0);
    motorC.setPWM(0);
-   clock.wait(450);
+   clock.wait(600);
    motorA.setPWM(0);
 
 
@@ -78,33 +78,12 @@ extern "C"
    while(sensor.nowlight() > sen.ret_black()){
    motorB.setPWM(-10);
    motorC.setPWM(-40);
-i++;
-   if(i > 2500){
-    while(i < 0)
-   {
-    i--;
-    motorB.setPWM(10);
-    motorC.setPWM(40);
    }
-   motorA.setPWM(100);
-   motorB.setPWM(0);
-   motorC.setPWM(0);
-   clock.wait(200);
-   motorA.setPWM(0);
-   while(sensor.nowlight() > sen.ret_black()){
-   motorB.setPWM(-10);
-   motorC.setPWM(-40);
-   i = 2000;
- }
- if( i == 2000){while(1){drive.motor_stop();}break;}
-}
-
-
- }
    motorB.setPWM(0);
    motorC.setPWM(0);
    clock.wait(200);
    par.reset(100);
+   
 
 
 
@@ -116,7 +95,8 @@ i++;
  }
 
  void Nihonbashi::stop_ex()
- {motorA.setPWM(-100);
+ {/*
+  motorA.setPWM(-100);
    motorB.setPWM(0);
    motorC.setPWM(0);
    clock.wait(450);
@@ -155,7 +135,7 @@ i++;
 
 
  }
-
+*/
 
   bar.search_bord2(23,false);
   
