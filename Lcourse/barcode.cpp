@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -24
+#define RIGHT -27
 #define BORDER 16
 
 extern "C"
@@ -293,7 +293,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-5,350,80);
+                pidrun.pid_running(select,-5,30,30);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
