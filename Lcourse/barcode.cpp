@@ -1,6 +1,6 @@
 #include "vector"
 using namespace std;
-
+//9/30 
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
@@ -27,13 +27,13 @@ extern "C"
             while(true){
                 now = motorAA.getCount();
                 diff = hope - now;
-    
+
                 if(abs(diff) < 3){
                     clocktime.wait(50);
                     motorAA.setPWM(0);
                     break;
                 }
-    
+
                 if(diff > 0){
                     motorAA.setPWM(100);
                 }else{
@@ -50,8 +50,8 @@ extern "C"
 
             while(1){
                 now_color = light_bar.getBrightness();
-                pidrun.pid_running(2,-23,350,80);
-                if(white + 5 < now_color){ //tyousei hituyou
+                pidrun.pid_running(2,-23);
+                if(white + 10 < now_color){ //tyousei hituyou
                     white_num++;
                 }
 
@@ -107,18 +107,7 @@ extern "C"
         }
 
         void barcode(int white,int black){
-            /*fix_Direction(0);
-            ride_bord(850); //tyousei hituyou 1000ga iikana?
-            fix_Direction(0);*/
-            /*search_bord(30);
-            motorAA.setPWM(0);
-            fix_Direction(-60);
-            clock.wait(400);
-            ride_bord2(400);
-            fix_Direction(0);
-            search_bord(30);
-            ride_bord2(300);*/
-            ride_bord_final(true);
+            ride_bord_final(false);
             clock.wait(1000);
             acquire(white,black);
             lcd.clear();
@@ -127,15 +116,16 @@ extern "C"
             }
 
             lcd.disp();
-            clocktime.wait(500);
-            fix_Direction(30);
-            motorCC.setPWM(-35);//yomitottara sonomama
+            clocktime.wait(1200);
+            fix_Direction(-30);
+            motorCC.setPWM(-50);//yomitottara sonomama
             motorBB.setPWM(-35);//hashiritudukeru
             clocktime.wait(500);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            search_bord(15,1);
-            search_bord(15,1);
+            clock.wait(1200);
+            search_bord(20,3);
+            clock.wait(2000);
         }
 
         void ride_bord_final(bool check){
@@ -145,7 +135,7 @@ extern "C"
             }else{
                 hoge = 2;
             }
-            search_bord(13,hoge);
+            search_bord(16,hoge);
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
@@ -154,7 +144,7 @@ extern "C"
             search_bord(13,hoge);
             ride_bord2(300);
         }
-        
+
         void L_ride_bord(bool check){
             int hoge;
             if(true == check){
@@ -278,7 +268,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-17,350,80);
+                pidrun.pid_running(select,-17);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
