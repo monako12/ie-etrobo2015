@@ -1,6 +1,6 @@
 #include "vector"
 using namespace std;
-//9/30 
+//9/30
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu

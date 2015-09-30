@@ -10,7 +10,7 @@
  円周率 = 3 を使用
  タイヤ一回転(360°)での移動距離は約24cm
  */
-
+//9/30
 // ECRobot++ API
 #include "LightSensor.h"
 #include "SonarSensor.h"
@@ -56,6 +56,7 @@ extern "C"
 
             return 0;
         }
+
     void move_pid(int distance, bool flag){
         int deg;
 
@@ -80,7 +81,19 @@ extern "C"
             }
         pidrun.pid_running(0,-10,300,50);
         }
+    }
 
+    void move_pid_slow(int distance){
+        int deg;
+
+        deg = moving_distance(distance);
+        while(true) {
+            if(drive.position()<-deg){
+                drive.motor_stop();
+            break;
+            }
+        pidrun.pid_running(2,0,0,0);
+        }
     }
 
     int moving_distance(int distance){
