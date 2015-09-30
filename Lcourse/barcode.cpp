@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -26
+#define RIGHT -27
 #define BORDER 16
 
 extern "C"
@@ -70,7 +70,7 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            fix_Direction(-15);
+            fix_Direction(-20);
             clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
@@ -142,7 +142,7 @@ extern "C"
             ride_bord2(450);
             fix_Direction(0);
             search_bord(13,hoge);
-            ride_bord2(300);
+            ride_bord2(350);
         }
 
         void L_ride_bord(bool check){
@@ -268,7 +268,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-17,350,80);
+                pidrun.pid_running(select,-17,300,80);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
