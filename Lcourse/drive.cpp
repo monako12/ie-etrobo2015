@@ -131,7 +131,7 @@ extern "C"
     int c;
     if(pid < 0){
       b = -72 + (pid/4);
-      c = -66 - (pid/4);
+      c = -62 - (pid/4);
     }else{
       b = -72 + (pid/4);
       c = -70 - (pid/4);
