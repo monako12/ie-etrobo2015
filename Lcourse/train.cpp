@@ -59,7 +59,6 @@ extern "C"
 
     void move_pid(int distance, bool flag){
         int deg;
-
         deg = moving_distance(distance);
         while(true) {
             if(drive.position()<-deg){
@@ -81,6 +80,19 @@ extern "C"
             }
         pidrun.pid_running(0,-10,300,50);
         }
+    }
+
+    void move_pid3(int distance, bool flag){
+        int deg;
+        deg = moving_distance(distance);
+        while(true) {
+            if(drive.position()<-deg){
+                drive.motor_stop();
+            break;
+            }
+        pidrun.pid_running(1,0,350,80);
+        }
+
     }
 
     void move_pid_slow(int distance){

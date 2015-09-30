@@ -245,7 +245,7 @@ extern "C"
 	        Left_turn_2(230);
 	        pidrun.fix_position();
 	        clock.wait(1500);
-	        tra.move_pid(dis,true); //1...+0    2...+23    3...+48    4...+72
+	        tra.move_pid3(dis,true); //1...+0    2...+23    3...+48    4...+72
 	        bar.fix_Direction(0);
 	        Left_turn_2(ang);  //1...310   2...310    3...290    4...250
 	        bar.fix_Direction(-10);
