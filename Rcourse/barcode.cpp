@@ -169,7 +169,7 @@ extern "C"
             ride_bord2(450);
             fix_Direction(0);
             search_bord(13,hoge);
-            fix_Direction(-10);
+            fix_Direction(-12);
             ride_bord2(300);
         }
 

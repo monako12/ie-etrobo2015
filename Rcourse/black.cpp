@@ -72,10 +72,12 @@ extern "C"
 			clock.wait(2000);
 	  	  	fig.figurel();
 	        train.train();
+
 	        while(5000 > i){
 	        	i++;
 	        	pidrun.pid_running(2,-15,0,0);
 	        }
+
 	        drive.motor_count_reset();
 	        while(drive.position() > -300){ //course R
 				pidrun.pid_running(2,-10,0,0);

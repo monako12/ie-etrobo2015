@@ -127,8 +127,7 @@ extern "C"
                     if(distance < 255){
                         measure0 = distance;
                         if(measure0 > measure2){
-                            measure2 = me
-                            asure0;
+                            measure2 = measure0;
                         }
                         else if(measure0 < measure2){
                             measure1 = measure0;
