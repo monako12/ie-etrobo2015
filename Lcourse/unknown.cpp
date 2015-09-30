@@ -548,7 +548,7 @@ extern "C"
         }
 
         void Return_move_right(){
-            Right_turn();
+            Right_turn_2();
             drive.bforward(40,40);
             drive.forward(90,40,40,1);
             drive.angle(-680,100);
