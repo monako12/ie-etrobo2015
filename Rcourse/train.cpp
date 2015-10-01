@@ -127,8 +127,7 @@ extern "C"
                     if(distance < 255){
                         measure0 = distance;
                         if(measure0 > measure2){
-                            measure2 = me
-                            asure0;
+                            measure2 = measure0;
                         }
                         else if(measure0 < measure2){
                             measure1 = measure0;
@@ -168,7 +167,7 @@ extern "C"
                             pidrun.pid_running(false,0,350,80);
                         }
                         */
-                        bar.ride_bord(400);
+                        bar.ride_bord(500);
                         move_pid(measure2-measure1-23,false);//-10
                         //move_pid_slow(measure2-measure1-10);
                         count++;
@@ -176,7 +175,7 @@ extern "C"
                     break;
                 case 3:
                     if(distance < 100){
-                        clock.wait(1200);
+                        clock.sleep(1200);
                         /*
                         deg = moving_distance(measure2-measure1-10);
                         while(true) {
@@ -187,7 +186,7 @@ extern "C"
                             pidrun.pid_running(false,0,350,80);
                         }
                         */
-                        move_pid_slow(10);//measure2-measure1-10
+                        move_pid_slow(measure2-measure1-10);
                         //move_pid(measure2-measure1-10,false);
 
                         count++;
