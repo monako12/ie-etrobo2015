@@ -280,7 +280,7 @@ extern "C"
                                 lcd.putf("sn","case1_2");
                                 lcd.disp();
                                 Left_turn3();
-                                Go_straight(distance);
+                                //Go_straight(distance);
                             break;
                             case 4:
                                 lcd.clear();
@@ -288,7 +288,7 @@ extern "C"
                                 lcd.disp();
 
                                 Right_turn3();
-                                Go_straight(distance);
+                                //Go_straight(distance);
                             break;
                             case 0:
                                 lcd.clear();
@@ -364,7 +364,7 @@ extern "C"
                                 lcd.putf("sn","case4_4");
                                 lcd.disp();
 
-                                Go_straight(distance);
+                                //Go_straight(distance);
                                 break;
                             default:
                                 lcd.clear();
@@ -388,6 +388,10 @@ extern "C"
                         break;
                 }
             }
+            motorB.setPWM(-40);
+            motorC.setPWM(-40);
+            clock.wait(600);
+
         }
 
         void Return_line(){
@@ -450,19 +454,47 @@ extern "C"
                     lcd.disp();
                     break;
             }
+            //tra.move_pid3(10,true);
+            //dri.bforward(40,30);
+        }
+
+        void Return_line_2(){
+            if(4 == end_pos){
+                dri.bforward(40,50);
+            }else{
+                dri.bforward(50,40);
+                motorB.setPWM(40);
+                motorC.setPWM(30);
+                clock.wait(100);
+            }
         }
 
         void Retire(int hoge){
-            motorA.setPWM(5);//100
+            motorA.setPWM(0);//100
             motorB.setPWM(0);
             motorC.setPWM(0);
             Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
             lcd.disp();
-            while(true){
-                clock.wait(10);
+            int deg;
+
+            Left_turn();
+            motorB.setPWM(40);
+            clock.wait(500);
+
+            deg = tra.moving_distance(140);
+            while(true) {
+                if(tra.drive.position()<-deg){
+                    tra.drive.motor_stop();
+                break;
+                }
+            motorB.setPWM(-50);
+            motorC.setPWM(-45);
             }
+            motorB.setPWM(0);
+            motorC.setPWM(0);
+            pidrun.fix_position();
         }
 
         int Capture_unknown(vector<int> &temp){
@@ -539,7 +571,7 @@ extern "C"
             drive.bforward(40,40);
             drive.forward(90,40,40,1);
             drive.angle(-680,100);
-            drive.bforward(0,80);
+            drive.bforward(0,40); //(0,80)?
             par.reset(100);
         }
 
@@ -548,7 +580,7 @@ extern "C"
             drive.bforward(40,40);
             drive.forward(90,40,40,1);
             drive.angle(650,100);
-            drive.bforward(80,0);
+            drive.bforward(40,0); //(80,0)?
             par.reset(100);
         }
 

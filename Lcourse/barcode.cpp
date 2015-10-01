@@ -4,7 +4,7 @@ using namespace std;
 #define COUNT 50
 #define MOTORCOUNT -45 //barcode ikko bunn no haba  tyousei hituyou
 #define LEFT -26 //kotei de onegaisimasu
-#define RIGHT -27
+#define RIGHT -26
 #define BORDER 16
 
 extern "C"
@@ -70,7 +70,7 @@ extern "C"
 
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            fix_Direction(-10);
+            fix_Direction(-15);
             clock.wait(1000);
             motorBB.setPWM(LEFT);
             motorCC.setPWM(RIGHT);
@@ -116,16 +116,16 @@ extern "C"
             }
 
             lcd.disp();
-            clocktime.wait(1200);
+            clocktime.wait(1000);
             fix_Direction(-30);
             motorCC.setPWM(-50);//yomitottara sonomama
             motorBB.setPWM(-35);//hashiritudukeru
-            clocktime.wait(500);
+            clocktime.wait(350);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            clock.wait(1200);
+            clock.wait(1000);
             search_bord(20,3);
-            clock.wait(2000);
+            clock.wait(1000);
         }
 
         void ride_bord_final(bool check){
@@ -139,10 +139,11 @@ extern "C"
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
-            ride_bord2(450);
-            fix_Direction(0);
+            ride_bord2(300);
+            fix_Direction(60);
             search_bord(13,hoge);
             ride_bord2(300);
+            fix_Direction(0);
         }
 
         void L_ride_bord(bool check){
@@ -164,12 +165,12 @@ extern "C"
         }
 
         void ride_bord2(int time){
-            motorCC.setPWM(-73);
             motorBB.setPWM(-73);
+            motorCC.setPWM(-73);
             clock.wait(time);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
-            clock.wait(1200);
+            clock.wait(1000);
         }
 
         void ride_bord(int time){
@@ -268,7 +269,7 @@ extern "C"
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
-                pidrun.pid_running(select,-17,350,80);
+                pidrun.pid_running(select,-17,300,80);
                 velocity = gyro_bar.getAnglerVelocity();
                 diff_gyro = velocity - borderline;
 
