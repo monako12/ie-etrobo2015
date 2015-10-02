@@ -270,17 +270,23 @@ extern "C"
             int velocity;
             int borderline;
             int diff_gyro;
+            int before_motor;
+            int diff_motor;
+            int check_motor=0;
 
             gyro_bar.setOffset(0);
             motorAA.setPWM(0);
             motorBB.setPWM(-20);
             motorCC.setPWM(-20);
             borderline = gyro_bar.getAnglerVelocity();
+            before_motor = motorB.getCount();
 
             while(true){
                 pidrun.pid_running(select,-17,350,80);
                 velocity = gyro_bar.getAnglerVelocity();
+                now_motor = motorB.getCount();
                 diff_gyro = velocity - borderline;
+                diff_motor = now_motor - before_motor;
 
                 if(diff_gyro > border){ //tyousei hituyou
                     motorAA.setPWM(0);
@@ -289,6 +295,18 @@ extern "C"
                     clock.wait(1000);
                     break;
                 }
+
+                if(-2 < diff_motor && diff_motor > 2){
+                    check_motor++;
+                    if(200 == check_motor){
+                    motorAA.setPWM(0);
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(1000);
+                    break;
+                    }
+                }
+                before_motor = now_motor;
             }
         }
     };
