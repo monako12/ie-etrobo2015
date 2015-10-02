@@ -18,7 +18,7 @@
  第4引数 前輪のスピード *上記
  意味不明
  */
-//10/2
+//10/2完成
 // ECRobot++ API
 #include "LightSensor.h"
 #include "SonarSensor.h"
@@ -194,7 +194,7 @@ extern "C"
 
             switch(count){
                 case 1:
-                    if(distance < 100){
+                    if(distance < 120){///--------------要注意!!!!!!!!本番では150~200
                         measure0 = distance;
                         if(measure0 > measure2){
                             measure2 = measure0;
@@ -209,7 +209,7 @@ extern "C"
                         if(measure1+30 < measure2){//30
                             clock.sleep(1200);
                             //move_pid(measure1-20,false);
-                            move_pid_slow(measure1-16);
+                            move_pid_slow(measure1-17);
                             A_set();
                             count++;
                         }
@@ -223,9 +223,10 @@ extern "C"
                         Ride_bord_train(400);
                         //move_pid(measure2-measure1-23,false);//-10
                         move_pid_slow(measure2-measure1-10);
+                        A_set();
                         count++;
                     }
-                    reset(100);
+                    //reset(100);
                     break;
                 case 3:
                     if(distance < 100){
