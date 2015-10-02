@@ -256,44 +256,56 @@ extern "C"
 
         void Path_trace(){ //9_18
             int distance=20;//今は適当な値を入れている
+            motorA.setPWM(90);
+            clock.wait(700);
+            motorA.setPWM(-90);
+            clock.wait(1000);
+            par.reset(100);
             /*
             lcd.clear();
             lcd.putf("dn",sol_route.size(),5);
             lcd.disp();
             clock.wait(1000);
             */
-            //int test_data[] = {0, 1, 2, 1, 1, 1, 5};
-            for(int i = 1; i < sol_route.size(); i++){
-            //for(int i = 1; i < 7 ; i++){
+            int test_data[] = {0, 1, 2, 1, 1, 1, 5};
+            //for(int i = 1; i < sol_route.size(); i++){
+            for(int i = 1; i < 7 ; i++){
                 clock.wait(1200);
-                switch(sol_route[i]){
+                switch(test_data[i]){
                     case 1:
-                        switch(sol_route[i-1]){
+                        switch(test_data[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case1_1");
                                 lcd.disp();
+
+                                par.reset(100);//////////////////////
                                 Go_straight(distance);
-                            break;
+                                break;
                             case 2:
                                 lcd.clear();
                                 lcd.putf("sn","case1_2");
                                 lcd.disp();
+
+                                par.reset(100);
                                 Left_turn3();
                                 //Go_straight(distance);
-                            break;
+                                break;
                             case 4:
                                 lcd.clear();
                                 lcd.putf("sn","case1_4");
                                 lcd.disp();
 
+                                par.reset(100);
                                 Right_turn3();
-                                //Go_straight(distance);
-                            break;
+                                Go_straight(17);
+                                break;
                             case 0:
                                 lcd.clear();
                                 lcd.putf("sn","case1_0");
                                 lcd.disp();
+
+                                par.reset(100);
                                 Go_straight(distance);
                                 break;
                             default:
@@ -304,25 +316,27 @@ extern "C"
                                 motorA.setPWM(10);
                                 motorA.setPWM(-10);
                                 Go_straight(distance);
-                            break;
+                                break;
 
                         }
                         break;
                     case 2:
-                        switch(sol_route[i-1]){
+                        switch(test_data[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case2_1");
                                 lcd.disp();
 
+                                par.reset(100);
                                 Right_turn3();
-                                Go_straight(10);
+                                Go_straight(11);
                                 break;
                             case 2:
                                 lcd.clear();
                                 lcd.putf("sn","case2_2");
                                 lcd.disp();
 
+                                par.reset(100);
                                 Go_straight(distance);
                                 break;
                             case 4://本来ならありえない
@@ -330,28 +344,29 @@ extern "C"
                                 lcd.putf("sn","case2_4");
                                 lcd.disp();
 
-                                //Go_straight(distance);
+                                Go_straight(distance);
                                 break;
                             default:
                                 lcd.clear();
                                 lcd.putf("sn","case2_de");
                                 lcd.disp();
+
+                                par.reset(100);
                                 Right_turn3();
-                                Go_straight(10);
-                                //Go_straight(distance);
+                                Go_straight(13);
                                 break;
                         }
                         break;
                     case 4:
-                        switch(sol_route[i-1]){
+                        switch(test_data[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case4_1");
                                 lcd.disp();
 
+                                par.reset(100);
                                 Left_turn3();
-                                Go_straight(distance);
-                                Go_straight(10);
+                                Go_straight(13);
                                 break;
                             case 2://本来ならありえない
                                 lcd.clear();
@@ -364,12 +379,15 @@ extern "C"
                                 lcd.putf("sn","case4_4");
                                 lcd.disp();
 
-                                //Go_straight(distance);
+                                par.reset(100);
+                                Go_straight(distance);
                                 break;
                             default:
                                 lcd.clear();
                                 lcd.putf("sn","case4_DE");
                                 lcd.disp();
+
+                                par.reset(100);
                                 Left_turn3();
                                 //Go_straight(distance);
                                 break;
@@ -380,6 +398,10 @@ extern "C"
                         lcd.clear();
                         lcd.putf("sn","case5_END");
                         lcd.disp();
+
+                        while(true){
+
+                        }
                         break;
                     default:
                         lcd.clear();
@@ -553,8 +575,8 @@ extern "C"
             par.reset(100);
         }
         void Left_turn3(){//33333333333333333333333
-            dri.angle(-650,75);
-            dri.forward(270,0,80,1);
+            dri.angle(-660,75);
+            dri.forward(300,0,90,1);
             par.reset(100);
             motorA.setPWM(10);
         }

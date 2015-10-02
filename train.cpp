@@ -43,26 +43,26 @@ extern "C"
         Lcd lcd;
         Drive drive;
 
-        int move(int distance){
-            if(distance>0){//前進
-                while(motorB.getCount() > -distance && motorC.getCount() > -distance){
-                    motorB.setPWM(-50);
-                    motorC.setPWM(-50);
-                }
+    int move(int distance){
+        if(distance>0){//前進
+            while(motorB.getCount() > -distance && motorC.getCount() > -distance){
+                motorB.setPWM(-50);
+                motorC.setPWM(-50);
             }
-            else{//後退
-                while(motorB.getCount() < -distance && motorC.getCount() < -distance){
-                    motorB.setPWM(50);
-                    motorC.setPWM(50);
-                }
+        }else{//後退
+            while(motorB.getCount() < -distance && motorC.getCount() < -distance){
+                motorB.setPWM(50);
+                motorC.setPWM(50);
             }
+        }
             motorB.setPWM(0);
             motorC.setPWM(0);
             motorB.reset();
             motorC.reset();
 
             return 0;
-        }
+    }
+
     void move_pid(int distance, bool flag){
         int deg;
 
@@ -90,6 +90,12 @@ extern "C"
         return deg;
     }
 
+    void Motor_reset(){
+        motorA.reset();
+        motorB.reset();
+        motorC.reset();
+    }
+
     void train()
     {
         int distance;
@@ -98,13 +104,9 @@ extern "C"
         int deg;
         bool flag=true;
 
-        motorA.reset();
-        motorB.reset();
-        motorC.reset();
+        Motor_reset();
 
-
-        while(flag == true)
-        {
+        while(flag == true){
 
             distance = sonar.getDistance();
 

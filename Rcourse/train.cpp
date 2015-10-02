@@ -16,8 +16,9 @@
  第2引数 3固定(左トレース) *2or3のみ設定。スピード調整用の引数。0or1の場合、0でok
  第3引数 前輪の角度 *0or1のみ設定。2or3の場合、0でok
  第4引数 前輪のスピード *上記
+ 意味不明
  */
-
+//10/2
 // ECRobot++ API
 #include "LightSensor.h"
 #include "SonarSensor.h"
@@ -32,13 +33,13 @@ using namespace ecrobot;
 
 extern "C"
 {
-
     //Drive drive;
 
     class Train{
 
     public:
 
+        Parking park;
         Clock clock;
         Lcd lcd;
         Drive drive;
@@ -74,7 +75,8 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        pidrun.pid_running(0,0,20,30);
+        //pidrun.pid_running(0,0,20,30);
+        pidrun.pid_running(1,-10,20,30);
         }
     }
 
@@ -124,7 +126,7 @@ extern "C"
 
             switch(count){
                 case 1:
-                    if(distance < 255){
+                    if(distance < 120){
                         measure0 = distance;
                         if(measure0 > measure2){
                             measure2 = measure0;
@@ -138,59 +140,31 @@ extern "C"
                     if(measure1 != 0){
                         if(measure1+30 < measure2){
                             clock.sleep(1200);
-                            /*
-                            deg = moving_distance(measure1-20);
-                            while(true) {
-                                if(drive.position()<-deg){
-                                drive.motor_stop();
-                                break;
-                                }
-                                pidrun.pid_running(false,0,350,80);
-                            }
-                            */
                             //move_pid(measure1-20,false);
-                            move_pid_slow(measure1-21);
+                            move_pid_slow(measure1-15);
                             count++;
                         }
                     }
+                    park.reset(100);
                     break;
                 case 2:
                     if(distance < 100){
                         clock.sleep(1200);
-                        /*
-                        deg = moving_distance(measure2-measure1-10);
-                        while(true) {
-                            if(drive.position()<-deg){
-                                drive.motor_stop();
-                                break;
-                            }
-                            pidrun.pid_running(false,0,350,80);
-                        }
-                        */
                         bar.ride_bord(400);
                         move_pid(measure2-measure1-23,false);//-10
                         //move_pid_slow(measure2-measure1-10);
                         count++;
                     }
+                    park.reset(100);
                     break;
                 case 3:
                     if(distance < 100){
-                        clock.wait(1200);
-                        /*
-                        deg = moving_distance(measure2-measure1-10);
-                        while(true) {
-                            if(drive.position()<-deg){
-                                drive.motor_stop();
-                                break;
-                            }
-                            pidrun.pid_running(false,0,350,80);
-                        }
-                        */
-                        move_pid_slow(10);//measure2-measure1-10
+                        clock.sleep(1200);
+                        move_pid_slow(20);//measure2-measure1-10
                         //move_pid(measure2-measure1-10,false);
-
                         count++;
                     }
+                    park.reset(100);
                     break;
                 case 4:
                     flag=false;
@@ -215,7 +189,7 @@ extern "C"
             lcd.putf("sddn",  "1/2: ", measure1,0,  measure2,5);
             lcd.disp();
 
-            clock.wait(160); //計測できる範囲を伸ばすため値を大きくしている。
+            clock.wait(10); //計測できる範囲を伸ばすため値を大きくしている。
         }
     }
 

@@ -121,6 +121,12 @@ extern "C"
         return deg;
     }
 
+    void Motor_reset(){
+        motorA.reset();
+        motorB.reset();
+        motorC.reset();
+    }
+
     void train()
     {
         int distance;
@@ -129,10 +135,7 @@ extern "C"
         int deg;
         bool flag=true;
 
-        motorA.reset();
-        motorB.reset();
-        motorC.reset();
-
+        Motor_reset();
 
         while(flag == true)
         {
@@ -141,7 +144,7 @@ extern "C"
 
             switch(count){
                 case 1:
-                    if(distance < 255){
+                    if(distance < 230){//255
                         measure0 = distance;
                         if(measure0 > measure2){
                             measure2 = measure0;

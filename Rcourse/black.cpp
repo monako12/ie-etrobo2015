@@ -47,6 +47,8 @@ extern "C"
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
+
+	    /*
 			while(drive.position() > -1000){ //course R
 				pidrun.pid_running(1,-10,20,30);
 			}
@@ -96,17 +98,15 @@ extern "C"
 	        motorB.setPWM(0);
 	        motorC.setPWM(0);
 	        par.shin_parallel_parking();
-	        
 
-	        
-	        
-	        
-	         
-	               //clock.wait(100000);
+            */
 
+	        //clock.wait(100000);
 
-					//pidrun.pid_running(1,0);
-					//pidrun.gray_discover();
+			//pidrun.pid_running(1,0);
+            //pidrun.gray_discover();
+
+            train.train();
 		
     }
 }
