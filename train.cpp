@@ -39,6 +39,7 @@ extern "C"
 
     public:
 
+        Parking par;
         Clock clock;
         Lcd lcd;
         Drive drive;
@@ -126,16 +127,6 @@ extern "C"
                     if(measure1 != 0){
                         if(measure1+30 < measure2){
                             clock.sleep(1200);
-                            /*
-                            deg = moving_distance(measure1-20);
-                            while(true) {
-                                if(drive.position()<-deg){
-                                drive.motor_stop();
-                                break;
-                                }
-                                pidrun.pid_running(false,0);
-                            }
-                            */
                             move_pid(measure1-20,false);
                             count++;
                         }
@@ -144,16 +135,6 @@ extern "C"
                 case 2:
                     if(distance < 100){
                         clock.sleep(1200);
-                        /*
-                        deg = moving_distance(measure2-measure1-10);
-                        while(true) {
-                            if(drive.position()<-deg){
-                                drive.motor_stop();
-                                break;
-                            }
-                            pidrun.pid_running(false,0);
-                        }
-                        */
                         move_pid(measure2-measure1-10,false);
                         count++;
                     }
@@ -161,16 +142,6 @@ extern "C"
                 case 3:
                     if(distance < 100){
                         clock.sleep(1200);
-                        /*
-                        deg = moving_distance(measure2-measure1-10);
-                        while(true) {
-                            if(drive.position()<-deg){
-                                drive.motor_stop();
-                                break;
-                            }
-                            pidrun.pid_running(false,0);
-                        }
-                        */
                         move_pid(measure2-measure1-10,false);
                         count++;
                     }

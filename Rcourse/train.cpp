@@ -31,20 +31,79 @@
 
 using namespace ecrobot;
 
+
 extern "C"
 {
-    //Drive drive;
 
     class Train{
 
     public:
 
-        Parking park;
         Clock clock;
         Lcd lcd;
         Drive drive;
         Barcode bar;
 
+        void reset(int speed){//parkingから引用
+        int nrotate;
+            while(1){
+                nrotate = motorA.getCount();
+                if (nrotate < -10){
+                    motorA.setPWM(speed);
+                }
+                else if (nrotate > 10){
+                    motorA.setPWM((-1) * speed);
+                }
+                else {
+                    motorA.setPWM(0);
+                    break;
+                }
+            }
+        }
+
+        void Ride_bord_train(int time){
+            int velocity;
+            int borderline;
+            int diff_gyro;
+            bool flag = false;
+
+            gyro_bar.setOffset(0);
+            motorA.setPWM(0);
+            motorB.setPWM(-20);
+            motorC.setPWM(-20);
+            borderline = gyro_bar.getAnglerVelocity();
+
+            while(true){
+                velocity = gyro_bar.getAnglerVelocity();
+                diff_gyro = velocity - borderline;
+                lcd.clear();
+                if(flag){
+                    motorB.setPWM(0);
+                    motorC.setPWM(0);
+                    lcd.putf("sn","hoge");
+                    lcd.putf("sdn","diff:",diff_gyro,0);
+                    lcd.putf("sdn","border:",borderline,0);
+                    lcd.putf("sdn","now:",velocity,0);
+                    lcd.disp();
+                    clocktime.wait(800);
+                    break;
+                }
+                if(diff_gyro > BORDER){
+                    motorC.setPWM(0);
+                    motorB.setPWM(0);
+                    clock.wait(500);
+
+                    motorA.setPWM(-20);
+                    motorC.setPWM(-60);
+                    motorB.setPWM(-60);
+                    clocktime.wait(time);
+                    flag = true;
+                }
+                lcd.putf("sdn","diff:",diff_gyro,0);
+                lcd.disp();
+                clocktime.wait(5);
+            }
+        }
 
         int move(int distance){
             if(distance>0){//前進
@@ -66,6 +125,14 @@ extern "C"
 
             return 0;
         }
+
+    void A_set(){
+        motorA.setPWM(90);
+        clock.wait(400);
+        motorA.setPWM(-90);
+        clock.wait(600);
+        reset(100);
+    }
     void move_pid(int distance, bool flag){
         int deg;
 
@@ -75,8 +142,8 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        //pidrun.pid_running(0,0,20,30);
-        pidrun.pid_running(1,-10,20,30);
+        pidrun.pid_running(0,0,20,30);
+        //pidrun.pid_running(1,-10,20,30);
         }
     }
 
@@ -89,7 +156,7 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        pidrun.pid_running(2,0,0,0);
+        pidrun.pid_running(2,-10,0,0);
         }
     }
 
@@ -118,6 +185,7 @@ extern "C"
         motorB.reset();
         motorC.reset();
 
+        clock.sleep(100);
 
         while(flag == true)
         {
@@ -126,7 +194,7 @@ extern "C"
 
             switch(count){
                 case 1:
-                    if(distance < 120){
+                    if(distance < 100){
                         measure0 = distance;
                         if(measure0 > measure2){
                             measure2 = measure0;
@@ -138,24 +206,26 @@ extern "C"
                         }
                     }
                     if(measure1 != 0){
-                        if(measure1+30 < measure2){
+                        if(measure1+30 < measure2){//30
                             clock.sleep(1200);
                             //move_pid(measure1-20,false);
-                            move_pid_slow(measure1-15);
+                            move_pid_slow(measure1-16);
+                            A_set();
                             count++;
                         }
                     }
-                    park.reset(100);
                     break;
                 case 2:
-                    if(distance < 100){
+                    if(distance < 25){//変えるべき? 10/2 100
                         clock.sleep(1200);
-                        bar.ride_bord(400);
-                        move_pid(measure2-measure1-23,false);//-10
-                        //move_pid_slow(measure2-measure1-10);
+                        //reset(100);
+                        //bar.ride_bord(200);
+                        Ride_bord_train(400);
+                        //move_pid(measure2-measure1-23,false);//-10
+                        move_pid_slow(measure2-measure1-10);
                         count++;
                     }
-                    park.reset(100);
+                    reset(100);
                     break;
                 case 3:
                     if(distance < 100){
@@ -164,7 +234,7 @@ extern "C"
                         //move_pid(measure2-measure1-10,false);
                         count++;
                     }
-                    park.reset(100);
+                    reset(100);
                     break;
                 case 4:
                     flag=false;
@@ -189,7 +259,7 @@ extern "C"
             lcd.putf("sddn",  "1/2: ", measure1,0,  measure2,5);
             lcd.disp();
 
-            clock.wait(10); //計測できる範囲を伸ばすため値を大きくしている。
+            clock.wait(100); //計測できる範囲を伸ばすため値を大きくしている。
         }
     }
 

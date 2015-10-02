@@ -267,7 +267,7 @@ extern "C"
             lcd.disp();
             clock.wait(1000);
             */
-            int test_data[] = {0, 1, 2, 1, 1, 1, 5};
+            int test_data[] = {0, 1, 4, 1, 1, 1, 5};
             //for(int i = 1; i < sol_route.size(); i++){
             for(int i = 1; i < 7 ; i++){
                 clock.wait(1200);
@@ -394,8 +394,12 @@ extern "C"
                         }
                         break;
                     case 5: //end
+<<<<<<< HEAD
+                        Get_off_straight(27,27);
+=======
                         //Go_straight(30);
                         bar.Get_off_straight(27,27,20);
+>>>>>>> f04e2cef3c73ea0702d537a1f15b7248f255942a
                         lcd.clear();
                         lcd.putf("sn","case5_END");
                         lcd.disp();
@@ -407,10 +411,6 @@ extern "C"
                         break;
                 }
             }
-            motorB.setPWM(-40);
-            motorC.setPWM(-40);
-            clock.wait(600);
-
         }
 
         void Return_line(){
@@ -573,7 +573,7 @@ extern "C"
         }
         void Left_turn3(){//33333333333333333333333
             dri.angle(-660,75);
-            dri.forward(300,0,90,1);
+            dri.forward(310,0,90,1);
             par.reset(100);
             motorA.setPWM(10);
         }

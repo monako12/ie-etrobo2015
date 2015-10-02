@@ -95,6 +95,7 @@ extern "C"
 	               */
 					//pidrun.pid_running(0,0,350,80);
 					//pidrun.gray_discover();
+					unknown.Path_trace();
 		//}
     }
 }
