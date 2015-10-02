@@ -395,7 +395,7 @@ extern "C"
                         break;
                     case 5: //end
                         //Go_straight(30);
-                        Get_off_straight(27,27);
+                        bar.Get_off_straight(27,27,20);
                         lcd.clear();
                         lcd.putf("sn","case5_END");
                         lcd.disp();
@@ -620,29 +620,6 @@ extern "C"
             lcd.disp();
         }
 
-        void Get_off_straight(int b,int c){
-            int velocity;
-            int borderline;
-            int diff_gyro;
 
-            gyro_bar.setOffset(0);
-            motorAA.setPWM(0);
-            motorBB.setPWM(-b);
-            motorCC.setPWM(-c);
-            borderline = gyro_bar.getAnglerVelocity();
-
-            while(true){
-                velocity = gyro_bar.getAnglerVelocity();
-                diff_gyro = velocity - borderline;
-
-                if(diff_gyro > 20){ //tyousei hituyou
-                    motorAA.setPWM(0);
-                    motorCC.setPWM(0);
-                    motorBB.setPWM(0);
-                    clock.wait(1000);
-                    break;
-                }
-            }
-        }
     };
 }
