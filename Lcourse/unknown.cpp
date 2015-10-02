@@ -316,7 +316,7 @@ extern "C"
                                 lcd.disp();
 
                                 Right_turn3();
-                                Go_straight(10);
+                                //Go_straight(10);
                                 break;
                             case 2:
                                 lcd.clear();
@@ -330,7 +330,7 @@ extern "C"
                                 lcd.putf("sn","case2_4");
                                 lcd.disp();
 
-                                //Go_straight(distance);
+                                Go_straight(distance);
                                 break;
                             default:
                                 lcd.clear();
@@ -350,8 +350,7 @@ extern "C"
                                 lcd.disp();
 
                                 Left_turn3();
-                                Go_straight(distance);
-                                Go_straight(10);
+                                //Go_straight(10);
                                 break;
                             case 2://本来ならありえない
                                 lcd.clear();
@@ -377,6 +376,7 @@ extern "C"
                         break;
                     case 5: //end
                         //Go_straight(30);
+                        Get_off_straight(27,27);
                         lcd.clear();
                         lcd.putf("sn","case5_END");
                         lcd.disp();
@@ -510,8 +510,8 @@ extern "C"
                 return(1);
             }
             Show_map(114514);
-            clock.wait(1000);
-            Set_position(start_pos);
+            clock.wait(2000);
+            //Set_position(start_pos);
             Path_trace();
             Return_line();
             lcd.clear();
@@ -534,6 +534,7 @@ extern "C"
             dri.forward(250,70,0,0);
             par.reset(100);
         }
+
         void Right_turn3(){//33333333333333333333333
             dri.angle(660,80);//680,80 第一引数モータA角度
             dri.forward(260,80,0,0);//290,80,0,0 第一引数左モーター回転角
@@ -552,13 +553,13 @@ extern "C"
             dri.forward(var,0,80,1);
             par.reset(100);
         }
+
         void Left_turn3(){//33333333333333333333333
             dri.angle(-650,75);
             dri.forward(270,0,80,1);
             par.reset(100);
             motorA.setPWM(10);
         }
-
 
         void Go_straight(int distance){
             motorA.setPWM(5);
@@ -584,7 +585,6 @@ extern "C"
             par.reset(100);
         }
 
-
         void Show_map(int num){
             lcd.clear();
             for(int i=0; i<8; i++){
@@ -601,5 +601,29 @@ extern "C"
             lcd.disp();
         }
 
+        void Get_off_straight(int b,int c){
+            int velocity;
+            int borderline;
+            int diff_gyro;
+
+            gyro_bar.setOffset(0);
+            motorAA.setPWM(0);
+            motorBB.setPWM(-b);
+            motorCC.setPWM(-c);
+            borderline = gyro_bar.getAnglerVelocity();
+
+            while(true){
+                velocity = gyro_bar.getAnglerVelocity();
+                diff_gyro = velocity - borderline;
+
+                if(diff_gyro > 20){ //tyousei hituyou
+                    motorAA.setPWM(0);
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(1000);
+                    break;
+                }
+            }
+        }
     };
 }

@@ -142,6 +142,10 @@ extern "C"
             ride_bord2(300);
             fix_Direction(60);
             search_bord(13,hoge);
+            motorB.setPWM(-20);
+            clock.wait(400);
+            motorB.setPWM(0);
+            clock.wait(1000);
             ride_bord2(300);
             fix_Direction(0);
         }
@@ -282,6 +286,7 @@ extern "C"
                 }
             }
         }
+
         void search_bord2(int border,int select){
             int velocity;
             int borderline;
