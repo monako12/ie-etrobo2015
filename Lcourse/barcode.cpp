@@ -220,7 +220,21 @@ extern "C"
         }
 
         void ride_bord_kai(int time){
-            int velocity;
+            fix_Direction(0);
+            Get_off_straight(20,20,20);
+            ride_bord2(180);
+            clock.wait(800);
+            Get_off_straight(25,25,13);
+            //motorB.setPWM(-22);
+            //clock.wait(400);
+            motorC.setPWM(-22);
+            clock.wait(550);
+            //motorB.setPWM(-22);
+            //clock.wait(400);
+            ride_bord2(200);
+            motorBB.setPWM(0);
+            motorCC.setPWM(0);
+            /*int velocity;
             int borderline;
             int diff_gyro;
             bool flag = false;
@@ -258,7 +272,7 @@ extern "C"
                 lcd.putf("sdn","diff:",diff_gyro,0);
                 lcd.disp();
                 clocktime.wait(5);
-            }
+            }*/
         }
 
         void search_bord(int border,int select){
@@ -310,6 +324,50 @@ extern "C"
                     clock.wait(1000);
                     break;
                 }
+            }
+        }
+
+        void Get_off_straight(int b,int c,int border){
+            int velocity;
+            int borderline;
+            int diff_gyro;
+            int now_motor;
+            int before_motor;
+            int diff_motor;
+            int check_motor=0;
+
+            before_motor = motorB.getCount();
+            gyro_bar.setOffset(0);
+            motorAA.setPWM(0);
+            motorBB.setPWM(-b);
+            motorCC.setPWM(-c);
+            borderline = gyro_bar.getAnglerVelocity();
+
+            while(true){
+                velocity = gyro_bar.getAnglerVelocity();
+                now_motor = motorB.getCount();
+                diff_gyro = velocity - borderline;
+                diff_motor = now_motor - before_motor;
+
+                if(diff_gyro > border){ //tyousei hituyou
+                    motorAA.setPWM(0);
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(1000);
+                    break;
+                }
+
+                if(-2 < diff_motor && diff_motor >> 2){
+                    check_motor++;
+                    if(200 == check_motor){
+                    motorAA.setPWM(0);
+                    motorCC.setPWM(0);
+                    motorBB.setPWM(0);
+                    clock.wait(1000);
+                    break;
+                    }
+                }
+                before_motor = now_motor;
             }
         }
     };
