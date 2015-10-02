@@ -254,8 +254,8 @@ extern "C"
 	        clock.wait(1000);
         }
 
-        void Path_trace(){ //9_18
-            int distance=20;//今は適当な値を入れている
+        void Path_trace(){ //10/2
+            int distance=20;
             motorA.setPWM(90);
             clock.wait(700);
             motorA.setPWM(-90);
@@ -267,19 +267,19 @@ extern "C"
             lcd.disp();
             clock.wait(1000);
             */
-            int test_data[] = {0, 1, 4, 1, 1, 1, 5};
-            //for(int i = 1; i < sol_route.size(); i++){
-            for(int i = 1; i < 7 ; i++){
+            //int test_data[] = {0, 1, 4, 1, 1, 1, 5};
+            for(int i = 1; i < sol_route.size(); i++){
+            //for(int i = 1; i < 7 ; i++){
                 clock.wait(1200);
-                switch(test_data[i]){
+                switch(sol_route[i]){
                     case 1:
-                        switch(test_data[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case1_1");
                                 lcd.disp();
 
-                                par.reset(100);//////////////////////
+                                par.reset(100);
                                 Go_straight(distance);
                                 break;
                             case 2:
@@ -321,7 +321,7 @@ extern "C"
                         }
                         break;
                     case 2:
-                        switch(test_data[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case2_1");
@@ -358,7 +358,7 @@ extern "C"
                         }
                         break;
                     case 4:
-                        switch(test_data[i-1]){
+                        switch(sol_route[i-1]){
                             case 1:
                                 lcd.clear();
                                 lcd.putf("sn","case4_1");
@@ -394,12 +394,8 @@ extern "C"
                         }
                         break;
                     case 5: //end
-<<<<<<< HEAD
-                        Get_off_straight(27,27);
-=======
                         //Go_straight(30);
                         bar.Get_off_straight(27,27,20);
->>>>>>> f04e2cef3c73ea0702d537a1f15b7248f255942a
                         lcd.clear();
                         lcd.putf("sn","case5_END");
                         lcd.disp();

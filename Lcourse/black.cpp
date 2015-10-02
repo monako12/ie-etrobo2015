@@ -61,7 +61,7 @@ extern "C"
 				huga = pidrun.gray_discover();
 			}*/
 
-            /*
+
 			while(drive.position() > -900){ //course L
 				pidrun.pid_running(2,-10,5,50);
 			}
@@ -79,10 +79,10 @@ extern "C"
 			train.move_pid2(40);
 			bar.barcode(sen.ret_white(),sen.ret_black());
 			unknown.Capture_unknown(bar.array);
-			*/
 
 
-	    //while(1){ //test loop
+
+	    while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
 	    		   //figurelから新幹線
 	    		   /*
@@ -95,7 +95,6 @@ extern "C"
 	               */
 					//pidrun.pid_running(0,0,350,80);
 					//pidrun.gray_discover();
-					unknown.Path_trace();
-		//}
+		}
     }
 }

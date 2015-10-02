@@ -194,7 +194,7 @@ extern "C"
 
             switch(count){
                 case 1:
-                    if(distance < 120){///--------------要注意!!!!!!!!本番では150~200
+                    if(distance < 200){///--------------要注意!!!!!!!!本番では150~200
                         measure0 = distance;
                         if(measure0 > measure2){
                             measure2 = measure0;
@@ -218,8 +218,6 @@ extern "C"
                 case 2:
                     if(distance < 25){//変えるべき? 10/2 100
                         clock.sleep(1200);
-                        //reset(100);
-                        //bar.ride_bord(200);
                         Ride_bord_train(400);
                         //move_pid(measure2-measure1-23,false);//-10
                         move_pid_slow(measure2-measure1-10);
