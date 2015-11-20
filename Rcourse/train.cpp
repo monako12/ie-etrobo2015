@@ -216,18 +216,18 @@ extern "C"
                     }
                     break;
                 case 2:
-                    if(distance < 25){//変えるべき? 10/2 100
+                    if(distance < 120){//変えるべき? 10/2 100
                         clock.sleep(1200);
                         Ride_bord_train(400);
                         //move_pid(measure2-measure1-23,false);//-10
-                        move_pid_slow(measure2-measure1-10);
+                        move_pid_slow(measure2-measure1-20);
                         A_set();
                         count++;
                     }
                     //reset(100);
                     break;
                 case 3:
-                    if(distance < 100){
+                    if(distance < 40){
                         clock.sleep(1200);
                         move_pid_slow(20);//measure2-measure1-10
                         //move_pid(measure2-measure1-10,false);

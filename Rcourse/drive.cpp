@@ -143,13 +143,13 @@ extern "C"
 	void Drive::dash_left(int pid,int line){
     int b,c;
     if(line < 0){
-      if(motorA.getCount() >= -20){
+      if(motorA.getCount() >= -10){
 	motorA.setPWM(-30);
       }else{
 	motorA.setPWM(0);
       }
     }else{
-      if(motorA.getCount() <= 20){
+      if(motorA.getCount() <= 10){
 	motorA.setPWM(30);
       }else{
 	motorA.setPWM(0);
@@ -157,7 +157,7 @@ extern "C"
     }
     if(pid < 0){
       b = -66 - pid/4;
-      c = -72 + pid/4;
+      c = -68 + pid/4;
     }else{
       b = -70 - pid/4;
       c = -72 + pid/4;

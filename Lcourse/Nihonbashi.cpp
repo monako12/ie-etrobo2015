@@ -21,13 +21,13 @@ extern "C"
    motorB.setPWM(-74);
    clock.wait(200);
    drive.motor_stop();
-   motorC.setPWM(-70);
+   motorC.setPWM(-63);
    motorB.setPWM(-63);
    clock.wait(250);
    drive.motor_stop();
    par.reset(100);
    clock.wait(1000);
-   motorC.setPWM(-60);
+   motorC.setPWM(-52);
    motorB.setPWM(-50);
    clock.wait(1050);
    motorB.setPWM(-70);
@@ -70,12 +70,12 @@ extern "C"
    motorA.setPWM(-100);
    motorB.setPWM(0);
    motorC.setPWM(0);
-   clock.wait(600);
+   clock.wait(400);
    motorA.setPWM(0);
 
 
 
-   while(sensor.nowlight() > sen.ret_black()){
+   while(sensor.nowlight() > sen.ret_black()+30){
    motorB.setPWM(-10);
    motorC.setPWM(-40);
    }

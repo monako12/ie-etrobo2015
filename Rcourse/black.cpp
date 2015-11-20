@@ -81,7 +81,7 @@ extern "C"
 	        }
 
 	        drive.motor_count_reset();
-	        while(drive.position() > -300){ //course R
+	        while(drive.position() > -600){ //course R
 				pidrun.pid_running(2,-10,0,0);
 			}
 			while(drive.position() > -1450){ //増えてるコメント消さないでください。byジャック
@@ -90,7 +90,7 @@ extern "C"
 			while(drive.position() > -3700){
 				pidrun.pid_running(2,-10,0,0);
 			}
-			while(drive.position() > -7950){
+			while(drive.position() > -8150){
 				pidrun.pid_dash();
 			}
 			
@@ -98,7 +98,9 @@ extern "C"
 	        motorB.setPWM(0);
 	        motorC.setPWM(0);
 	        par.shin_parallel_parking();
-
+            while(1){
+            pidrun.pid_running(2,0,0,0);
+            }
 
 
 	        //clock.wait(100000);
@@ -106,7 +108,7 @@ extern "C"
 			//pidrun.pid_running(1,0);
             //pidrun.gray_discover();
 
-            train.train();
+            //train.train();
 		
     }
 }

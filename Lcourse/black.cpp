@@ -79,22 +79,36 @@ extern "C"
 			train.move_pid2(40);
 			bar.barcode(sen.ret_white(),sen.ret_black());
 			unknown.Capture_unknown(bar.array);
+            drive.motor_count_reset();
+            drive.motor_stop();
+            while(drive.position() > -1900){
+            	pidrun.pid_running(2,-10,0,0);
+            }
+            while(drive.position() > -9500){
+            pidrun.pid_dash();
+            }
+            drive.motor_stop();
+            par.shin_right_angle_parking();
+            while(1){
+            pidrun.pid_running(0,0,200,70);
+            }
 
 
 
-	    while(1){ //test loop
+	   /* while(1){ //test loop
 	        //If you do test program,you have to write in this while loop.
 	    		   //figurelから新幹線
-	    		   /*
+
 	  	  	  	   fig.figurel();
 	               train.train();
+
 	               while(1){
-	            	   pidrun.pid_running(2,-10);
+	            	   pidrun.pid_running(0,0,200,70);
 	               }
 	               clock.wait(100000);
-	               */
+
 					//pidrun.pid_running(0,0,350,80);
 					//pidrun.gray_discover();
-		}
+		}*/
     }
 }

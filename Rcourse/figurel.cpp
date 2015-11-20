@@ -22,7 +22,7 @@ class Figurel{
             clock.wait(2000);
             bar.L_ride_bord(true);
             while(true){
-            	set_rotate_pid(350,3,-10);
+            	set_rotate_pid(355,3,-10);
                 L_carve();
                 clock.wait(1000);
                 set_rotate_pid(500,2,-15);

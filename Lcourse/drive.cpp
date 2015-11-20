@@ -473,7 +473,7 @@ extern "C"
       else if (color > 0){
   motorB.setPWM(lspeed);
   motorC.setPWM(rspeed);
-   if(i > 50000){
+   if(i > 40000){
         motorB.setPWM(0);
         motorC.setPWM(0);
         break;
