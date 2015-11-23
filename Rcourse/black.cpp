@@ -14,6 +14,7 @@
 #include "figurel.cpp"
 #include "checkmotor.cpp"
 #include "Nihonbashi.cpp"
+#include "battery_test.cpp"
 using namespace ecrobot;
 
 extern "C"
@@ -42,6 +43,8 @@ extern "C"
         Nihonbashi nihonbashi;
 	    Parking par;
 	    CatchGray catchg;
+	    Battery battery;
+
 	    int i = 0;
 
 	    /*while(1){ //main loop
