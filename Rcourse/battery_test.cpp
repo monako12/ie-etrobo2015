@@ -22,9 +22,9 @@ extern "C"
 
 
       void Battery::motor_battery(){ //電圧が7000以下なら停止する関数
-        const int v = 7000;
+        const int V = 7000;
 
-        if(battery > v){
+        if(battery > V){
           motorB.setPWM(30);
           motorC.setPWM(30);
           motorA.setPWM(30);
@@ -38,21 +38,21 @@ extern "C"
       }
 
       void Battery::motor_battery_pro(){//電圧によって速度を変化させる
-        const int v1 = 6900;
-        const int v2 = 6800;
-        const int v3 = 6700;
+        const int V1 = 6900;
+        const int V2 = 6800;
+        const int V3 = 6700;
 
-          if(battery > v1){
+          if(battery > V1){
             motorB.setPWM(50);
             motorC.setPWM(50);
             motorA.setPWM(50);
           }
-          else if(battery > v2){
+          else if(battery > V2){
             motorB.setPWM(30);
             motorC.setPWM(30);
             motorA.setPWM(30);
           }
-          else if(battery > v3){
+          else if(battery > V3){
             motorB.setPWM(20);
             motorC.setPWM(20);
             motorA.setPWM(20);
@@ -65,10 +65,10 @@ extern "C"
       }
 
       void Battery::fix_voltage(int adjust){
-        const int confirm = 10;
+        const int CONFIRM = 10;
               int count   = 0;
 
-        while(count <= confirm){ //adjust以下の値を10回確認したら終了。
+        while(count <= CONFIRM){ //adjust以下の値を10回確認したら終了。
             if(battery <= adjust){
                 count++;
             }
