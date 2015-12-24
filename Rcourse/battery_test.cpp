@@ -9,17 +9,21 @@ extern "C"
 {
 
   class Battery{
-    public:
-        int battery_main();
-        int get_voltage(){return(ecrobot_get_battery_voltage());};
-
     private:
         int  battery;
         void motor_battery();
         void motor_battery_pro();
         void fix_voltage(int adjust);//目標値を引数として渡す
+
+    public:
+        Battery();
+        int battery_main();
+        int get_voltage(){return(ecrobot_get_battery_voltage());};
   };
 
+      Battery::Battery(){
+        battery = 0;
+      }
 
       void Battery::motor_battery(){ //電圧が7000以下なら停止する関数
         const int V = 7000;
