@@ -491,7 +491,7 @@ extern "C"
             Show_map(hoge);
             lcd.clear();
             lcd.putf("sn","hands up");
-            lcd.disp();
+            lcd.disp();/*
             int deg;
 
             Left_turn();
@@ -506,10 +506,12 @@ extern "C"
                 }
             motorB.setPWM(-50);
             motorC.setPWM(-45);
-            }
+            }*/
             motorB.setPWM(0);
             motorC.setPWM(0);
-            pidrun.fix_position();
+            while(1){}
+            //pidrun.fix_position();
+
         }
 
         int Capture_unknown(vector<int> &temp){

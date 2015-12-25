@@ -42,7 +42,6 @@ extern "C"
         Nihonbashi nihonbashi;
 	    Parking par;
 	    CatchGray catchg;
-
 	    /*while(1){ //main loop
 	        pidrun.pid_running(false,0); //引数は1(leftEdge)か1以外(rightEdge)
 	    }*/
@@ -72,10 +71,11 @@ extern "C"
 				pidrun.pid_running(2,-10,0,0);
 			}
 			while(drive.position() > -9900){
-				pidrun.pid_running(2,-4,10,50);
+				pidrun.pid_running(2,-10,0,0);
 			}
 
 			nihonbashi.stop_ex();
+			train.move_pid4(60);
 			train.move_pid2(40);
 			bar.barcode(sen.ret_white(),sen.ret_black());
 			unknown.Capture_unknown(bar.array);
@@ -84,7 +84,7 @@ extern "C"
             while(drive.position() > -1900){
             	pidrun.pid_running(2,-10,0,0);
             }
-            while(drive.position() > -9500){
+            while(drive.position() > -9200){
             pidrun.pid_dash();
             }
             drive.motor_stop();

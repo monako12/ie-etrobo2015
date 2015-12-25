@@ -94,6 +94,18 @@ extern "C"
         }
 
     }
+    void move_pid4(int distance){
+        int deg;
+
+        deg = moving_distance(distance);
+        while(true) {
+            if(drive.position()<-deg){
+                drive.motor_stop();
+            break;
+            }
+        pidrun.pid_running(0,0,100,50);
+        }
+    }
 
     void move_pid_slow(int distance){
         int deg;
