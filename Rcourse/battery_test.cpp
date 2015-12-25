@@ -13,12 +13,13 @@ extern "C"
         int  battery;
         void motor_battery();
         void motor_battery_pro();
-        void fix_voltage(int adjust);//目標値を引数として渡す
+        void battery_disp();
 
     public:
         Battery();
-        int battery_main();
-        int get_voltage(){return(ecrobot_get_battery_voltage());};
+        int  battery_main();
+        int  get_voltage(){return(ecrobot_get_battery_voltage());};
+        void fix_voltage(int adjust);//目標値を引数として渡す
   };
 
       Battery::Battery(){
@@ -73,6 +74,8 @@ extern "C"
               int count   = 0;
 
         while(count <= CONFIRM){ //adjust以下の値を10回確認したら終了。
+            battery = get_voltage();
+            battery_disp();
             if(battery <= adjust){
                 count++;
             }
@@ -87,15 +90,17 @@ extern "C"
         motorA.setPWM(0);
       }
 
-      int Battery::battery_main(){   //電圧を画面に出力
-        battery = get_voltage();
-
-        motor_battery_pro();
-
+      void Battery::battery_disp(){
         lcd.clear();
         lcd.putf("sdn","voltage[mV]:",battery,0);
         lcd.disp();
         clock.wait(1000);
+      }
+
+      int Battery::battery_main(){   //電圧を画面に出力
+        battery = get_voltage();
+        //処理に応じて変更
+        battery_disp();
       }
 
 }
