@@ -19,7 +19,7 @@ extern "C"
         Battery();
         int  battery_main();
         int  get_voltage(){return(ecrobot_get_battery_voltage());};
-        void fix_voltage(int adjust);//目標値を引数として渡す
+        void fix_voltage(int adjust, int power);//目標値を引数として渡す
   };
 
       Battery::Battery(){
@@ -69,7 +69,7 @@ extern "C"
           }
       }
 
-      void Battery::fix_voltage(int adjust){
+      void Battery::fix_voltage(int adjust, int power){
         const int CONFIRM = 10;
               int count   = 0;
 
@@ -82,9 +82,9 @@ extern "C"
                 count++;
             }
             else{
-                motorB.setPWM(30);
-                motorC.setPWM(30);
-                motorA.setPWM(30);
+                motorB.setPWM(power);
+                motorC.setPWM(power);
+                motorA.setPWM(power);
             }
         }
         motorB.setPWM(0);
