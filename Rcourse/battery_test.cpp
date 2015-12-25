@@ -73,6 +73,8 @@ extern "C"
         const int CONFIRM = 10;
               int count   = 0;
 
+        adjust = adjust*100;
+
         while(count <= CONFIRM){ //adjust以下の値を10回確認したら終了。
             battery = get_voltage();
             battery_disp();
@@ -93,6 +95,7 @@ extern "C"
       void Battery::battery_disp(){
         lcd.clear();
         lcd.putf("sdn","voltage[mV]:",battery,0);
+        lcd.putf("sdn","Battery[%]:",battery/100,0);
         lcd.disp();
         clock.wait(1000);
       }
