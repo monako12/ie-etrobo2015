@@ -139,7 +139,7 @@ extern "C"
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
-            ride_bord2(300);
+            ride_bord2(300,-73);
             //fix_Direction(60);
             clock.wait(800);
             search_bord(16,hoge);
@@ -149,7 +149,7 @@ extern "C"
             clock.wait(1000);
             fix_Direction(20);
             clock.wait(700);
-            ride_bord2(300);
+            ride_bord2(300,-73);
             fix_Direction(0);
         }
 
@@ -164,16 +164,16 @@ extern "C"
             motorAA.setPWM(0);
             fix_Direction(-60);
             clock.wait(400);
-            ride_bord2(450);
+            ride_bord2(460,-50);
             fix_Direction(0);
             search_bord(13,hoge);
             fix_Direction(-10);
-            ride_bord2(300);
+            ride_bord2(300,-70);
         }
 
-        void ride_bord2(int time){
-            motorBB.setPWM(-73);
-            motorCC.setPWM(-73);
+        void ride_bord2(int time,int pmw){
+            motorBB.setPWM(pmw);
+            motorCC.setPWM(pmw);
             clock.wait(time);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
@@ -225,7 +225,7 @@ extern "C"
         void ride_bord_kai(int time){
             fix_Direction(0);
             Get_off_straight(20,20,20);
-            ride_bord2(180);
+            ride_bord2(180,-73);
             clock.wait(800);
             Get_off_straight(25,25,13);
             //motorB.setPWM(-22);
@@ -234,7 +234,7 @@ extern "C"
             clock.wait(550);
             //motorB.setPWM(-22);
             //clock.wait(400);
-            ride_bord2(200);
+            ride_bord2(200,-73);
             motorBB.setPWM(0);
             motorCC.setPWM(0);
             /*int velocity;

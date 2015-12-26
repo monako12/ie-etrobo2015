@@ -93,7 +93,7 @@ extern "C"
 			while(drive.position() > -3700){
 				pidrun.pid_running(2,-10,0,0);
 			}
-			while(drive.position() > -8150){
+			while(drive.position() > -8520){
 				pidrun.pid_dash();
 			}
 			

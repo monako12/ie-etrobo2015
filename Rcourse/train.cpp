@@ -69,8 +69,8 @@ extern "C"
 
             gyro_bar.setOffset(0);
             motorA.setPWM(0);
-            motorB.setPWM(-20);
-            motorC.setPWM(-20);
+            motorB.setPWM(-30);
+            motorC.setPWM(-30);
             borderline = gyro_bar.getAnglerVelocity();
 
             while(true){
@@ -142,7 +142,7 @@ extern "C"
                 drive.motor_stop();
             break;
             }
-        pidrun.pid_running(0,0,20,30);
+        pidrun.pid_running(0,0,10,30);
         //pidrun.pid_running(1,-10,20,30);
         }
     }
