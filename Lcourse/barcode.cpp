@@ -86,7 +86,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(white - 5 < now_color){ //tyousei hituyou
+                    if(sen.ret_gray() < now_color){ //tyousei hituyou
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
