@@ -86,7 +86,7 @@ extern "C"
                 lcd.putf("sdn","now_motor:",now_motor,0);
                 if(now_motor == except){
                     now_color = light_bar.getBrightness();
-                    if(sen.ret_gray() < now_color){ //tyousei hituyou
+                    if(white < now_color){ //tyousei hituyou
                         array.push_back(0);
                         except += MOTORCOUNT;
                         lcd.putf("sn","0");
@@ -150,7 +150,10 @@ extern "C"
             fix_Direction(20);
             clock.wait(700);
             ride_bord2(300);
+            fix_Direction(-90);
+            clock.wait(500);
             fix_Direction(0);
+            clock.wait(500);
         }
 
         void L_ride_bord(bool check){

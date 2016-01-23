@@ -488,10 +488,11 @@ extern "C"
             motorA.setPWM(0);//100
             motorB.setPWM(0);
             motorC.setPWM(0);
-            Show_map(hoge);
+            Show_map(hoge);/*
             lcd.clear();
             lcd.putf("sn","hands up");
-            lcd.disp();/*
+            lcd.putf("sn",);
+            lcd.disp();
             int deg;
 
             Left_turn();
